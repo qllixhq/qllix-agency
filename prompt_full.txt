@@ -1,0 +1,703 @@
+<USER_REQUEST>
+I want you to redesign and build my existing agency website as a premium, modern, fully responsive Graphic Design & Creative Digital Agency website.
+
+IMPORTANT:
+Keep the existing HERO SECTION exactly as it is in the current website. Do not redesign or replace the hero section.
+
+Use the existing website's visual direction as the foundation:
+- Dark premium background
+- Neon green accent
+- Modern futuristic typography
+- Smooth animations
+- Premium glass/dark cards
+- Strong visual hierarchy
+- Minimal but high-end agency aesthetic
+- Responsive on desktop, tablet and mobile
+
+The current website already contains a hero section and several sections. Keep the hero and rebuild/restructure the sections AFTER the hero according to the requirements below.
+
+==================================================
+1. MAIN SERVICES
+==================================================
+
+Create a dynamic Services section for these services:
+
+1. Logo Design
+2. Social Media Design
+3. Packaging & Label Design
+4. Reels Editing
+5. Logo Animation
+6. Full Brand Design
+7. Digital Marketing
+8. Social Media Page Setup
+9. Political Poster & Banner Design
+10. Monthly Social Media Creative Design
+11. YouTube Video Editing
+
+Do NOT hard-code the service structure in the frontend.
+
+Services must come dynamically from the admin panel.
+
+Each service should have:
+- Service name
+- Short description
+- Long description
+- Icon/image
+- Category
+- Active/inactive status
+- Display order
+- Featured status
+
+Admin must be able to:
+- Add new service
+- Edit service
+- Delete service
+- Enable/disable service
+- Reorder services
+
+If I add a completely new service from the admin panel, it should automatically appear on the website without changing the frontend code.
+
+==================================================
+2. PACKAGE SYSTEM
+==================================================
+
+Every service should support multiple packages.
+
+Default package types:
+
+- Basic
+- Business
+- Premium
+
+But DO NOT hard-code only these three packages.
+
+The admin must be able to create unlimited custom packages for any service.
+
+For example:
+
+Logo Design:
+Basic
+Business
+Premium
+
+Later I may add:
+Enterprise
+Corporate
+Ultimate
+
+without changing the code.
+
+Each package should have:
+
+- Package name
+- Price in Bangladeshi Taka (৳)
+- Discount price
+- Short description
+- Delivery time
+- Revision count
+- Feature list
+- Active/inactive status
+- Popular/featured status
+- Display order
+- CTA button
+- Optional badge
+
+==================================================
+3. PACKAGE FEATURES
+==================================================
+
+Create a dynamic package feature builder.
+
+Admin should be able to add/remove unlimited features.
+
+Example:
+
+✓ 3 Logo Concepts
+✓ 5 Revisions
+✓ Source Files
+✓ AI / EPS / PDF
+✓ PNG / JPG
+✓ Mockup Presentation
+✓ Brand Guideline
+✓ Print Ready Files
+
+Do not hard-code package features.
+
+Each package can have completely different features.
+
+==================================================
+4. PRICING UI
+==================================================
+
+Create a premium pricing layout.
+
+For each service:
+
+SERVICE NAME
+
+Short service description
+
+Then display:
+
+Basic | Business | Premium
+
+Each pricing card should include:
+
+- Package name
+- Price
+- Discount price if available
+- Delivery time
+- Feature list
+- CTA button
+
+The Business package can have a "Most Popular" badge when the admin marks it as popular.
+
+Do not assume Business is always popular. Admin must control this.
+
+Use strong visual differentiation without making the UI cluttered.
+
+==================================================
+5. SERVICE DETAIL
+==================================================
+
+When a user clicks a service:
+
+Open either:
+- a dedicated service details page
+OR
+- a premium modal/drawer
+
+Show:
+
+Service title
+Description
+What we provide
+Portfolio examples
+Available packages
+FAQ related to the service
+CTA
+
+The package selection should be clearly visible.
+
+==================================================
+6. HOMEPAGE STRUCTURE AFTER HERO
+==================================================
+
+Build the homepage in this order:
+
+01. Existing Hero Section
+02. Services Overview
+03. Featured Services
+04. Service Packages / Pricing
+05. Monthly Creative Subscription
+06. Portfolio / Selected Works
+07. Creative Process
+08. Why Choose Us
+09. Testimonials
+10. FAQ
+11. Final CTA
+12. Footer
+
+Do not create unnecessary sections.
+
+Keep the layout spacious and premium.
+
+==================================================
+7. SERVICES OVERVIEW
+==================================================
+
+Create visually attractive service cards.
+
+Each card should contain:
+
+- Icon
+- Service name
+- Short description
+- Starting price
+- View Packages button
+
+Use subtle hover animations.
+
+Example:
+
+Logo Design
+Custom visual identities for modern brands.
+Starting from ৳1,500
+[ View Packages ]
+
+The "Starting from" price must be calculated dynamically from the cheapest active package of that service.
+
+==================================================
+8. MONTHLY CREATIVE DESIGN
+==================================================
+
+Create a dedicated section for monthly social media creative design.
+
+It should support multiple monthly plans dynamically.
+
+Example:
+
+Basic
+৳5,000/month
+
+Business
+৳10,000/month
+
+Premium
+৳18,000/month
+
+These are only initial sample values.
+
+The admin must be able to change prices, features and plans.
+
+Do not hard-code the values.
+
+==================================================
+9. PORTFOLIO
+==================================================
+
+Create a premium portfolio section.
+
+Portfolio categories:
+
+- Branding
+- Logo
+- Social Media
+- Packaging
+- Motion
+- Video
+- Marketing
+
+Portfolio must also be dynamic.
+
+Admin can:
+
+- Add project
+- Upload image
+- Add project title
+- Add category
+- Add description
+- Add project URL
+- Enable/disable project
+- Reorder projects
+
+Frontend should support category filtering.
+
+==================================================
+10. CREATIVE PROCESS
+==================================================
+
+Create a clean 4-step process:
+
+01 Discuss
+02 Plan
+03 Create
+04 Deliver
+
+Use premium timeline/card interaction.
+
+==================================================
+11. WHY CHOOSE US
+==================================================
+
+Create a professional agency section with benefits such as:
+
+Creative Expertise
+Fast Delivery
+Source Files
+Strategic Design
+Consistent Branding
+One Creative Partner
+
+Keep copy concise and professional.
+
+==================================================
+12. TESTIMONIALS
+==================================================
+
+Create dynamic testimonials.
+
+Admin can:
+
+- Add testimonial
+- Edit testimonial
+- Delete testimonial
+- Client name
+- Company
+- Position
+- Profile image
+- Rating
+- Testimonial text
+- Active/inactive
+- Display order
+
+==================================================
+13. FAQ
+==================================================
+
+Create dynamic FAQ accordion.
+
+Admin can add unlimited questions.
+
+Example questions:
+
+- How do I order a package?
+- How many revisions are included?
+- Will I receive source files?
+- How long does delivery take?
+- Can I request a custom package?
+- Do you offer urgent delivery?
+- How does monthly creative service work?
+- What payment methods are available?
+
+FAQ content must be editable from admin.
+
+==================================================
+14. ORDER SYSTEM
+==================================================
+
+When a customer clicks:
+
+"Order Now"
+
+open an order form.
+
+Fields:
+
+Full Name
+Phone Number
+Email
+Company Name
+Selected Service
+Selected Package
+Project Details
+Reference Upload
+Preferred Deadline
+
+Show selected package and price automatically.
+
+After submission:
+
+Create an order in the admin panel.
+
+==================================================
+15. ADMIN PANEL
+==================================================
+
+Build a complete professional admin dashboard.
+
+Admin navigation:
+
+Dashboard
+Services
+Packages
+Orders
+Customers
+Portfolio
+Testimonials
+FAQ
+Homepage
+Settings
+
+Dashboard should show:
+
+Total Services
+Active Services
+Total Packages
+Total Orders
+Pending Orders
+Completed Orders
+Total Customers
+
+==================================================
+16. ADMIN SERVICE MANAGEMENT
+==================================================
+
+Admin page:
+
+Services
+
+[ + Add New Service ]
+
+Table:
+
+Service
+Category
+Packages
+Status
+Featured
+Order
+Actions
+
+Actions:
+Edit
+Delete
+Enable/Disable
+
+==================================================
+17. ADMIN PACKAGE MANAGEMENT
+==================================================
+
+Admin page:
+
+Packages
+
+Filters:
+Service
+Package type
+Status
+
+[ + Add New Package ]
+
+Package form:
+
+Service
+Package Name
+Price
+Discount Price
+Delivery Time
+Description
+Features
+Popular
+Status
+Display Order
+
+Admin can create unlimited packages.
+
+==================================================
+18. ADMIN ORDER MANAGEMENT
+==================================================
+
+Order statuses:
+
+New
+Confirmed
+In Progress
+Waiting for Client
+Revision
+Completed
+Cancelled
+
+Admin can change order status.
+
+Show:
+
+Order ID
+Customer
+Service
+Package
+Amount
+Date
+Status
+
+Clicking an order opens full order details.
+
+==================================================
+19. ADMIN HOMEPAGE CONTROL
+==================================================
+
+Admin should be able to control homepage content without coding.
+
+Allow:
+
+- Enable/disable sections
+- Change section title
+- Change section subtitle
+- Change CTA text
+- Change CTA URL
+- Reorder selected sections where practical
+
+Do not make the admin unnecessarily complicated.
+
+==================================================
+20. DESIGN SYSTEM
+==================================================
+
+Maintain the existing premium dark/neon visual style.
+
+Suggested colors:
+
+Background:
+#07090D
+
+Card:
+#10141A
+
+Primary Accent:
+Neon Green
+
+Text:
+#FFFFFF
+
+Secondary Text:
+#8B949E
+
+Borders:
+Subtle dark gray / green
+
+Use:
+- Large typography
+- Clean spacing
+- Rounded cards
+- Soft green glow
+- Subtle gradients
+- Smooth hover states
+- Micro interactions
+- Scroll animations
+
+Do not overuse glow effects.
+
+The website should look like a premium international creative agency, not a generic template.
+
+==================================================
+21. RESPONSIVE DESIGN
+==================================================
+
+Must be fully responsive.
+
+Desktop:
+Premium multi-column layout.
+
+Tablet:
+Adapt cards and spacing.
+
+Mobile:
+Single-column layout.
+Easy-to-tap CTA buttons.
+Horizontal package comparison should become stacked cards.
+Navigation should become mobile menu.
+
+No horizontal overflow.
+
+==================================================
+22. UX REQUIREMENTS
+==================================================
+
+Prioritize:
+
+- Clear hierarchy
+- Fast navigation
+- Easy service discovery
+- Easy package comparison
+- Clear pricing
+- Strong CTA
+- Minimal cognitive load
+- Professional typography
+- Consistent spacing
+
+A visitor should understand within a few seconds:
+
+What we do
+What services are available
+How much services start from
+How to order
+
+==================================================
+23. IMPORTANT DEVELOPMENT REQUIREMENT
+==================================================
+
+Do NOT build a static frontend only.
+
+The entire system must be data-driven.
+
+Services, packages, prices, features, portfolio, testimonials, FAQ and orders must be managed from the admin panel.
+
+Avoid hard-coded service/package data wherever possible.
+
+Use a clean reusable architecture.
+
+Create reusable components for:
+
+ServiceCard
+PackageCard
+PricingSection
+PortfolioCard
+TestimonialCard
+FAQItem
+OrderForm
+AdminTable
+AdminForm
+StatusBadge
+Modal
+Button
+
+==================================================
+24. FUTURE SCALABILITY
+==================================================
+
+The system must allow me to add:
+
+- New services
+- Unlimited packages
+- New package types
+- New package features
+- New portfolio categories
+- New testimonials
+- New FAQs
+
+without modifying frontend source code.
+
+Example:
+
+Today:
+
+Logo Design
+Basic
+Business
+Premium
+
+Tomorrow:
+
+Logo Design
+Basic
+Business
+Premium
+Enterprise
+Corporate
+
+The new package must automatically appear on the website.
+
+==================================================
+25. FINAL QUALITY
+==================================================
+
+Before finishing:
+
+- Check all responsive breakpoints
+- Check mobile navigation
+- Check all buttons
+- Check all forms
+- Check package selection
+- Check admin CRUD operations
+- Check dynamic pricing
+- Check service filtering
+- Check portfolio filtering
+- Check order creation
+- Check status updates
+- Check empty states
+- Check loading states
+- Check error states
+- Check accessibility
+- Check SEO basics
+- Check performance
+
+Do not leave placeholder functionality.
+
+If a backend/database/auth system is already present, integrate with the existing architecture instead of replacing it unnecessarily.
+
+If the project currently has existing components or data, reuse them where appropriate.
+
+Most importantly:
+BUILD THIS AS A REAL PRODUCTION-READY CREATIVE AGENCY SERVICE PLATFORM, NOT JUST A VISUAL MOCKUP.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-21T10:55:01+06:00.
+
+The user's current state is as follows:
+Other open documents:
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\components\LiveNotificationToast.tsx (LANGUAGE_TSX)
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\walkthrough.md (LANGUAGE_MARKDOWN)
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\lib\divisions.ts (LANGUAGE_TYPESCRIPT)
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\components\Footer.tsx (LANGUAGE_TSX)
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\components\BangladeshMap.tsx (LANGUAGE_TSX)
+</ADDITIONAL_METADATA>

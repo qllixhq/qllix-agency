@@ -1,0 +1,149 @@
+<USER_REQUEST>
+I want you to redesign and build my existing agency website as a premium, modern, fully responsive Graphic Design & Creative Digital Agency website.
+
+IMPORTANT:
+Keep the existing HERO SECTION exactly as it is in the current website. Do not redesign or replace the hero section.
+
+Use the existing website's visual direction as the foundation:
+- Dark premium background
+- Neon green accent
+- Modern futuristic typography
+- Smooth animations
+- Premium glass/dark cards
+- Strong visual hierarchy
+- Minimal but high-end agency aesthetic
+- Responsive on desktop, tablet and mobile
+
+The current website already contains a hero section and several sections. Keep the hero and rebuild/restructure the sections AFTER the hero according to the requirements below.
+
+==================================================
+1. MAIN SERVICES
+==================================================
+
+Create a dynamic Services section for these services:
+
+1. Logo Design
+2. Social Media Design
+3. Packaging & Label Design
+4. Reels Editing
+5. Logo Animation
+6. Full Brand Design
+7. Digital Marketing
+8. Social Media Page Setup
+9. Political Poster & Banner Design
+10. Monthly Social Media Creative Design
+11. YouTube Video Editing
+
+Do NOT hard-code the service structure in the frontend.
+
+Services must come dynamically from the admin panel.
+
+Each service should have:
+- Service name
+- Short description
+- Long description
+- Icon/image
+- Category
+- Active/inactive status
+- Display order
+- Featured status
+
+Admin must be able to:
+- Add new service
+- Edit service
+- Delete service
+- Enable/disable service
+- Reorder services
+
+If I add a completely new service from the admin panel, it should automatically appear on the website without changing the frontend code.
+
+==================================================
+2. PACKAGE SYSTEM
+==================================================
+
+Every service should support multiple packages.
+
+Default package types:
+
+- Basic
+- Business
+- Premium
+
+But 
+<truncated 10402 bytes>
+m must allow me to add:
+
+- New services
+- Unlimited packages
+- New package types
+- New package features
+- New portfolio categories
+- New testimonials
+- New FAQs
+
+without modifying frontend source code.
+
+Example:
+
+Today:
+
+Logo Design
+Basic
+Business
+Premium
+
+Tomorrow:
+
+Logo Design
+Basic
+Business
+Premium
+Enterprise
+Corporate
+
+The new package must automatically appear on the website.
+
+==================================================
+25. FINAL QUALITY
+==================================================
+
+Before finishing:
+
+- Check all responsive breakpoints
+- Check mobile navigation
+- Check all buttons
+- Check all forms
+- Check package selection
+- Check admin CRUD operations
+- Check dynamic pricing
+- Check service filtering
+- Check portfolio filtering
+- Check order creation
+- Check status updates
+- Check empty states
+- Check loading states
+- Check error states
+- Check accessibility
+- Check SEO basics
+- Check performance
+
+Do not leave placeholder functionality.
+
+If a backend/database/auth system is already present, integrate with the existing architecture instead of replacing it unnecessarily.
+
+If the project currently has existing components or data, reuse them where appropriate.
+
+Most importantly:
+BUILD THIS AS A REAL PRODUCTION-READY CREATIVE AGENCY SERVICE PLATFORM, NOT JUST A VISUAL MOCKUP.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-21T10:55:01+06:00.
+
+The user's current state is as follows:
+Other open documents:
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\components\LiveNotificationToast.tsx (LANGUAGE_TSX)
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\walkthrough.md (LANGUAGE_MARKDOWN)
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\lib\divisions.ts (LANGUAGE_TYPESCRIPT)
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\components\Footer.tsx (LANGUAGE_TSX)
+- c:\Users\sq\Documents\Codex\2026-08-23\tu\work\36bangla\components\BangladeshMap.tsx (LANGUAGE_TSX)
+</ADDITIONAL_METADATA>
