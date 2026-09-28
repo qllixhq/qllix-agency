@@ -80,6 +80,7 @@ export interface SiteGeneralConfig {
     dribbble?: string;
     github?: string;
     facebook?: string;
+    youtube?: string;
     whatsapp?: string;
   };
   offices: OfficeLocation[];
@@ -1876,11 +1877,11 @@ export const DEFAULT_CONTACT_PAGE_CONFIG: ContactPageConfig = {
     "All-in-One Full Squad Growth",
   ],
   budgetOptions: [
-    "Ex. ৳20K - ৳50K",
-    "৳5,000 - ৳15,000 (MVP Sprint)",
-    "৳15,000 - ৳35,000 (Flagship Build)",
-    "৳35,000 - ৳75,000 (Scale-Up)",
-    "৳75,000+ (Enterprise)",
+    "Ex. ৳5K - ৳10K",
+    "৳5,000 - ৳10,000 (Starter)",
+    "৳10,000 - ৳20,000 (Growth)",
+    "৳20,000 - ৳40,000 (Scale-Up)",
+    "৳40,000+ (Enterprise)",
   ],
 };
 
@@ -1913,6 +1914,7 @@ export const DEFAULT_CMS_DATA: CmsData = {
       behance: "https://behance.net/qllix",
       dribbble: "https://dribbble.com/qllix",
       twitter: "https://x.com/qllix",
+      youtube: "https://youtube.com/@qllix",
       whatsapp: "+8801XXXXXXXXX",
     },
     offices: [

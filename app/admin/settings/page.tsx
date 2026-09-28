@@ -100,6 +100,7 @@ export default function AdminSettingsPage() {
       behance: cmsData.general.socialLinks?.behance || "",
       dribbble: cmsData.general.socialLinks?.dribbble || "",
       twitter: cmsData.general.socialLinks?.twitter || "",
+      youtube: cmsData.general.socialLinks?.youtube || "",
       whatsapp: cmsData.general.socialLinks?.whatsapp || "",
     },
   });
@@ -453,39 +454,36 @@ export default function AdminSettingsPage() {
               <div className="pt-5 border-t border-white/10">
                 <div>
                   <h4 className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}>Footer Social Links</h4>
-                  <p className="mt-1 text-xs text-slate-400">Set the links for the Behance, Dribbble and X icons in the footer.</p>
+                  <p className="mt-1 text-xs text-slate-400">Add or update all public social channels used in your footer and branding.</p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-                  <div>
-                    <label className="block text-xs font-mono uppercase text-slate-400 font-bold mb-1">Behance URL</label>
-                    <input
-                      type="url"
-                      value={generalForm.socialLinks.behance}
-                      onChange={(e) => setGeneralForm({ ...generalForm, socialLinks: { ...generalForm.socialLinks, behance: e.target.value } })}
-                      placeholder="https://behance.net/yourname"
-                      className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono uppercase text-slate-400 font-bold mb-1">Dribbble URL</label>
-                    <input
-                      type="url"
-                      value={generalForm.socialLinks.dribbble}
-                      onChange={(e) => setGeneralForm({ ...generalForm, socialLinks: { ...generalForm.socialLinks, dribbble: e.target.value } })}
-                      placeholder="https://dribbble.com/yourname"
-                      className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono uppercase text-slate-400 font-bold mb-1">X / Twitter URL</label>
-                    <input
-                      type="url"
-                      value={generalForm.socialLinks.twitter}
-                      onChange={(e) => setGeneralForm({ ...generalForm, socialLinks: { ...generalForm.socialLinks, twitter: e.target.value } })}
-                      placeholder="https://x.com/yourname"
-                      className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
-                    />
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
+                  {[
+                    { key: "instagram", label: "Instagram URL", placeholder: "https://instagram.com/yourname" },
+                    { key: "facebook", label: "Facebook URL", placeholder: "https://facebook.com/yourpage" },
+                    { key: "linkedin", label: "LinkedIn URL", placeholder: "https://linkedin.com/company/yourbrand" },
+                    { key: "behance", label: "Behance URL", placeholder: "https://behance.net/yourname" },
+                    { key: "dribbble", label: "Dribbble URL", placeholder: "https://dribbble.com/yourname" },
+                    { key: "twitter", label: "X / Twitter URL", placeholder: "https://x.com/yourname" },
+                    { key: "youtube", label: "YouTube URL", placeholder: "https://youtube.com/@yourchannel" },
+                    { key: "whatsapp", label: "WhatsApp URL", placeholder: "https://wa.me/8801XXXXXXXXX" },
+                  ].map(({ key, label, placeholder }) => (
+                    <div key={key}>
+                      <label className="block text-xs font-mono uppercase text-slate-400 font-bold mb-1">{label}</label>
+                      <input
+                        type="url"
+                        value={generalForm.socialLinks[key as keyof typeof generalForm.socialLinks] || ""}
+                        onChange={(e) => setGeneralForm({
+                          ...generalForm,
+                          socialLinks: {
+                            ...generalForm.socialLinks,
+                            [key]: e.target.value,
+                          },
+                        })}
+                        placeholder={placeholder}
+                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

@@ -1,7 +1,23 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { ArrowUp, ArrowUpRight, ArrowRight, Check, Sparkles, Send, Calculator, DollarSign, Wallet } from "lucide-react";
+import {
+  ArrowUp,
+  ArrowUpRight,
+  ArrowRight,
+  Check,
+  Sparkles,
+  Send,
+  Calculator,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Dribbble,
+  Twitter,
+  Youtube,
+  MessageCircle,
+  Globe,
+} from "lucide-react";
 import { useCms } from "@/context/CmsContext";
 import { triggerSecretAdminModal } from "@/components/SecretAdminModal";
 import AffiliateModal from "@/components/AffiliateModal";
@@ -27,6 +43,17 @@ export default function Footer({ onOpenBooking }: FooterProps) {
       ? socialLinks.whatsapp
       : `https://wa.me/${socialLinks.whatsapp.replace(/\D/g, "")}`
     : "#";
+
+  const socialProfileLinks = [
+    { label: "Instagram", href: socialLinks.instagram || "https://instagram.com", color: "hover:text-[#E1306C]", Icon: Instagram },
+    { label: "Facebook", href: socialLinks.facebook || "https://facebook.com", color: "hover:text-[#1877F2]", Icon: Facebook },
+    { label: "LinkedIn", href: socialLinks.linkedin || "https://linkedin.com", color: "hover:text-[#0A66C2]", Icon: Linkedin },
+    { label: "Dribbble", href: socialLinks.dribbble || "https://dribbble.com", color: "hover:text-[#EA4C89]", Icon: Dribbble },
+    { label: "Behance", href: socialLinks.behance || "https://behance.net", color: "hover:text-[#1769FF]", Icon: Globe },
+    { label: "X / Twitter", href: socialLinks.twitter || "https://x.com", color: "hover:text-[#00FF87]", Icon: Twitter },
+    { label: "YouTube", href: socialLinks.youtube || "https://youtube.com", color: "hover:text-[#FF0000]", Icon: Youtube },
+    { label: "WhatsApp", href: whatsappHref, color: "hover:text-[#25D366]", Icon: MessageCircle },
+  ];
 
   const openAffiliate = (tab: "lead" | "partner" | "calculator" | "rules" = "partner") => {
     setAffiliateTab(tab);
@@ -299,36 +326,20 @@ export default function Footer({ onOpenBooking }: FooterProps) {
           <div className="md:col-span-2 lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">Socials</h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
-              <li>
-                <a href={socialLinks.behance || "https://www.behance.net"} target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1 group">
-                  <span>Behance</span>
-                  <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-              </li>
-              <li>
-                <a href={socialLinks.dribbble || "https://dribbble.com"} target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1 group">
-                  <span>Dribbble</span>
-                  <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-              </li>
-              <li>
-                <a href={socialLinks.twitter || "https://x.com"} target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1 group">
-                  <span>Twitter / X</span>
-                  <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-              </li>
-              <li>
-                <a href={socialLinks.facebook || "https://www.facebook.com/Qllix/"} target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1 group">
-                  <span>Facebook</span>
-                  <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-              </li>
-              <li>
-                <a href={whatsappHref} target="_blank" rel="noreferrer" className="hover:text-[#25D366] transition-colors flex items-center gap-1 group">
-                  <span>WhatsApp</span>
-                  <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-              </li>
+              {socialProfileLinks.map(({ label, href, color, Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`transition-colors flex items-center gap-1.5 group ${color}`}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                    <span>{label}</span>
+                    <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -387,21 +398,20 @@ export default function Footer({ onOpenBooking }: FooterProps) {
           <div className="flex items-center gap-4 text-[11px]">
             <span className="text-slate-400">Branding, design &amp; digital growth by Qllix</span>
             <div className="flex items-center gap-2.5 pl-2">
-              <a href={socialLinks.dribbble || "https://dribbble.com"} target="_blank" rel="noreferrer" className="text-white hover:text-[#EA4C89] transition-colors" title="Dribbble">
-                <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0C5.372 0 0 5.373 0 12c0 6.628 5.372 12 12 12 6.627 0 12-5.372 12-12 0-6.627-5.373-12-12-12zm8.794 10.375c.071.498.11 1.006.11 1.523 0 1.258-.234 2.457-.655 3.565-.632-.236-2.261-.832-4.498-.832-.32 0-.649.012-.984.037a19.78 19.78 0 01-.194-1.254c2.617-.798 5.166-2.03 6.221-3.039zm-1.89-4.22c.983 1.05 1.636 2.375 1.839 3.834-.847.809-3.235 1.954-5.748 2.709-.766-1.574-1.666-3.117-2.67-4.57 2.463-.935 4.887-1.583 6.579-1.973zm-8.802-.857c.606 0 1.198.053 1.774.152.96 1.408 1.825 2.906 2.569 4.437-1.895.637-4.256 1.139-6.904 1.488.756-3.486 1.576-5.498 2.561-6.077zm-6.004 8.799a10.028 10.028 0 011.02-4.521c2.477-.333 4.708-.809 6.516-1.42.164.331.32.668.468 1.009-2.019 1.492-4.455 3.829-5.918 6.689-.838-.475-1.565-1.077-2.086-1.757zm4.27 4.148c1.378-2.611 3.655-4.814 5.565-6.237.166.862.293 1.745.381 2.645-3.328 1.15-5.32 2.92-5.946 3.592zm5.73 2.12c-.417.072-.843.111-1.278.111-2.457 0-4.664-.906-6.353-2.404.535-.589 2.345-2.148 5.438-3.228.455 2.012 1.258 3.856 2.193 5.521z"/>
-                </svg>
-              </a>
-              <a href={socialLinks.behance || "https://behance.net"} target="_blank" rel="noreferrer" className="text-white hover:text-[#1769FF] transition-colors" title="Behance">
-                <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
-                  <path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.108 1.189.098 1.544h-7.854c.05 2.062 1.15 3.325 3.125 3.325 1.583 0 2.521-.734 2.875-1.7l1.58.7zM18.7 12.3c-.05-1.521-.854-2.479-2.325-2.479-1.42 0-2.316.928-2.484 2.479h4.809zM0 4h6.818C9.52 4 11 5.253 11 7.25c0 1.229-.537 2.179-1.503 2.684C10.74 10.457 11.5 11.66 11.5 13.2 11.5 15.589 9.61 17 6.953 17H0V4zm3.02 5.093h3.424c1.168 0 1.956-.514 1.956-1.547 0-1.002-.788-1.546-1.956-1.546H3.02v3.093zm0 5.814h3.692c1.328 0 2.19-.594 2.19-1.758 0-1.196-.862-1.79-2.19-1.79H3.02v3.548z"/>
-                </svg>
-              </a>
-              <a href={socialLinks.twitter || "https://x.com"} target="_blank" rel="noreferrer" className="text-white hover:text-[#00FF87] transition-colors" title="Twitter / X">
-                <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-              </a>
+              {[
+                { href: socialLinks.dribbble || "https://dribbble.com", title: "Dribbble", className: "text-white hover:text-[#EA4C89]", Icon: Dribbble },
+                { href: socialLinks.behance || "https://behance.net", title: "Behance", className: "text-white hover:text-[#1769FF]", Icon: Globe },
+                { href: socialLinks.twitter || "https://x.com", title: "Twitter / X", className: "text-white hover:text-[#00FF87]", Icon: Twitter },
+                { href: socialLinks.instagram || "https://instagram.com", title: "Instagram", className: "text-white hover:text-[#E1306C]", Icon: Instagram },
+                { href: socialLinks.linkedin || "https://linkedin.com", title: "LinkedIn", className: "text-white hover:text-[#0A66C2]", Icon: Linkedin },
+                { href: socialLinks.facebook || "https://facebook.com", title: "Facebook", className: "text-white hover:text-[#1877F2]", Icon: Facebook },
+                { href: socialLinks.youtube || "https://youtube.com", title: "YouTube", className: "text-white hover:text-[#FF0000]", Icon: Youtube },
+                { href: whatsappHref, title: "WhatsApp", className: "text-white hover:text-[#25D366]", Icon: MessageCircle },
+              ].map(({ href, title, className, Icon }) => (
+                <a key={title} href={href} target="_blank" rel="noreferrer" className={`${className} transition-colors`} title={title}>
+                  <Icon className="w-3.5 h-3.5" />
+                </a>
+              ))}
             </div>
           </div>
           <button

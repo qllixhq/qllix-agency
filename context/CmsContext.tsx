@@ -238,7 +238,9 @@ function normalizeCmsData(parsed: Partial<CmsData> | any): CmsData {
       ...(parsed.contactPage || {}),
       benefits: Array.isArray(parsed.contactPage?.benefits) ? parsed.contactPage.benefits : DEFAULT_CMS_DATA.contactPage.benefits,
       serviceOptions: Array.isArray(parsed.contactPage?.serviceOptions) ? parsed.contactPage.serviceOptions : DEFAULT_CMS_DATA.contactPage.serviceOptions,
-      budgetOptions: Array.isArray(parsed.contactPage?.budgetOptions) ? parsed.contactPage.budgetOptions : DEFAULT_CMS_DATA.contactPage.budgetOptions,
+      budgetOptions: Array.isArray(parsed.contactPage?.budgetOptions) && parsed.contactPage.budgetOptions[0] !== "Ex. ৳20K - ৳50K"
+        ? parsed.contactPage.budgetOptions
+        : DEFAULT_CMS_DATA.contactPage.budgetOptions,
     },
     showcase:
       parsed.showcase?.row1 && parsed.showcase?.row2

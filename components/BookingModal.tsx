@@ -106,7 +106,7 @@ export default function BookingModal({
     initialService ? [initialService] : [activeServices[0]?.id || "logo-design"]
   );
   const [budgetRange, setBudgetRange] = useState<string>(
-    typeof initialBudget === "number" ? `৳${initialBudget.toLocaleString()}` : (initialBudget ? `৳${initialBudget}` : "৳15,000 – ৳35,000")
+    typeof initialBudget === "number" ? `৳${initialBudget.toLocaleString()}` : (initialBudget ? `৳${initialBudget}` : "৳5,000 – ৳10,000")
   );
   const [timeline, setTimeline] = useState<string>("Within 2–4 Weeks");
   const [formData, setFormData] = useState({
@@ -350,10 +350,10 @@ export default function BookingModal({
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {[
-                      { range: "৳5,000 – ৳15,000", tag: "Sprint" },
-                      { range: "৳15,000 – ৳35,000", tag: "Most Popular" },
-                      { range: "৳35,000 – ৳75,000", tag: "Scale-Up" },
-                      { range: "৳75,000+", tag: "Enterprise" }
+                      { range: "৳5,000 – ৳10,000", tag: "Starter" },
+                      { range: "৳10,000 – ৳20,000", tag: "Growth" },
+                      { range: "৳20,000 – ৳40,000", tag: "Scale-Up" },
+                      { range: "৳40,000+", tag: "Enterprise" }
                     ].map((b) => (
                       <button
                         key={b.range}
