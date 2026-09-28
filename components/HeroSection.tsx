@@ -118,8 +118,7 @@ export default function HeroSection({ onOpenBooking }: HeroSectionProps) {
       </div>
 
       {/* ═══ FLOATING AFFILIATE INVITE ═══ */}
-      {cmsData.affiliateConfig?.enabled !== false && (
-        <div className="relative z-20 mx-auto mt-5 flex w-full max-w-7xl justify-center px-4 sm:mt-6 lg:absolute lg:bottom-9 lg:right-7 lg:mt-0 lg:w-auto lg:px-0">
+      <div className="relative z-20 mx-auto mt-5 flex w-full max-w-7xl justify-center px-4 sm:mt-6 lg:absolute lg:bottom-9 lg:right-7 lg:mt-0 lg:w-auto lg:px-0">
           <button
             type="button"
             onClick={() => setIsAffiliateOpen(true)}
@@ -137,8 +136,7 @@ export default function HeroSection({ onOpenBooking }: HeroSectionProps) {
               <ArrowUpRight className="h-4 w-4" />
             </span>
           </button>
-        </div>
-      )}
+      </div>
 
       {/* ═══ DUAL ROW DRAGGABLE & INFINITE MARQUEE CAROUSEL ═══ */}
       <div className="hero-marquee-mask relative z-20 w-full overflow-hidden mt-10 sm:mt-16 md:mt-20 pt-4 pb-4 space-y-3.5 sm:space-y-4">
