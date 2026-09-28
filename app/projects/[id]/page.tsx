@@ -109,6 +109,19 @@ export default function PublicProjectDetailPage() {
             </div>
           </section>
 
+          <section style={{ backgroundColor: secondaryColor }} className="my-12 overflow-hidden rounded-[24px] px-6 py-9 text-white sm:my-16 sm:px-10 sm:py-12">
+            <div className="flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
+              <div className="max-w-2xl">
+                <p style={{ color: primaryColor }} className="text-xs font-bold uppercase tracking-[0.18em]">Your next project</p>
+                <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.045em] sm:text-4xl">Ready to make your brand stand out?</h2>
+                <p className="mt-3 max-w-xl text-base leading-7 text-white/70">Tell us what you need, and we&apos;ll create a clear, memorable visual direction for your business.</p>
+              </div>
+              <Link href="/contact" style={{ backgroundColor: primaryColor, color: secondaryColor }} className="inline-flex shrink-0 items-center justify-center rounded-full px-6 py-3.5 text-sm font-bold transition hover:scale-[1.02]">
+                Start a project <span className="ml-2 text-lg leading-none">→</span>
+              </Link>
+            </div>
+          </section>
+
           <section className="space-y-10 py-12 sm:space-y-14 sm:py-20">
             {blocks.map((block) => <StoryBlock key={block.id} block={block} />)}
           </section>
