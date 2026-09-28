@@ -70,7 +70,9 @@ export default function PublicProjectDetailPage() {
     );
   }
 
-  const blocks = project.contentBlocks?.length ? project.contentBlocks : legacyBlocks(project);
+  // An empty array is an intentional choice in the editor; only projects that
+  // predate the story editor fall back to their old gallery/video fields.
+  const blocks = Array.isArray(project.contentBlocks) ? project.contentBlocks : legacyBlocks(project);
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#07050E] text-[#101224]" style={{ "--brand-primary": primaryColor, "--brand-secondary": secondaryColor, "--brand-soft": brandSoft } as React.CSSProperties}>

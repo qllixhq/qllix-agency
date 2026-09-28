@@ -90,7 +90,9 @@ export default function AdminPortfolioPage() {
       imageUrl: p.imageUrl,
       galleryImages: p.galleryImages || [],
       videoUrl: p.videoUrl || "",
-      contentBlocks: p.contentBlocks?.length ? p.contentBlocks : getLegacyContentBlocks(p),
+      // An empty array means the editor deliberately removed every block.
+      // Only old projects with no contentBlocks field should fall back to legacy media.
+      contentBlocks: Array.isArray(p.contentBlocks) ? p.contentBlocks : getLegacyContentBlocks(p),
       projectUrl: p.projectUrl || "",
       client: p.client || "",
       deliverablesText: (p.deliverables || []).join(", "),
