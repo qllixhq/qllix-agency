@@ -3,6 +3,8 @@ import { Outfit, Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.qllix.com";
+
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
@@ -25,14 +27,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Qllix | Next-Gen Creative, Web & Growth Agency",
   description: "Designing the future of your brand. We specialize in visually stunning graphic design, high-performing Next.js web development, and hyper-scalable growth marketing.",
   keywords: ["Digital Agency", "Brand Design", "Web Design", "Digital Marketing", "Next.js Development", "UI/UX Design", "Performance Ads", "Creative Studio"],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Qllix | Next-Gen Creative, Web & Growth Agency",
     description: "Designing the future of your brand with world-class graphic design, high-performing web platforms, and data-driven growth marketing.",
     type: "website",
-    url: "https://qllix-agency.vercel.app",
+    url: siteUrl,
+    siteName: "Qllix",
   },
 };
 
