@@ -167,11 +167,7 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
           <button
             type="button"
             onClick={() => setContactMenuOpen(!contactMenuOpen)}
-            className={`lg:hidden relative w-11 h-11 rounded-full flex items-center justify-center shadow-[0_4px_22px_rgba(0,255,135,0.5)] active:scale-95 transition-all cursor-pointer shrink-0 mx-1 ${
-              contactMenuOpen
-                ? "bg-slate-900 text-white border border-white/25"
-                : "bg-gradient-to-tr from-[#00A859] via-[#00C853] to-[#00FF87] text-[#02180C] border-2 border-white"
-            }`}
+            className="hidden lg:hidden relative w-11 h-11 rounded-full items-center justify-center shadow-[0_4px_22px_rgba(0,255,135,0.5)] active:scale-95 transition-all cursor-pointer shrink-0 mx-1"
             aria-label="Toggle Direct Contact Menu"
             title="Direct Contact & Booking"
           >
