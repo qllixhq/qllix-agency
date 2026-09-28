@@ -25,15 +25,26 @@ export default function FooterOrbitPage() {
 
   const addImage = (url: string) => {
     const cleanUrl = url.trim();
-    if (!cleanUrl || images.length >= MAX_ORBIT_IMAGES) return;
-    updateFooterOrbitImages([...images, cleanUrl]);
-    setImageUrl("");
-    showMessage("Orbit image added.");
+    if (!cleanUrl) return;
+
+    let wasAdded = false;
+    updateFooterOrbitImages((currentImages) => {
+      if (currentImages.length >= MAX_ORBIT_IMAGES) return currentImages;
+      wasAdded = true;
+      return [...currentImages, cleanUrl];
+    });
+
+    if (wasAdded) {
+      setImageUrl("");
+      showMessage("Orbit image added.");
+    } else {
+      showMessage("Six images are already in use. Remove one to add another.");
+    }
   };
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file || images.length >= MAX_ORBIT_IMAGES) return;
+    if (!file) return;
     if (!file.type.startsWith("image/")) {
       alert("Please select an image file.");
       return;
@@ -41,7 +52,7 @@ export default function FooterOrbitPage() {
 
     setIsUploading(true);
     try {
-      const uploadedImage = await compressImageFile(file, { maxWidth: 640, maxHeight: 640, quality: 0.82 });
+      const uploadedImage = await compressImageFile(file, { maxWidth: 320, maxHeight: 320, quality: 0.72 });
       addImage(uploadedImage);
     } catch {
       alert("This image could not be prepared. Please try another image.");
@@ -52,7 +63,9 @@ export default function FooterOrbitPage() {
   };
 
   const removeImage = (index: number) => {
-    updateFooterOrbitImages(images.filter((_, imageIndex) => imageIndex !== index));
+    updateFooterOrbitImages((currentImages) =>
+      currentImages.filter((_, imageIndex) => imageIndex !== index)
+    );
     showMessage("Orbit image removed.");
   };
 
@@ -87,7 +100,7 @@ export default function FooterOrbitPage() {
             <button
               type="button"
               onClick={() => addImage(imageUrl)}
-              disabled={!imageUrl.trim() || images.length >= MAX_ORBIT_IMAGES}
+              disabled={!imageUrl.trim()}
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#00FF87] px-4 py-2.5 text-xs font-black text-[#02180C] transition hover:bg-[#00DF81] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <ImagePlus className="h-4 w-4" /> Add image
@@ -96,7 +109,7 @@ export default function FooterOrbitPage() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              disabled={isUploading || images.length >= MAX_ORBIT_IMAGES}
+              disabled={isUploading}
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-500/35 px-4 py-2.5 text-xs font-bold text-emerald-600 transition hover:bg-emerald-500/10 disabled:cursor-not-allowed disabled:opacity-50 dark:text-[#00FF87]"
             >
               <Upload className="h-4 w-4" /> {isUploading ? "Uploading" : "Upload"}

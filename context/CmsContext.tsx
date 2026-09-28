@@ -102,7 +102,9 @@ interface CmsContextType {
   deleteTeamMember: (id: string) => void;
 
   // Footer orbit images
-  updateFooterOrbitImages: (images: string[]) => void;
+  updateFooterOrbitImages: (
+    images: string[] | ((currentImages: string[]) => string[])
+  ) => void;
 
   // Campaigns & Offer Ads
   addCampaign: (campaign: CampaignOffer) => void;
@@ -269,6 +271,7 @@ const CmsContext = createContext<CmsContextType | null>(null);
 
 export function CmsProvider({ children }: { children: React.ReactNode }) {
   const [cmsData, setCmsData] = useState<CmsData>(DEFAULT_CMS_DATA);
+  const cmsDataRef = useRef<CmsData>(DEFAULT_CMS_DATA);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [cloudSyncInfo, setCloudSyncInfo] = useState<CloudSyncInfo>({
@@ -279,6 +282,10 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
   });
 
   const isSavingRef = useRef(false);
+
+  useEffect(() => {
+    cmsDataRef.current = cmsData;
+  }, [cmsData]);
 
   // Function to pull live content from server
   const refreshLiveContent = useCallback(async () => {
@@ -365,6 +372,7 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       ...newData,
       _lastModified: now,
     };
+    cmsDataRef.current = dataWithTimestamp;
     setCmsData(dataWithTimestamp);
     setIsSyncing(true);
 
@@ -754,10 +762,18 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
 
   // ── Footer Orbit Images ───────────────────────────────────
 
-  const updateFooterOrbitImages = (images: string[]) => {
+  const updateFooterOrbitImages = (
+    nextImages: string[] | ((currentImages: string[]) => string[])
+  ) => {
+    const currentData = cmsDataRef.current;
+    const currentImages = currentData.footerOrbitImages || [];
+    const resolvedImages = typeof nextImages === "function"
+      ? nextImages(currentImages)
+      : nextImages;
+
     saveState({
-      ...cmsData,
-      footerOrbitImages: images,
+      ...currentData,
+      footerOrbitImages: resolvedImages,
     });
   };
 
