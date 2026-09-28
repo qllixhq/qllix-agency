@@ -16,7 +16,6 @@ import {
   X,
   Play,
   VolumeX,
-  ArrowRight,
   Package,
   PhoneCall,
   MessageCircle,
@@ -190,17 +189,6 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
               )}
             </div>
           </button>
-
-          {/* DESKTOP ONLY: Center "Let's Talk →" Button */}
-          <a
-            href="/contact"
-            className="hidden lg:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
-            title="Contact & Booking"
-          >
-            {activeTab === "contact" && <ActiveDockStroke isCta={true} rounded="rounded-[12px]" />}
-            <span className="relative z-10 font-extrabold tracking-tight text-[#02180C] text-[15px] whitespace-nowrap">Let&apos;s Talk</span>
-            <ArrowRight className="relative z-10 w-4 h-4 stroke-[3] text-[#02180C] group-hover:translate-x-0.5 transition-transform shrink-0" />
-          </a>
 
           {/* Pricing Link */}
           <a
