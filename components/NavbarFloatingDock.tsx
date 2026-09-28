@@ -164,21 +164,6 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
           </a>
 
           <a
-            href="https://tidycal.com/qllix/next-step-together"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="lg:hidden relative flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-gradient-to-tr from-[#00A859] via-[#00C853] to-[#00FF87] text-[#02180C] shadow-[0_6px_22px_rgba(0,255,135,0.45)] active:scale-95 transition-all whitespace-nowrap font-extrabold tracking-tight"
-            title="Book a Call"
-            aria-label="Book a Call"
-          >
-            <span className="text-[13px] leading-none">Let&apos;s Talk</span>
-            <svg className="w-4 h-4 stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 12h14" />
-              <path d="M13 5l7 7-7 7" />
-            </svg>
-          </a>
-
-          <a
             href="/contact"
             className="hidden lg:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
             title="Contact & Booking"
@@ -340,7 +325,7 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
       {/* Main Floating Action Button (DESKTOP ONLY - On mobile it is located in the center of the dock) */}
       <button
         onClick={() => setContactMenuOpen(!contactMenuOpen)}
-        className={`hidden md:flex fixed bottom-5 sm:bottom-7 right-5 sm:right-7 z-50 w-13 h-13 sm:w-14 sm:h-14 rounded-full items-center justify-center shadow-[0_10px_35px_rgba(0,200,83,0.45)] hover:scale-108 active:scale-95 transition-all cursor-pointer group ${
+        className={`fixed bottom-5 sm:bottom-7 right-5 sm:right-7 z-50 w-13 h-13 sm:w-14 sm:h-14 rounded-full items-center justify-center shadow-[0_10px_35px_rgba(0,200,83,0.45)] hover:scale-108 active:scale-95 transition-all cursor-pointer group md:hidden ${
           contactMenuOpen 
             ? "bg-slate-900 text-white shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
             : "bg-gradient-to-tr from-[#00A859] via-[#00C853] to-[#00FF87] text-[#02180C]"
