@@ -107,109 +107,119 @@ export default function SecretAdminModal({ isOpen: controlledIsOpen, onClose: co
     }
   };
 
+  const primaryColor = cmsData.general.primaryColor || "#00FF87";
+  const secondaryColor = cmsData.general.secondaryColor || "#02180C";
+
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-slate-950/65 p-4 backdrop-blur-sm animate-fadeIn"
+      style={{ "--admin-primary": primaryColor, "--admin-secondary": secondaryColor } as React.CSSProperties}
+    >
       {/* Click outside to close */}
       <div className="fixed inset-0" onClick={handleClose} />
 
-      <div className="relative z-10 w-full max-w-sm bg-[#020F07] border border-emerald-500/30 rounded-3xl p-6 sm:p-7 shadow-[0_0_50px_rgba(0,255,135,0.2)] overflow-hidden">
-        {/* Ambient Top Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-20 bg-[#00FF87]/15 blur-2xl pointer-events-none" />
+      <div className="pointer-events-none absolute -left-24 top-[-9rem] h-80 w-80 rounded-full bg-emerald-300/20 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 right-[-7rem] h-96 w-96 rounded-full bg-teal-300/10 blur-3xl" />
+
+      <div className="relative z-10 w-full max-w-md overflow-hidden rounded-[28px] border border-white/70 bg-white/[0.94] p-6 shadow-[0_30px_90px_rgba(1,18,10,0.35)] sm:p-8">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-emerald-50/90 to-transparent" />
 
         {/* Close Button */}
         <button
           onClick={handleClose}
           type="button"
-          className="absolute top-4 right-4 p-1.5 rounded-full text-slate-500 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className="absolute right-4 top-4 rounded-full p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
           title="Close"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Header */}
-        <div className="text-center mb-6 pt-2">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-[#00FF87]/30 text-[#00FF87] flex items-center justify-center mx-auto mb-3 shadow-[0_0_15px_rgba(0,255,135,0.2)]">
+        <div className="relative mb-7 pt-1 text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-200 bg-emerald-50 shadow-sm">
             {isSuccess ? (
-              <ShieldCheck className="w-6 h-6 text-[#00FF87] animate-bounce" />
+              <ShieldCheck className="h-5 w-5 animate-bounce text-emerald-600" />
             ) : (
-              <KeyRound className="w-6 h-6 text-[#00FF87]" />
+              <KeyRound className="h-5 w-5 text-emerald-600" />
             )}
           </div>
-          <h3 className="text-base font-bold text-white font-serif tracking-wide">
-            {isSuccess ? "Access Granted" : "Master Security Gate"}
+          <h3 className="text-xl font-semibold tracking-[-0.03em] text-slate-900">
+            {isSuccess ? "You’re all set" : "Welcome back"}
           </h3>
-          <p className="text-[11px] text-slate-400 mt-1">
+          <p className="mt-2 text-sm leading-6 text-slate-500">
             {isSuccess
-              ? "Authenticating session & launching dashboard..."
-              : "Enter authorized master code to access admin console"}
+              ? "Opening your Qllix dashboard…"
+              : "Enter your access code to manage the website."}
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="relative space-y-4">
           <div className="relative">
+            <label htmlFor="admin-access-code" className="mb-2 block text-xs font-semibold text-slate-700">Access code</label>
             <input
+              id="admin-access-code"
               ref={inputRef}
               type={showPassword ? "text" : "password"}
               value={passcode}
               disabled={isSuccess}
+              autoComplete="current-password"
               onChange={(e) => {
                 setPasscode(e.target.value);
                 if (error) setError(false);
               }}
-              placeholder="Enter Access Code"
-              className={`w-full px-4 py-3 rounded-xl bg-black/60 border text-white text-sm placeholder-slate-600 font-mono tracking-widest text-center focus:outline-none transition-all ${
+              placeholder="Enter your code"
+              className={`w-full rounded-xl border bg-slate-50 px-4 py-3 pr-11 text-center font-mono text-sm tracking-[0.18em] text-slate-900 outline-none transition-all placeholder:font-sans placeholder:tracking-normal placeholder:text-slate-400 ${
                 error
-                  ? "border-rose-500 ring-1 ring-rose-500"
+                  ? "border-rose-400 bg-rose-50 ring-2 ring-rose-100"
                   : isSuccess
-                  ? "border-[#00FF87] ring-1 ring-[#00FF87] text-[#00FF87]"
-                  : "border-white/15 focus:border-[#00FF87] focus:ring-1 focus:ring-[#00FF87]"
+                  ? "border-emerald-400 bg-emerald-50 text-emerald-700 ring-2 ring-emerald-100"
+                  : "border-slate-200 focus:border-emerald-400 focus:bg-white focus:ring-2 focus:ring-emerald-100"
               }`}
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               tabIndex={-1}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 p-1 cursor-pointer"
+              className="absolute right-3 top-[2.35rem] -translate-y-1/2 rounded-lg p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+              aria-label={showPassword ? "Hide access code" : "Show access code"}
             >
               {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             </button>
           </div>
 
           {error && (
-            <div className="flex items-center justify-center gap-1.5 text-xs text-rose-400 font-medium">
+            <div className="flex items-center gap-2 rounded-xl bg-rose-50 px-3 py-2.5 text-xs font-medium text-rose-700">
               <AlertCircle className="w-3.5 h-3.5" />
-              <span>{errorMessage}</span>
+              <span>That code didn&apos;t match. Please try again.</span>
             </div>
           )}
 
           <button
             type="submit"
             disabled={isSuccess || !passcode.trim()}
-            className={`w-full py-3 rounded-xl font-bold text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            className={`flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold transition-all ${
               isSuccess
-                ? "bg-emerald-500 text-slate-950 shadow-[0_0_20px_rgba(0,255,135,0.4)]"
-                : "bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] shadow-[0_4px_20px_rgba(0,255,135,0.3)] active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed"
+                ? "bg-emerald-600 text-white shadow-sm"
+                : "bg-[var(--admin-secondary)] text-white shadow-lg shadow-emerald-950/10 hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45"
             }`}
           >
             {isSuccess ? (
               <>
                 <ShieldCheck className="w-4 h-4" />
-                <span>Redirecting...</span>
+                <span>Opening dashboard…</span>
               </>
             ) : (
               <>
-                <span>Unlock Dashboard</span>
-                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                <span>Continue to dashboard</span>
+                <ArrowRight className="h-4 w-4 stroke-[2.5]" />
               </>
             )}
           </button>
         </form>
 
-        <div className="mt-4 pt-3 border-t border-white/5 text-center">
-          <span className="text-[10px] text-slate-600 font-mono">
-            Authorized Personnel Only
-          </span>
+        <div className="relative mt-5 border-t border-slate-100 pt-4 text-center">
+          <span className="text-[11px] text-slate-400">Secure access for Qllix team members</span>
         </div>
       </div>
     </div>
