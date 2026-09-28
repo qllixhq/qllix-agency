@@ -365,7 +365,9 @@ function CampaignsPageSimplified() {
 
 export default function AdminCampaignsPage() {
   return <CampaignsPageSimplified />;
+}
 
+function LegacyAdminCampaignsPage() {
   const { cmsData, addCampaign, updateCampaign, deleteCampaign, toggleCampaignActive } = useCms();
   const { isDark } = useAdminTheme();
 
