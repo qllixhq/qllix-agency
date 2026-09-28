@@ -175,7 +175,6 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
             aria-label="Toggle Direct Contact Menu"
             title="Direct Contact & Booking"
           >
-            {/* Live Green Online Beacon Dot with Pulse (only when closed) */}
             {!contactMenuOpen && (
               <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#00FF87] border-2 border-[#08080C] shadow-[0_0_8px_#00FF87]">
                 <span className="absolute inset-0 rounded-full bg-[#00FF87] animate-ping opacity-75" />
@@ -189,6 +188,19 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
               )}
             </div>
           </button>
+
+          <a
+            href="/contact"
+            className="hidden lg:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
+            title="Contact & Booking"
+          >
+            {activeTab === "contact" && <ActiveDockStroke isCta={true} rounded="rounded-[12px]" />}
+            <span className="relative z-10 font-extrabold tracking-tight text-[#02180C] text-[15px] whitespace-nowrap">Let&apos;s Talk</span>
+            <svg className="relative z-10 w-4 h-4 stroke-[3] text-[#02180C] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="M13 5l7 7-7 7" />
+            </svg>
+          </a>
 
           {/* Pricing Link */}
           <a
