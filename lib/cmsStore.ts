@@ -17,6 +17,17 @@ export interface HeroBannerConfig {
   ctaHref: string;
 }
 
+export interface ContactPageConfig {
+  badge: string;
+  headingLine1: string;
+  headingLine2: string;
+  headingAccent: string;
+  benefits: string[];
+  imageUrl: string;
+  serviceOptions: string[];
+  budgetOptions: string[];
+}
+
 export interface ShowcaseItem {
   id: string;
   title: string;
@@ -308,6 +319,7 @@ export interface CmsData {
     about: HeroBannerConfig;
     team: HeroBannerConfig;
   };
+  contactPage: ContactPageConfig;
   showcase: {
     row1: ShowcaseItem[];
     row2: ShowcaseItem[];
@@ -1841,6 +1853,33 @@ export const DEFAULT_CAMPAIGNS: CampaignOffer[] = [
   },
 ];
 
+export const DEFAULT_CONTACT_PAGE_CONFIG: ContactPageConfig = {
+  badge: "Contact Us",
+  headingLine1: "Tell Us Your",
+  headingLine2: "Amazing",
+  headingAccent: "Project Here",
+  benefits: [
+    "Expect a response from us within 24 hours",
+    "We're happy to sign an NDA upon request.",
+    "Get access to a team of dedicated product specialists.",
+  ],
+  imageUrl: "/images/contact_founder.jpg",
+  serviceOptions: [
+    "Ex. Web Design",
+    "Brand & Visual Identity Design",
+    "Next.js 14 & SaaS Platform Development",
+    "Digital Marketing & CRO Funnels",
+    "All-in-One Full Squad Growth",
+  ],
+  budgetOptions: [
+    "Ex. ৳20K - ৳50K",
+    "৳5,000 - ৳15,000 (MVP Sprint)",
+    "৳15,000 - ৳35,000 (Flagship Build)",
+    "৳35,000 - ৳75,000 (Scale-Up)",
+    "৳75,000+ (Enterprise)",
+  ],
+};
+
 // ─────────────────────────────────────────────────────────────
 // DEFAULT CMS DATA (combined)
 // ─────────────────────────────────────────────────────────────
@@ -1933,6 +1972,7 @@ export const DEFAULT_CMS_DATA: CmsData = {
       ctaHref: "/contact",
     },
   },
+  contactPage: DEFAULT_CONTACT_PAGE_CONFIG,
   showcase: {
     row1: DEFAULT_SHOWCASE_ROW1,
     row2: DEFAULT_SHOWCASE_ROW2,

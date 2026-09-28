@@ -6,6 +6,7 @@ import {
   DEFAULT_CMS_DATA,
   CMS_STORAGE_KEY,
   HeroBannerConfig,
+  ContactPageConfig,
   SiteGeneralConfig,
   InquiryLead,
   ShowcaseItem,
@@ -44,6 +45,7 @@ interface CmsContextType {
 
   // General & Banners
   updateBanner: (page: keyof CmsData["banners"], config: Partial<HeroBannerConfig>) => void;
+  updateContactPage: (config: Partial<ContactPageConfig>) => void;
   updateGeneral: (general: Partial<SiteGeneralConfig>) => void;
 
   // Showcase
@@ -215,6 +217,13 @@ function normalizeCmsData(parsed: Partial<CmsData> | any): CmsData {
     ...parsed,
     general: { ...DEFAULT_CMS_DATA.general, ...(parsed.general || {}) },
     banners: { ...DEFAULT_CMS_DATA.banners, ...(parsed.banners || {}) },
+    contactPage: {
+      ...DEFAULT_CMS_DATA.contactPage,
+      ...(parsed.contactPage || {}),
+      benefits: Array.isArray(parsed.contactPage?.benefits) ? parsed.contactPage.benefits : DEFAULT_CMS_DATA.contactPage.benefits,
+      serviceOptions: Array.isArray(parsed.contactPage?.serviceOptions) ? parsed.contactPage.serviceOptions : DEFAULT_CMS_DATA.contactPage.serviceOptions,
+      budgetOptions: Array.isArray(parsed.contactPage?.budgetOptions) ? parsed.contactPage.budgetOptions : DEFAULT_CMS_DATA.contactPage.budgetOptions,
+    },
     showcase:
       parsed.showcase?.row1 && parsed.showcase?.row2
         ? parsed.showcase
@@ -400,6 +409,10 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       ...cmsData,
       banners: { ...cmsData.banners, [page]: { ...cmsData.banners[page], ...config } },
     });
+  };
+
+  const updateContactPage = (config: Partial<ContactPageConfig>) => {
+    saveState({ ...cmsData, contactPage: { ...cmsData.contactPage, ...config } });
   };
 
   const updateGeneral = (general: Partial<SiteGeneralConfig>) => {
@@ -850,6 +863,7 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
         cloudSyncInfo,
         refreshLiveContent,
         updateBanner,
+        updateContactPage,
         updateGeneral,
         updateShowcaseItem,
         addShowcaseItem,

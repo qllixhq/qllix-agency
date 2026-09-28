@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Wrench, Package, ShoppingBag,
   Layers, Star, HelpCircle, Home, Settings, X,
-  ChevronRight, Inbox, Users, Megaphone, Sparkles, DollarSign, Wand2,
+  ChevronRight, Inbox, Users, Megaphone, Sparkles, DollarSign, Wand2, MessageSquare,
 } from "lucide-react";
 import { useAdminTheme } from "@/context/AdminThemeContext";
 
@@ -20,6 +20,7 @@ const NAV_ITEMS = [
   { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
   { href: "/admin/team", label: "Team", icon: Users },
   { href: "/admin/portfolio", label: "Portfolio", icon: Layers },
+  { href: "/admin/contact", label: "Contact Page", icon: MessageSquare },
   { href: "/admin/testimonials", label: "Testimonials", icon: Star },
   { href: "/admin/faq", label: "FAQ", icon: HelpCircle },
   { href: "/admin/homepage", label: "Homepage", icon: Home },

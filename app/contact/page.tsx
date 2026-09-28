@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavbarFloatingDock from "@/components/NavbarFloatingDock";
 import Footer from "@/components/Footer";
 import SubpageHeroBanner from "@/components/SubpageHeroBanner";
@@ -20,19 +20,28 @@ import { useCms } from "@/context/CmsContext";
 
 export default function ContactPage() {
   const { cmsData, addInquiry } = useCms();
+  const contactContent = cmsData.contactPage;
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     whatsappCountryCode: "+1",
     whatsappNumber: "",
-    service: "Ex. Web Design",
-    budget: "Ex. ৳20K - ৳50K",
+    service: contactContent.serviceOptions[0] || "",
+    budget: contactContent.budgetOptions[0] || "",
     details: ""
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  useEffect(() => {
+    setFormData((current) => ({
+      ...current,
+      service: contactContent.serviceOptions.includes(current.service) ? current.service : (contactContent.serviceOptions[0] || ""),
+      budget: contactContent.budgetOptions.includes(current.budget) ? current.budget : (contactContent.budgetOptions[0] || ""),
+    }));
+  }, [contactContent.serviceOptions, contactContent.budgetOptions]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,39 +135,27 @@ export default function ContactPage() {
               <div>
                 {/* Contact Us Pill */}
                 <div className="inline-block px-4 py-1 rounded-full border border-emerald-500/40 bg-emerald-50/70 text-[#059669] text-xs font-bold tracking-wide mb-4">
-                  Contact Us
+                  {contactContent.badge}
                 </div>
 
                 {/* Big Heading */}
                 <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]">
-                  Tell Us Your <br />
-                  Amazing <br />
-                  <span className="font-serif italic font-normal text-slate-900">Project Here</span>
+                  {contactContent.headingLine1} <br />
+                  {contactContent.headingLine2} <br />
+                  <span className="font-serif italic font-normal text-slate-900">{contactContent.headingAccent}</span>
                 </h2>
               </div>
 
               {/* 3 Check Bullet Points */}
               <div className="space-y-3.5 text-xs sm:text-sm font-medium text-slate-600">
-                <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#00FF87]/25 text-[#059669] flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-[#059669]" />
+                {contactContent.benefits.filter(Boolean).map((benefit, index) => (
+                  <div key={`${benefit}-${index}`} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-[#00FF87]/25 text-[#059669] flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="w-4 h-4 text-[#059669]" />
+                    </div>
+                    <span>{benefit}</span>
                   </div>
-                  <span>Expect a response from us within 24 hours</span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#00FF87]/25 text-[#059669] flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-[#059669]" />
-                  </div>
-                  <span>We&apos;re happy to sign an NDA upon request.</span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#00FF87]/25 text-[#059669] flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-[#059669]" />
-                  </div>
-                  <span>Get access to a team of dedicated product specialists.</span>
-                </div>
+                ))}
               </div>
 
               {/* Interactive Video Presentation Card (Screenshot 2 1:1 Match) */}
@@ -190,7 +187,7 @@ export default function ContactPage() {
                   {/* Right Founder Video Frame */}
                   <div className="sm:col-span-5 relative aspect-square rounded-2xl overflow-hidden shadow-inner border border-white/20 group cursor-pointer">
                     <img
-                      src="/images/contact_founder.jpg"
+                      src={contactContent.imageUrl}
                       alt="Qllix Agency Partner"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -300,11 +297,9 @@ export default function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                         className="w-full bg-transparent text-slate-900 font-medium text-sm sm:text-base outline-none appearance-none pr-8 cursor-pointer"
                       >
-                        <option value="Ex. Web Design">Ex. Web Design</option>
-                        <option value="Brand & Graphic Design">Brand &amp; Visual Identity Design</option>
-                        <option value="Next.js & SaaS Platform Development">Next.js 14 &amp; SaaS Platform Development</option>
-                        <option value="Digital Performance Marketing">Digital Marketing &amp; CRO Funnels</option>
-                        <option value="All-in-One Full Squad Growth">All-in-One Full Squad Growth</option>
+                        {contactContent.serviceOptions.filter(Boolean).map((service) => (
+                          <option key={service} value={service}>{service}</option>
+                        ))}
                       </select>
                       <ChevronDown className="w-4 h-4 text-slate-400 absolute right-1 top-1 pointer-events-none" />
                     </div>
@@ -321,11 +316,9 @@ export default function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                         className="w-full bg-transparent text-slate-900 font-medium text-sm sm:text-base outline-none appearance-none pr-8 cursor-pointer"
                       >
-                        <option value="Ex. ৳20K - ৳50K">Ex. ৳20K - ৳50K</option>
-                        <option value="৳5,000 - ৳15,000">৳5,000 - ৳15,000 (MVP Sprint)</option>
-                        <option value="৳15,000 - ৳35,000">৳15,000 - ৳35,000 (Flagship Build)</option>
-                        <option value="৳35,000 - ৳75,000">৳35,000 - ৳75,000 (Scale-Up)</option>
-                        <option value="৳75,000+">৳75,000+ (Enterprise)</option>
+                        {contactContent.budgetOptions.filter(Boolean).map((budget) => (
+                          <option key={budget} value={budget}>{budget}</option>
+                        ))}
                       </select>
                       <ChevronDown className="w-4 h-4 text-slate-400 absolute right-1 top-1 pointer-events-none" />
                     </div>
