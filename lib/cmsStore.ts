@@ -76,6 +76,7 @@ export interface SiteGeneralConfig {
     twitter?: string;
     linkedin?: string;
     instagram?: string;
+    behance?: string;
     dribbble?: string;
     github?: string;
     facebook?: string;
@@ -224,6 +225,8 @@ export interface AgencyTestimonial {
   avatar: string;
   rating: number;
   text: string;
+  /** Direct video URL for the client story card. The active card autoplays muted. */
+  videoUrl?: string;
   active: boolean;
   displayOrder: number;
 }
@@ -1907,6 +1910,9 @@ export const DEFAULT_CMS_DATA: CmsData = {
       facebook: "https://facebook.com/qllix",
       instagram: "https://instagram.com/qllix",
       linkedin: "https://linkedin.com/company/qllix",
+      behance: "https://behance.net/qllix",
+      dribbble: "https://dribbble.com/qllix",
+      twitter: "https://x.com/qllix",
       whatsapp: "+8801XXXXXXXXX",
     },
     offices: [

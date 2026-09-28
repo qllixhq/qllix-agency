@@ -97,6 +97,8 @@ export default function AdminSettingsPage() {
       facebook: cmsData.general.socialLinks?.facebook || "",
       instagram: cmsData.general.socialLinks?.instagram || "",
       linkedin: cmsData.general.socialLinks?.linkedin || "",
+      behance: cmsData.general.socialLinks?.behance || "",
+      dribbble: cmsData.general.socialLinks?.dribbble || "",
       twitter: cmsData.general.socialLinks?.twitter || "",
       whatsapp: cmsData.general.socialLinks?.whatsapp || "",
     },
@@ -445,6 +447,45 @@ export default function AdminSettingsPage() {
                       isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                     }`}
                   />
+                </div>
+              </div>
+
+              <div className="pt-5 border-t border-white/10">
+                <div>
+                  <h4 className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}>Footer Social Links</h4>
+                  <p className="mt-1 text-xs text-slate-400">Set the links for the Behance, Dribbble and X icons in the footer.</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                  <div>
+                    <label className="block text-xs font-mono uppercase text-slate-400 font-bold mb-1">Behance URL</label>
+                    <input
+                      type="url"
+                      value={generalForm.socialLinks.behance}
+                      onChange={(e) => setGeneralForm({ ...generalForm, socialLinks: { ...generalForm.socialLinks, behance: e.target.value } })}
+                      placeholder="https://behance.net/yourname"
+                      className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-mono uppercase text-slate-400 font-bold mb-1">Dribbble URL</label>
+                    <input
+                      type="url"
+                      value={generalForm.socialLinks.dribbble}
+                      onChange={(e) => setGeneralForm({ ...generalForm, socialLinks: { ...generalForm.socialLinks, dribbble: e.target.value } })}
+                      placeholder="https://dribbble.com/yourname"
+                      className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-mono uppercase text-slate-400 font-bold mb-1">X / Twitter URL</label>
+                    <input
+                      type="url"
+                      value={generalForm.socialLinks.twitter}
+                      onChange={(e) => setGeneralForm({ ...generalForm, socialLinks: { ...generalForm.socialLinks, twitter: e.target.value } })}
+                      placeholder="https://x.com/yourname"
+                      className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

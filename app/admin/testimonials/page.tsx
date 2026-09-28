@@ -13,6 +13,7 @@ const empty = (): Omit<AgencyTestimonial, "id"> => ({
   avatar: "",
   rating: 5,
   text: "",
+  videoUrl: "",
   active: true,
   displayOrder: 1,
 });
@@ -27,7 +28,7 @@ export default function AdminTestimonialsPage() {
 
   const openNew = () => { setForm({ ...empty(), displayOrder: items.length + 1 }); setEditing(null); setIsNew(true); };
   const openEdit = (t: AgencyTestimonial) => {
-    setForm({ clientName: t.clientName, company: t.company, position: t.position, avatar: t.avatar, rating: t.rating, text: t.text, active: t.active, displayOrder: t.displayOrder });
+    setForm({ clientName: t.clientName, company: t.company, position: t.position, avatar: t.avatar, rating: t.rating, text: t.text, videoUrl: t.videoUrl || "", active: t.active, displayOrder: t.displayOrder });
     setEditing(t); setIsNew(false);
   };
   const handleSave = () => {
@@ -59,6 +60,9 @@ export default function AdminTestimonialsPage() {
               </FField>
               <div className="sm:col-span-2">
                 <FField label="Avatar URL"><input className={inp} value={form.avatar} onChange={(e) => setForm({ ...form, avatar: e.target.value })} placeholder="https://images.unsplash.com/..." /></FField>
+              </div>
+              <div className="sm:col-span-2">
+                <FField label="Client Video URL (optional)"><input type="url" className={inp} value={form.videoUrl} onChange={(e) => setForm({ ...form, videoUrl: e.target.value })} placeholder="Direct .mp4 or hosted video URL — active card autoplays muted" /></FField>
               </div>
               <div className="sm:col-span-2">
                 <FField label="Testimonial Text *"><textarea rows={4} className={`${inp} resize-none`} value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} placeholder="What the client said..." /></FField>

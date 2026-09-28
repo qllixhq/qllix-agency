@@ -2,8 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Star, Quote, Sparkles } from "lucide-react";
 import { useCms } from "@/context/CmsContext";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 
 export default function Testimonials() {
   const { cmsData } = useCms();
@@ -15,7 +15,8 @@ export default function Testimonials() {
     .sort((a, b) => a.displayOrder - b.displayOrder);
 
   return (
-    <section className="relative py-24 md:py-32 bg-white" id="testimonials">
+    <section className="relative overflow-hidden bg-[#07100c] py-16 sm:py-20 lg:py-24" id="testimonials">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,255,135,0.16),transparent_35%),linear-gradient(180deg,#07100c_0%,#040805_100%)]" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -23,68 +24,22 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="mx-auto mb-9 max-w-2xl text-center sm:mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 font-serif">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#00FF87]">Client stories</span>
+          <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold text-white tracking-tight font-serif">
             {section?.title || "What Clients Say"}
           </h2>
-          <p className="text-slate-600 max-w-xl mx-auto text-base leading-relaxed">
+          <p className="mt-3 text-slate-300 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
             {section?.subtitle || "Real feedback from real clients who trusted Qllix with their brand."}
           </p>
         </motion.div>
 
-        {/* Grid */}
         {active.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {active.map((t, i) => (
-              <motion.div
-                key={t.id}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative bg-white border border-slate-200/90 rounded-2xl p-8 hover:border-emerald-400 hover:shadow-xl hover:shadow-slate-100 hover:-translate-y-1 transition-all duration-300 shadow-sm flex flex-col justify-between"
-              >
-                <div>
-                  {/* Quote icon & Stars */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-1">
-                      {Array.from({ length: 5 }).map((_, si) => (
-                        <Star
-                          key={si}
-                          className={`w-4 h-4 ${
-                            si < t.rating ? "text-amber-400 fill-amber-400" : "text-slate-200"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <Quote className="w-7 h-7 text-emerald-100" />
-                  </div>
-
-                  {/* Testimonial Text */}
-                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed italic mb-6">
-                    "{t.text}"
-                  </p>
-                </div>
-
-                {/* Author Info */}
-                <div className="flex items-center gap-3.5 pt-4 border-t border-slate-100">
-                  <img
-                    src={t.avatar}
-                    alt={t.clientName}
-                    className="w-11 h-11 rounded-full object-cover border border-slate-200 shadow-sm"
-                  />
-                  <div>
-                    <div className="text-sm font-bold text-slate-900">{t.clientName}</div>
-                    <div className="text-xs text-slate-500">{t.position}, {t.company}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <TestimonialsCarousel testimonials={active} />
         ) : (
-          <div className="text-center py-16 text-slate-400 bg-slate-50 rounded-2xl border border-slate-200">
-            No testimonials yet.
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] py-12 text-center text-sm text-slate-400">
+            No client stories yet.
           </div>
         )}
       </div>

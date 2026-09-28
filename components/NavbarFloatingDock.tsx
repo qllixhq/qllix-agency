@@ -164,11 +164,11 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
             <span className="relative z-10 text-[10px] md:text-[15.5px] font-semibold leading-none md:leading-normal">Services</span>
           </a>
 
-          {/* MOBILE ONLY: Center CTA Button (Strictly replaces "Let's Talk" on mobile) */}
+          {/* MOBILE / TABLET: Center contact button */}
           <button
             type="button"
             onClick={() => setContactMenuOpen(!contactMenuOpen)}
-            className={`md:hidden relative w-11 h-11 rounded-full flex items-center justify-center shadow-[0_4px_22px_rgba(0,255,135,0.5)] active:scale-95 transition-all cursor-pointer shrink-0 mx-1 ${
+            className={`lg:hidden relative w-11 h-11 rounded-full flex items-center justify-center shadow-[0_4px_22px_rgba(0,255,135,0.5)] active:scale-95 transition-all cursor-pointer shrink-0 mx-1 ${
               contactMenuOpen
                 ? "bg-slate-900 text-white border border-white/25"
                 : "bg-gradient-to-tr from-[#00A859] via-[#00C853] to-[#00FF87] text-[#02180C] border-2 border-white"
@@ -191,10 +191,10 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
             </div>
           </button>
 
-          {/* DESKTOP ONLY: Center "Let's Talk →" Button (Strictly hidden on mobile screens below md) */}
+          {/* DESKTOP ONLY: Center "Let's Talk →" Button */}
           <a
             href="/contact"
-            className="hidden md:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
+            className="hidden lg:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
             title="Contact & Booking"
           >
             {activeTab === "contact" && <ActiveDockStroke isCta={true} rounded="rounded-[12px]" />}

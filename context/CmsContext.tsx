@@ -224,7 +224,14 @@ function normalizeCmsData(parsed: Partial<CmsData> | any): CmsData {
   return {
     ...DEFAULT_CMS_DATA,
     ...parsed,
-    general: { ...DEFAULT_CMS_DATA.general, ...(parsed.general || {}) },
+    general: {
+      ...DEFAULT_CMS_DATA.general,
+      ...(parsed.general || {}),
+      socialLinks: {
+        ...DEFAULT_CMS_DATA.general.socialLinks,
+        ...(parsed.general?.socialLinks || {}),
+      },
+    },
     banners: { ...DEFAULT_CMS_DATA.banners, ...(parsed.banners || {}) },
     contactPage: {
       ...DEFAULT_CMS_DATA.contactPage,
