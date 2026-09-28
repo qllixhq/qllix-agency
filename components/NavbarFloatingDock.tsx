@@ -239,18 +239,18 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
 
       {/* MOBILE POPUP: Pure Borderless Smart CTA Icons */}
       {contactMenuOpen && (
-        <div className="md:hidden fixed bottom-[78px] left-1/2 -translate-x-1/2 z-50 flex flex-row items-center justify-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200 px-3 w-max">
+        <div className="md:hidden fixed bottom-[76px] left-1/2 -translate-x-1/2 z-50 flex flex-row items-center justify-center gap-2.5 rounded-full border border-white/10 bg-[#0b1014]/90 px-2.5 py-2 shadow-[0_10px_28px_rgba(0,0,0,0.4)] backdrop-blur-sm animate-in fade-in slide-in-from-bottom-3 duration-200">
           {/* 1. Book a Call (TidyCal) */}
           <a
             href="https://tidycal.com/qllix/next-step-together"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setContactMenuOpen(false)}
-            className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#00A859] via-[#00C853] to-[#00FF87] text-white shadow-[0_8px_25px_rgba(0,200,83,0.5)] active:scale-95 transition-transform flex items-center justify-center cursor-pointer"
+            className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#00A859] via-[#00C853] to-[#00FF87] text-white shadow-[0_8px_20px_rgba(0,200,83,0.45)] active:scale-95 transition-transform flex items-center justify-center cursor-pointer"
             title="Book a Discovery Call"
             aria-label="Book a Call"
           >
-            <PhoneCall className="w-5 h-5 text-white stroke-[2.4]" />
+            <PhoneCall className="w-4 h-4 text-white stroke-[2.4]" />
           </a>
 
           {/* 2. WhatsApp Direct Chat */}
@@ -259,11 +259,11 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setContactMenuOpen(false)}
-            className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#128C7E] to-[#25D366] text-white shadow-[0_8px_25px_rgba(37,211,102,0.5)] active:scale-95 transition-transform flex items-center justify-center cursor-pointer"
+            className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#128C7E] to-[#25D366] text-white shadow-[0_8px_20px_rgba(37,211,102,0.45)] active:scale-95 transition-transform flex items-center justify-center cursor-pointer"
             title="Chat on WhatsApp"
             aria-label="WhatsApp Chat"
           >
-            <svg className="w-6 h-6 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.979-.276-.1-.476-.15-.677.15-.2.301-.776.979-.951 1.179-.176.2-.351.226-.652.075-.3-.15-1.267-.467-2.414-1.49-1.077-.96-1.804-2.148-2.015-2.51-.21-.362-.022-.557.128-.707.135-.136.301-.351.451-.527.151-.176.2-.301.301-.502.101-.2.05-.376-.025-.526-.075-.15-.677-1.631-.928-2.233-.244-.585-.492-.505-.677-.514-.176-.009-.376-.009-.577-.009s-.527.075-.802.376c-.276.301-1.054 1.03-1.054 2.513 0 1.482 1.079 2.914 1.23 3.114.15.201 2.122 3.242 5.142 4.547.718.311 1.279.497 1.716.636.721.23 1.378.197 1.897.12.578-.087 1.78-.727 2.031-1.43.251-.703.251-1.305.176-1.43-.076-.126-.276-.201-.577-.352z"/>
               <path d="M12.004 0C5.385 0 .008 5.378.008 12c0 2.115.55 4.177 1.597 5.992L0 24l6.177-1.62A11.968 11.968 0 0012.004 24C18.621 24 24 18.622 24 12s-5.379-12-11.996-12zm0 21.943a9.917 9.917 0 01-5.06-1.385l-.363-.215-3.665.961.978-3.574-.236-.376a9.923 9.923 0 01-1.523-5.354c0-5.485 4.463-9.948 9.869-9.948 5.405 0 9.868 4.463 9.868 9.948 0 5.485-4.463 9.943-9.868 9.943z"/>
             </svg>
@@ -275,11 +275,11 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setContactMenuOpen(false)}
-            className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#0064E0] via-[#0084FF] to-[#A033FF] text-white shadow-[0_8px_25px_rgba(0,132,255,0.5)] active:scale-95 transition-transform flex items-center justify-center cursor-pointer"
+            className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#0064E0] via-[#0084FF] to-[#A033FF] text-white shadow-[0_8px_20px_rgba(0,132,255,0.45)] active:scale-95 transition-transform flex items-center justify-center cursor-pointer"
             title="Chat on Messenger"
             aria-label="Facebook Messenger"
           >
-            <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.077.299 2.222.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.56 6.963z"/>
             </svg>
           </a>
