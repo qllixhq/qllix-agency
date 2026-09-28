@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { ExternalLink } from "lucide-react";
 import { useCms } from "@/context/CmsContext";
 import { PortfolioItem, ProjectContentBlock } from "@/lib/cmsStore";
 import SubpageHeroBanner from "@/components/SubpageHeroBanner";
@@ -72,7 +71,6 @@ export default function PublicProjectDetailPage() {
   }
 
   const blocks = project.contentBlocks?.length ? project.contentBlocks : legacyBlocks(project);
-  const projectUrl = project.projectUrl;
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#07050E] text-[#101224]" style={{ "--brand-primary": primaryColor, "--brand-secondary": secondaryColor, "--brand-soft": brandSoft } as React.CSSProperties}>
@@ -101,11 +99,6 @@ export default function PublicProjectDetailPage() {
                 <p className="text-xs font-bold uppercase tracking-[0.14em] text-black/40">Services</p>
                 <p className="mt-2 font-semibold">{project.deliverables?.slice(0, 2).join(" · ") || project.category}</p>
               </div>
-              {projectUrl && (
-                <a href={projectUrl} target="_blank" rel="noreferrer" style={{ backgroundColor: secondaryColor }} className="col-span-2 mt-2 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3.5 text-sm font-bold text-white transition hover:opacity-85">
-                  Visit project <ExternalLink size={16} />
-                </a>
-              )}
             </div>
           </section>
 
