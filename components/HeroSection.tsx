@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import CyberVortexBackground from "./CyberVortexBackground";
 import CelestialComet from "./CelestialComet";
 import DraggableMarqueeRow from "./DraggableMarqueeRow";
 import ShowcaseMediaModal, { ShowcaseItem } from "./ShowcaseMediaModal";
 import { useCms } from "@/context/CmsContext";
 import { triggerSecretAdminModal } from "./SecretAdminModal";
+import AffiliateModal from "./AffiliateModal";
 
 interface HeroSectionProps {
   onOpenBooking: (serviceId?: string) => void;
@@ -16,6 +17,7 @@ interface HeroSectionProps {
 export default function HeroSection({ onOpenBooking }: HeroSectionProps) {
   const { cmsData } = useCms();
   const [activeMediaItem, setActiveMediaItem] = React.useState<ShowcaseItem | null>(null);
+  const [isAffiliateOpen, setIsAffiliateOpen] = React.useState(false);
 
   const logoClickTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const logoClickCountRef = React.useRef<number>(0);
@@ -115,6 +117,29 @@ export default function HeroSection({ onOpenBooking }: HeroSectionProps) {
         </div>
       </div>
 
+      {/* ═══ FLOATING AFFILIATE INVITE ═══ */}
+      {cmsData.affiliateConfig?.enabled !== false && (
+        <div className="relative z-20 mx-auto mt-5 flex w-full max-w-7xl justify-center px-4 sm:mt-6 lg:absolute lg:bottom-9 lg:right-7 lg:mt-0 lg:w-auto lg:px-0">
+          <button
+            type="button"
+            onClick={() => setIsAffiliateOpen(true)}
+            className="group flex items-center gap-3 rounded-2xl border border-emerald-200/20 bg-[#06140c]/75 px-3.5 py-3 text-left text-white shadow-[0_14px_35px_rgba(0,0,0,0.28)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-emerald-300/45 hover:bg-[#092016]/90"
+            aria-label="Become an affiliate and earn 20 percent commission"
+          >
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-emerald-300/25 bg-emerald-400/10 text-[#00FF87]">
+              <Sparkles className="h-4 w-4" />
+            </span>
+            <span>
+              <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-emerald-100/65">Partner program</span>
+              <span className="mt-0.5 block text-sm font-semibold tracking-[-0.01em]">Refer a client. Earn 20%.</span>
+            </span>
+            <span className="ml-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#07321c] transition group-hover:scale-110">
+              <ArrowUpRight className="h-4 w-4" />
+            </span>
+          </button>
+        </div>
+      )}
+
       {/* ═══ DUAL ROW DRAGGABLE & INFINITE MARQUEE CAROUSEL ═══ */}
       <div className="hero-marquee-mask relative z-20 w-full overflow-hidden mt-10 sm:mt-16 md:mt-20 pt-4 pb-4 space-y-3.5 sm:space-y-4">
         {/* Row 1: Drag to scroll left/right */}
@@ -141,6 +166,12 @@ export default function HeroSection({ onOpenBooking }: HeroSectionProps) {
         item={activeMediaItem}
         onClose={() => setActiveMediaItem(null)}
         onOpenBooking={(serviceId) => onOpenBooking(serviceId)}
+      />
+
+      <AffiliateModal
+        isOpen={isAffiliateOpen}
+        onClose={() => setIsAffiliateOpen(false)}
+        defaultTab="partner"
       />
 
     </section>
