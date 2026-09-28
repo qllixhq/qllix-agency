@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { useCms } from "@/context/CmsContext";
 import { PortfolioItem, ProjectContentBlock } from "@/lib/cmsStore";
+import SubpageHeroBanner from "@/components/SubpageHeroBanner";
 
 function legacyBlocks(project: PortfolioItem): ProjectContentBlock[] {
   const blocks: ProjectContentBlock[] = [];
@@ -63,7 +64,7 @@ export default function PublicProjectDetailPage() {
           <p style={{ color: primaryColor }} className="text-sm font-bold uppercase tracking-[0.2em]">Project not found</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-[-0.05em]">This project is unavailable.</h1>
           <Link href="/projects" style={{ backgroundColor: secondaryColor }} className="mt-8 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white">
-            <ArrowLeft size={16} /> Back to projects
+            Back to projects
           </Link>
         </div>
       </main>
@@ -74,25 +75,13 @@ export default function PublicProjectDetailPage() {
   const projectUrl = project.projectUrl;
 
   return (
-    <main className="min-h-screen bg-white text-[#101224]" style={{ "--brand-primary": primaryColor, "--brand-secondary": secondaryColor, "--brand-soft": brandSoft } as React.CSSProperties}>
-      <div className="border-b border-[#eeeeF2] bg-white px-5 pb-12 pt-6 sm:px-8 lg:px-12 lg:pb-16">
-        <div className="mx-auto max-w-[1320px]">
-          <div className="flex items-center justify-between gap-4">
-            <Link href="/projects" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-[#707280] transition hover:text-[var(--brand-primary)]"><ArrowLeft size={15} /> All projects</Link>
-            {cmsData.general.logoUrl && <img src={cmsData.general.logoUrl} alt={cmsData.general.agencyName} className="h-9 w-auto max-w-[120px] object-contain" />}
-          </div>
+    <main className="min-h-screen overflow-x-hidden bg-[#07050E] text-[#101224]" style={{ "--brand-primary": primaryColor, "--brand-secondary": secondaryColor, "--brand-soft": brandSoft } as React.CSSProperties}>
+      <SubpageHeroBanner
+        breadcrumb="Projects"
+        title={<span>{project.title}</span>}
+      />
 
-          <div className="mt-12 grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:items-end">
-            <div>
-              <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-primary)]">{project.category}</p>
-              <h1 className="max-w-5xl text-4xl font-semibold leading-[0.92] tracking-[-0.06em] sm:text-6xl lg:text-7xl">{project.title}</h1>
-            </div>
-            <p className="max-w-sm text-base leading-7 text-[#6f7180]">{project.description}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white px-5 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-20">
+      <div className="relative z-10 -mt-6 rounded-t-[36px] border-t border-black/5 bg-white px-5 pb-20 pt-10 shadow-[0_-20px_60px_rgba(0,0,0,0.5)] sm:-mt-8 sm:rounded-t-[48px] sm:px-8 sm:pt-14 lg:px-12 lg:pt-20">
         <div className="mx-auto max-w-[1120px]">
           <section style={{ backgroundColor: brandSoft }} className="overflow-hidden rounded-[18px] p-3 sm:p-5">
             <img src={project.imageUrl} alt={project.title} className="aspect-[16/10] w-full rounded-[17px] object-cover sm:rounded-[22px]" />
