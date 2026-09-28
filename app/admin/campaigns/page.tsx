@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import MediaUploader from "@/components/admin/MediaUploader";
 import { useCms } from "@/context/CmsContext";
@@ -34,6 +34,8 @@ import {
   Percent,
   CheckCheck,
   HelpCircle,
+  ImageIcon,
+  Upload,
 } from "lucide-react";
 
 // ── Smart Preset Templates ──
@@ -98,7 +100,272 @@ const LINK_PRESETS = [
   { label: "Order Form", url: "#order" },
 ];
 
+function CampaignsPageSimplified() {
+  const { cmsData, addCampaign, updateCampaign, deleteCampaign, toggleCampaignActive } = useCms();
+  const { isDark } = useAdminTheme();
+  const [editingCampaign, setEditingCampaign] = useState<CampaignOffer | null>(null);
+  const [isNew, setIsNew] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const campaigns = cmsData.campaigns || [];
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    window.setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const closeEditor = () => setEditingCampaign(null);
+
+  const openNew = () => {
+    setIsNew(true);
+    setEditingCampaign({
+      id: `camp-${Date.now()}`,
+      title: "New offer",
+      subtitle: "",
+      badge: "SPECIAL OFFER",
+      description: "",
+      ctaText: "Learn more",
+      ctaLink: "/pricing",
+      imageUrl: "",
+      displayType: "both",
+      active: true,
+    });
+  };
+
+  const openEdit = (campaign: CampaignOffer) => {
+    setIsNew(false);
+    // Existing data, including legacy campaign settings, stays intact when this campaign is saved.
+    setEditingCampaign({ ...campaign });
+  };
+
+  const saveCampaign = () => {
+    if (!editingCampaign || !editingCampaign.title.trim()) {
+      alert("Please add an offer title.");
+      return;
+    }
+
+    if (isNew) {
+      addCampaign(editingCampaign);
+      showToast("Campaign created.");
+    } else {
+      updateCampaign(editingCampaign.id, editingCampaign);
+      showToast("Campaign updated.");
+    }
+    closeEditor();
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !editingCampaign) return;
+    if (!file.type.startsWith("image/") || file.size > 8 * 1024 * 1024) {
+      alert("Please choose an image under 8 MB.");
+      return;
+    }
+
+    setIsUploading(true);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setEditingCampaign((current) => current ? { ...current, imageUrl: reader.result as string } : current);
+      setIsUploading(false);
+    };
+    reader.onerror = () => {
+      setIsUploading(false);
+      alert("The image could not be uploaded. Please try another file.");
+    };
+    reader.readAsDataURL(file);
+  };
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeEditor();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  const fieldClass = `w-full rounded-xl border px-3.5 py-2.5 text-sm outline-none transition focus:border-[#00FF87] ${
+    isDark ? "border-white/10 bg-black/50 text-white" : "border-slate-300 bg-white text-slate-900"
+  }`;
+
+  return (
+    <div>
+      <AdminHeader
+        title="Campaigns"
+        subtitle="Create and manage website offers."
+        actionButton={
+          <button
+            type="button"
+            onClick={openNew}
+            className="flex items-center gap-2 rounded-xl bg-[#00FF87] px-5 py-2.5 text-xs font-black text-[#02180C] shadow-[0_0_20px_rgba(0,255,135,0.3)] transition hover:bg-[#00DF81] active:scale-95"
+          >
+            <Plus className="h-4 w-4 stroke-[3]" />
+            Create campaign
+          </button>
+        }
+      />
+
+      <div className="max-w-6xl space-y-6 p-6 lg:p-10">
+        {toastMessage && (
+          <div className="flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/15 p-3 text-xs font-semibold text-emerald-600 dark:text-[#00FF87]">
+            <CheckCircle2 className="h-4 w-4" />
+            {toastMessage}
+          </div>
+        )}
+
+        {campaigns.length === 0 ? (
+          <div className={`rounded-3xl border p-12 text-center ${isDark ? "border-white/10 bg-[#020F07]" : "border-slate-200 bg-white"}`}>
+            <Megaphone className="mx-auto mb-3 h-10 w-10 text-slate-500" />
+            <h2 className={`text-base font-bold ${isDark ? "text-white" : "text-slate-900"}`}>No campaigns yet</h2>
+            <button type="button" onClick={openNew} className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#00FF87] px-4 py-2.5 text-xs font-black text-[#02180C]">
+              <Plus className="h-4 w-4" />
+              Create campaign
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {campaigns.map((campaign) => (
+              <article
+                key={campaign.id}
+                className={`overflow-hidden rounded-3xl border transition ${
+                  campaign.active
+                    ? isDark
+                      ? "border-emerald-500/35 bg-[#020F07]"
+                      : "border-emerald-300 bg-white"
+                    : isDark
+                    ? "border-white/10 bg-[#080D12] opacity-70"
+                    : "border-slate-200 bg-slate-50 opacity-80"
+                }`}
+              >
+                {campaign.imageUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={campaign.imageUrl} alt="" className="h-32 w-full object-cover" />
+                )}
+                <div className="p-5">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <span className={`text-xs font-bold ${campaign.active ? "text-emerald-600 dark:text-[#00FF87]" : "text-slate-500"}`}>
+                      {campaign.active ? "Active" : "Inactive"}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => toggleCampaignActive(campaign.id)}
+                      className={`h-6 w-11 rounded-full p-1 transition ${campaign.active ? "bg-[#00FF87]" : "bg-slate-300 dark:bg-slate-700"}`}
+                      aria-label={campaign.active ? "Deactivate campaign" : "Activate campaign"}
+                    >
+                      <span className={`block h-4 w-4 rounded-full bg-slate-950 transition-transform ${campaign.active ? "translate-x-5" : "translate-x-0"}`} />
+                    </button>
+                  </div>
+                  <h2 className={`text-lg font-bold leading-tight ${isDark ? "text-white" : "text-slate-900"}`}>{campaign.title}</h2>
+                  {campaign.subtitle && <p className="mt-1.5 line-clamp-2 text-sm text-slate-400">{campaign.subtitle}</p>}
+                  <p className="mt-4 truncate text-xs font-semibold text-emerald-600 dark:text-[#00FF87]">{campaign.ctaText} · {campaign.ctaLink}</p>
+                  <div className={`mt-5 flex justify-end gap-2 border-t pt-4 ${isDark ? "border-white/10" : "border-slate-200"}`}>
+                    <button type="button" onClick={() => openEdit(campaign)} className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/35 px-3 py-2 text-xs font-bold text-emerald-600 transition hover:bg-emerald-500/10 dark:text-[#00FF87]">
+                      <Edit2 className="h-3.5 w-3.5" /> Edit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (confirm(`Delete \"${campaign.title}\"?`)) {
+                          deleteCampaign(campaign.id);
+                          showToast("Campaign deleted.");
+                        }
+                      }}
+                      className="inline-flex items-center gap-1.5 rounded-xl border border-rose-500/25 px-3 py-2 text-xs font-bold text-rose-500 transition hover:bg-rose-500/10"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" /> Delete
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {editingCampaign && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/80 p-4 backdrop-blur-sm">
+          <div className={`my-auto w-full max-w-4xl overflow-hidden rounded-[28px] border shadow-2xl ${isDark ? "border-emerald-500/30 bg-[#031008] text-white" : "border-slate-200 bg-white text-slate-900"}`}>
+            <div className={`flex items-center justify-between border-b px-5 py-4 sm:px-6 ${isDark ? "border-white/10" : "border-slate-200"}`}>
+              <h2 className="text-lg font-bold">{isNew ? "New campaign" : "Edit campaign"}</h2>
+              <button type="button" onClick={closeEditor} className="rounded-lg p-2 text-slate-400 transition hover:bg-white/10 hover:text-white" aria-label="Close editor">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="grid gap-0 lg:grid-cols-[1.05fr_.95fr]">
+              <div className={`space-y-4 p-5 sm:p-6 ${isDark ? "border-white/10" : "border-slate-200"}`}>
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-bold">Offer title</span>
+                  <input value={editingCampaign.title} onChange={(event) => setEditingCampaign({ ...editingCampaign, title: event.target.value })} className={fieldClass} placeholder="e.g. Brand launch offer" />
+                </label>
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-bold">Short message</span>
+                  <textarea value={editingCampaign.subtitle || ""} onChange={(event) => setEditingCampaign({ ...editingCampaign, subtitle: event.target.value })} className={`${fieldClass} min-h-24 resize-y`} placeholder="A short supporting message" />
+                </label>
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-bold">Button label</span>
+                  <input value={editingCampaign.ctaText} onChange={(event) => setEditingCampaign({ ...editingCampaign, ctaText: event.target.value })} className={fieldClass} placeholder="Learn more" />
+                </label>
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-bold">Destination link</span>
+                  <input value={editingCampaign.ctaLink} onChange={(event) => setEditingCampaign({ ...editingCampaign, ctaLink: event.target.value })} className={fieldClass} placeholder="/pricing or https://..." />
+                </label>
+                <div>
+                  <span className="mb-1.5 block text-xs font-bold">Promo image</span>
+                  <div className="flex flex-col gap-2 sm:flex-row">
+                    <input value={editingCampaign.imageUrl || ""} onChange={(event) => setEditingCampaign({ ...editingCampaign, imageUrl: event.target.value })} className={fieldClass} placeholder="Paste an image URL" />
+                    <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                    <button type="button" onClick={() => fileInputRef.current?.click()} disabled={isUploading} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-emerald-500/35 px-4 py-2.5 text-xs font-bold text-emerald-600 transition hover:bg-emerald-500/10 disabled:opacity-60 dark:text-[#00FF87]">
+                      <Upload className="h-4 w-4" /> {isUploading ? "Uploading" : "Upload"}
+                    </button>
+                  </div>
+                </div>
+                <label className={`flex items-center justify-between rounded-2xl border p-4 ${editingCampaign.active ? "border-emerald-500/35 bg-emerald-500/10" : isDark ? "border-white/10 bg-black/30" : "border-slate-200 bg-slate-50"}`}>
+                  <span className="text-sm font-bold">Campaign active</span>
+                  <input type="checkbox" checked={editingCampaign.active} onChange={(event) => setEditingCampaign({ ...editingCampaign, active: event.target.checked })} className="h-4 w-4 accent-emerald-500" />
+                </label>
+              </div>
+
+              <div className={`border-t p-5 sm:p-6 lg:border-l lg:border-t-0 ${isDark ? "border-white/10 bg-black/20" : "border-slate-200 bg-slate-50"}`}>
+                <div className="mb-3 flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-[#00FF87]">
+                  <ImageIcon className="h-4 w-4" /> Campaign preview
+                </div>
+                <div className="overflow-hidden rounded-3xl border border-emerald-500/25 bg-[#031008] shadow-xl">
+                  <div className="relative aspect-[16/10] bg-[#06140c]">
+                    {editingCampaign.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={editingCampaign.imageUrl} alt="Campaign preview" className="h-full w-full object-cover opacity-75" onError={(event) => { event.currentTarget.style.display = "none"; }} />
+                    ) : null}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#020704] via-[#020704]/45 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                      <h3 className="text-xl font-bold leading-tight">{editingCampaign.title || "Your offer title"}</h3>
+                      {editingCampaign.subtitle && <p className="mt-2 text-sm text-white/70">{editingCampaign.subtitle}</p>}
+                      <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#00FF87] px-4 py-2 text-xs font-black text-[#02180C]">
+                        {editingCampaign.ctaText || "Learn more"}
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={`flex justify-end gap-3 border-t px-5 py-4 sm:px-6 ${isDark ? "border-white/10" : "border-slate-200"}`}>
+              <button type="button" onClick={closeEditor} className="rounded-xl px-4 py-2.5 text-xs font-bold text-slate-400 transition hover:bg-white/10">Cancel</button>
+              <button type="button" onClick={saveCampaign} className="inline-flex items-center gap-2 rounded-xl bg-[#00FF87] px-5 py-2.5 text-xs font-black text-[#02180C] shadow-[0_0_20px_rgba(0,255,135,0.3)] transition hover:bg-[#00DF81]">
+                <Save className="h-4 w-4" /> Save campaign
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminCampaignsPage() {
+  return <CampaignsPageSimplified />;
+
   const { cmsData, addCampaign, updateCampaign, deleteCampaign, toggleCampaignActive } = useCms();
   const { isDark } = useAdminTheme();
 

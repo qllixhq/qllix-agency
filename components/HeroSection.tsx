@@ -115,27 +115,21 @@ export default function HeroSection({ onOpenBooking }: HeroSectionProps) {
             </div>
           </button>
         </div>
-      </div>
 
-      {/* ═══ FLOATING AFFILIATE INVITE ═══ */}
-      <div className="relative z-20 mx-auto mt-5 flex w-full max-w-7xl justify-center px-4 sm:mt-6 lg:absolute lg:bottom-9 lg:right-7 lg:mt-0 lg:w-auto lg:px-0">
+        <div className="mt-3 flex justify-center">
           <button
             type="button"
             onClick={() => setIsAffiliateOpen(true)}
-            className="group flex items-center gap-3 rounded-2xl border border-emerald-200/20 bg-[#06140c]/75 px-3.5 py-3 text-left text-white shadow-[0_14px_35px_rgba(0,0,0,0.28)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-emerald-300/45 hover:bg-[#092016]/90"
+            className="group inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-[#06140c]/85 px-3 py-2 text-left text-white shadow-[0_10px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-emerald-300/45 hover:bg-[#092016]"
             aria-label="Become an affiliate and earn 20 percent commission"
           >
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-emerald-300/25 bg-emerald-400/10 text-[#00FF87]">
-              <Sparkles className="h-4 w-4" />
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#00FF87] text-[#052012]">
+              <Sparkles className="h-3.5 w-3.5" />
             </span>
-            <span>
-              <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-emerald-100/65">Partner program</span>
-              <span className="mt-0.5 block text-sm font-semibold tracking-[-0.01em]">Refer a client. Earn 20%.</span>
-            </span>
-            <span className="ml-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#07321c] transition group-hover:scale-110">
-              <ArrowUpRight className="h-4 w-4" />
-            </span>
+            <span className="text-xs font-semibold tracking-[-0.01em] sm:text-sm">Refer a client. Earn 20%.</span>
+            <ArrowUpRight className="h-3.5 w-3.5 text-[#00FF87] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
+        </div>
       </div>
 
       {/* ═══ DUAL ROW DRAGGABLE & INFINITE MARQUEE CAROUSEL ═══ */}
