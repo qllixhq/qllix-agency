@@ -144,62 +144,62 @@ export default function AffiliateModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.25 }}
-          className="relative max-w-2xl w-full bg-[#090E16] border border-white/15 rounded-3xl overflow-hidden shadow-2xl my-auto text-white flex flex-col"
+          className="relative max-w-2xl w-full overflow-hidden rounded-[28px] border border-white/15 bg-[#080E16] text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)] my-auto flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header Bar */}
-          <div className="relative p-6 sm:p-7 border-b border-white/10 bg-gradient-to-r from-emerald-950/40 via-[#0A101C] to-slate-900/60">
+          <div className="relative border-b border-white/10 bg-[radial-gradient(circle_at_15%_0%,rgba(0,255,135,0.16),transparent_38%),linear-gradient(135deg,#0b1711_0%,#0a101b_56%,#0b111d_100%)] p-5 sm:p-6">
             <div className="flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00FF87]/15 border border-[#00FF87]/30 text-[#00FF87] text-[11px] font-mono font-bold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Earn Flat 20% Commission</span>
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-[#00FF87]/35 bg-[#00FF87]/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#00FF87]">
+                <Sparkles className="w-3 h-3" />
+                <span>Earn 20% commission</span>
               </div>
               <button
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-slate-300 transition hover:bg-white/15 hover:text-white"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-black text-white mt-3 tracking-tight">
-              Qllix Partner &amp; Affiliate Network
+            <h3 className="mt-3 text-xl font-black tracking-[-0.04em] text-white sm:text-2xl">
+              Partner with Qllix.
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-lg">
-              যেকোনো <strong>৳২০,০০০+</strong> বাজেটের প্রজেক্ট রেফার করলেই প্রতিটি ডিল কনফার্মেশনে সাথে সাথে পান <strong>২০% ক্যাশ কমিশন</strong> (৳৪,০০০+)।
+            <p className="mt-1 max-w-md text-xs leading-relaxed text-slate-300 sm:text-sm">
+              ৳২০,০০০+ প্রজেক্ট রেফার করুন, ডিল কনফার্ম হলে পান ২০% কমিশন।
             </p>
 
             {/* Navigation Tabs */}
-            <div className="flex items-center gap-2 mt-5 overflow-x-auto no-scrollbar pt-1">
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:flex sm:items-center sm:gap-1.5">
               <TabBtn
                 active={activeTab === "lead"}
                 onClick={() => setActiveTab("lead")}
                 icon={<Send className="w-3.5 h-3.5" />}
-                label="Submit Client Lead"
+                label="Send lead"
               />
               <TabBtn
                 active={activeTab === "partner"}
                 onClick={() => setActiveTab("partner")}
                 icon={<UserCheck className="w-3.5 h-3.5" />}
-                label="Join as Partner"
+                label="Join partner"
               />
               <TabBtn
                 active={activeTab === "calculator"}
                 onClick={() => setActiveTab("calculator")}
                 icon={<Calculator className="w-3.5 h-3.5" />}
-                label="Income Calculator"
+                label="Calculator"
               />
               <TabBtn
                 active={activeTab === "rules"}
                 onClick={() => setActiveTab("rules")}
                 icon={<HelpCircle className="w-3.5 h-3.5" />}
-                label="Rules &amp; FAQ"
+                label="Guide"
               />
             </div>
           </div>
 
           {/* Modal Body */}
-          <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto space-y-6">
+          <div className="max-h-[62vh] space-y-5 overflow-y-auto p-5 sm:p-6">
 
             {/* ══════════════ TAB 1: SUBMIT LEAD ══════════════ */}
             {activeTab === "lead" && (
@@ -264,11 +264,11 @@ export default function AffiliateModal({
                   </div>
                 ) : (
                   <form onSubmit={handleLeadSubmit} className="space-y-4">
-                    <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-between">
-                      <div className="text-xs text-emerald-200">
-                        <span className="font-bold text-[#00FF87]">20% Commission Active:</span> Minimum project budget is ৳{config.minProjectAmount.toLocaleString()}.
+                    <div className="flex items-center justify-between rounded-2xl border border-emerald-400/20 bg-emerald-400/[0.07] px-3.5 py-2.5">
+                      <div className="text-xs text-emerald-100">
+                        From ৳{config.minProjectAmount.toLocaleString()} per project
                       </div>
-                      <div className="text-xs font-mono font-bold text-[#00FF87] bg-black/40 px-2.5 py-1 rounded-lg">
+                      <div className="rounded-lg bg-[#00FF87] px-2.5 py-1 text-xs font-black text-[#02180C]">
                         Earn ৳{(Number(leadForm.projectBudget || 20000) * 0.2).toLocaleString()}
                       </div>
                     </div>
@@ -277,7 +277,7 @@ export default function AffiliateModal({
                       {/* Referrer Info */}
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Your Name (রেফারার নাম) *
+                          Your name *
                         </label>
                         <input
                           required
@@ -289,7 +289,7 @@ export default function AffiliateModal({
                       </div>
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Your WhatsApp / Phone (টাকা পাওয়ার নম্বর) *
+                          Your WhatsApp *
                         </label>
                         <input
                           required
@@ -303,7 +303,7 @@ export default function AffiliateModal({
                       {/* Client Info */}
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Client Name or Brand Name (ক্লায়েন্টের নাম) *
+                          Client or brand *
                         </label>
                         <input
                           required
@@ -315,7 +315,7 @@ export default function AffiliateModal({
                       </div>
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Client WhatsApp / Phone (ক্লায়েন্টের নম্বর) *
+                          Client WhatsApp *
                         </label>
                         <input
                           required
@@ -329,7 +329,7 @@ export default function AffiliateModal({
                       {/* Service Category */}
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Service Needed (কাজের ধরন)
+                          Service
                         </label>
                         <select
                           className={inp}
@@ -348,7 +348,7 @@ export default function AffiliateModal({
                       {/* Estimated Budget */}
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Estimated Budget (৳২০,০০০ বা তার বেশি) *
+                          Budget *
                         </label>
                         <input
                           type="number"
@@ -365,14 +365,14 @@ export default function AffiliateModal({
                       {/* Details */}
                       <div className="sm:col-span-2">
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Project Brief / Client Requirement (সংক্ষিপ্ত বিবরণ)
+                          Short brief
                         </label>
                         <textarea
                           rows={2}
                           className={`${inp} resize-none`}
                           value={leadForm.projectDetails}
                           onChange={(e) => setLeadForm({ ...leadForm, projectDetails: e.target.value })}
-                          placeholder="ক্লায়েন্টের কী কী কাজ প্রয়োজন বা কোনো স্পেসিফিক টাইমলাইন থাকলে লিখুন..."
+                          placeholder="What does the client need?"
                         />
                       </div>
                     </div>
@@ -382,7 +382,7 @@ export default function AffiliateModal({
                       className="w-full py-3.5 rounded-xl bg-[#00FF87] hover:bg-[#00e87a] text-[#02180C] font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-98 transition-all cursor-pointer mt-2"
                     >
                       <Send className="w-4 h-4" />
-                      <span>Submit Lead &amp; Lock 20% Commission</span>
+                      <span>Send lead</span>
                     </button>
                   </form>
                 )}
@@ -445,9 +445,10 @@ export default function AffiliateModal({
                   </div>
                 ) : (
                   <form onSubmit={handlePartnerSubmit} className="space-y-4">
-                    <p className="text-xs text-slate-300">
-                      ফ্রিল্যান্সার, মার্কেটার, কনটেন্ট ক্রিয়েটর কিংবা যেকোনো প্রফেশনাল — আমাদের ক্লায়েন্ট রেফার করে আপনি প্রতি মাসে ৳২০,০০০ থেকে ৳১,০০,০০০+ পর্যন্ত আয় করতে পারেন।
-                    </p>
+                    <div className="flex items-center gap-2 text-xs text-slate-300">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#00FF87]" />
+                      Your referral code is created instantly after registration.
+                    </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
@@ -464,7 +465,7 @@ export default function AffiliateModal({
                       </div>
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          WhatsApp / Phone Number *
+                          WhatsApp *
                         </label>
                         <input
                           required
@@ -488,7 +489,7 @@ export default function AffiliateModal({
                       </div>
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Profession / Background
+                          Profession
                         </label>
                         <input
                           className={inp}
@@ -501,7 +502,7 @@ export default function AffiliateModal({
                       {/* Payout Method */}
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Payout Method (টাকা কীভাবে নিতে চান) *
+                          Payout method *
                         </label>
                         <select
                           className={inp}
@@ -518,7 +519,7 @@ export default function AffiliateModal({
                       {/* Payout Number */}
                       <div>
                         <label className="text-xs font-semibold text-slate-300 block mb-1">
-                          Payout Number / Account Info *
+                          Payout number *
                         </label>
                         <input
                           required
@@ -535,7 +536,7 @@ export default function AffiliateModal({
                       className="w-full py-3.5 rounded-xl bg-[#00FF87] hover:bg-[#00e87a] text-[#02180C] font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-98 transition-all cursor-pointer mt-2"
                     >
                       <UserCheck className="w-4 h-4" />
-                      <span>Register as Official Partner &amp; Get Referral Code</span>
+                      <span>Join &amp; get referral code</span>
                     </button>
                   </form>
                 )}
@@ -548,7 +549,7 @@ export default function AffiliateModal({
                 <div className="p-6 rounded-2xl bg-gradient-to-br from-white/[0.05] to-transparent border border-white/10 space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono uppercase text-slate-400 font-semibold">
-                      Client Project Budget
+                      Project budget
                     </span>
                     <span className="text-2xl font-extrabold text-white font-mono">
                       ৳{calcBudget.toLocaleString()}
@@ -566,23 +567,23 @@ export default function AffiliateModal({
                   />
 
                   <div className="flex justify-between text-[11px] font-mono text-slate-400">
-                    <span>Min: ৳20,000</span>
-                    <span>Mid: ৳1,00,000</span>
-                    <span>Max: ৳2,00,000+</span>
+                    <span>৳20k</span>
+                    <span>৳100k</span>
+                    <span>৳200k+</span>
                   </div>
                 </div>
 
                 {/* Big Reward Display */}
                 <div className="p-6 rounded-2xl bg-[#00FF87]/10 border border-[#00FF87]/30 text-center space-y-1">
                   <div className="text-xs font-mono uppercase text-emerald-300 font-bold tracking-wider">
-                    Your Instant 20% Cash Commission
+                    Your 20% reward
                   </div>
                   <div className="text-4xl sm:text-5xl font-black text-[#00FF87] font-mono tracking-tight">
                     ৳{calculatedReward.toLocaleString()}
                   </div>
                   <div className="text-xs text-slate-300 pt-2 flex items-center justify-center gap-1.5">
                     <Wallet className="w-3.5 h-3.5 text-[#00FF87]" />
-                    <span>প্রজেক্ট কনফার্মেশন ও ৫০% অ্যাডভান্স পে হলেই পুরো ২০% ট্রান্সফার!</span>
+                    <span>Paid after the project is confirmed.</span>
                   </div>
                 </div>
 
@@ -616,7 +617,7 @@ export default function AffiliateModal({
                     onClick={() => setActiveTab("lead")}
                     className="w-full py-3.5 rounded-xl bg-[#00FF87] hover:bg-[#00e87a] text-[#02180C] font-black text-sm flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                   >
-                    <span>I Have a Client — Submit Lead Now</span>
+                    <span>Send a lead</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -629,40 +630,40 @@ export default function AffiliateModal({
                 <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
                   <h5 className="text-sm font-bold text-white flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#00FF87]" />
-                    ১. কোন কোন প্রজেক্টে ২০% কমিশন দেওয়া হবে?
+                    ৳২০,০০০+ প্রজেক্টে ২০% কমিশন
                   </h5>
                   <p className="text-xs text-slate-300 leading-relaxed pl-6">
-                    ক্লায়েন্টের যেকোনো ব্র্যান্ডিং, লোগো ডিজাইন, প্যাকেজিং, মোশন/ভিডিও এডিটিং বা সোশ্যাল মিডিয়া সার্ভিসের টোটাল প্রজেক্ট ভ্যালু <strong>৳২০,০০০ বা তার বেশি</strong> হলেই আপনি ফ্ল্যাট ২০% ক্যাশ কমিশন পাবেন।
+                    ব্র্যান্ডিং, ডিজাইন, ভিডিও বা social media—যেকোনো eligible project হলেই।
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
                   <h5 className="text-sm font-bold text-white flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#00FF87]" />
-                    ২. কমিশন পাওয়ার প্রক্রিয়া কী?
+                    কখন পেমেন্ট পাবেন?
                   </h5>
                   <p className="text-xs text-slate-300 leading-relaxed pl-6">
-                    আপনি ক্লায়েন্টের ইনফো আমাদের সাবমিট করবেন অথবা ক্লায়েন্ট আপনার রেফারেল কোড জানাবে। আমাদের টিম ক্লায়েন্টের সাথে ডিল ফাইনাল করে ক্লায়েন্ট যখন ৫০% অ্যাডভান্স পে করবে, সাথে সাথেই আপনার নির্ধারিত কমিশন পাঠিয়ে দেওয়া হবে।
+                    ক্লায়েন্টের deal confirmed ও advance received হলেই আমরা payout করি।
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
                   <h5 className="text-sm font-bold text-white flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#00FF87]" />
-                    ৩. টাকা কীভাবে এবং কোন মাধ্যমে দেওয়া হয়?
+                    কোথায় payout হবে?
                   </h5>
                   <p className="text-xs text-slate-300 leading-relaxed pl-6">
-                    আপনার সুবিধামতো বিকাশ (bKash), নগদ (Nagad), রকেট বা যেকোনো ব্যাংক একাউন্টে ডিরেক্ট ট্রান্সফার করা হবে।
+                    bKash, Nagad, Rocket অথবা ব্যাংক account-এ।
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
                   <h5 className="text-sm font-bold text-white flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#00FF87]" />
-                    ৪. কোনো লিমিটেশন আছে কি?
+                    কোনো earning limit নেই
                   </h5>
                   <p className="text-xs text-slate-300 leading-relaxed pl-6">
-                    না! কোনো আর্নিং লিমিট নেই। আপনি যত খুশি ক্লায়েন্ট রেফার করতে পারবেন এবং প্রতি ক্লায়েন্টেই ফ্ল্যাট ২০% কমিশন পাবেন।
+                    যত client refer করবেন, প্রতিটি successful deal-এ ২০% পাবেন।
                   </p>
                 </div>
 
@@ -671,7 +672,7 @@ export default function AffiliateModal({
                     onClick={() => setActiveTab("partner")}
                     className="w-full py-3.5 rounded-xl bg-[#00FF87] hover:bg-[#00e87a] text-[#02180C] font-black text-sm flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>Register as Partner Now</span>
+                    <span>Join partner</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -698,7 +699,7 @@ function TabBtn({
   return (
     <button
       onClick={onClick}
-      className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 flex items-center gap-2 transition-all cursor-pointer ${
+      className={`flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-bold transition-all sm:w-auto ${
         active
           ? "bg-[#00FF87] text-[#02180C] shadow-md shadow-emerald-500/20"
           : "bg-white/5 text-slate-400 hover:text-white hover:bg-white/10"
