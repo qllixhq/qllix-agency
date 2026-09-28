@@ -1,0 +1,69 @@
+Created At: 2026-09-21T12:00:54+06:00
+Completed At: 2026-09-21T12:00:54+06:00
+File Path: `file:///c:/Users/sq/Documents/Codex/2026-08-23/tu/work/qllix-agency/components/NavbarFloatingDock.tsx`
+Total Lines: 243
+Total Bytes: 11466
+Showing lines 120 to 180
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+120:               </div>
+121: 
+122:               <div className="relative z-20 flex items-center justify-between text-[10px] text-slate-400 border-t border-white/10 pt-2 font-mono">
+123:                 <span>0:45 min</span>
+124:                 <span className="text-[#00FF87]">4K Ultra HD</span>
+125:               </div>
+126:             </div>
+127:           </div>
+128:         </div>
+129:       )}
+130: 
+131:       {/* 3. More Dropdown Menu */}
+132:       {moreOpen && (
+133:         <div className="fixed bottom-28 right-8 z-50 w-64 bg-[#03140A] border border-[#00FF87]/30 rounded-2xl p-4 shadow-2xl animate-in fade-in duration-200 text-xs">
+134:           <div className="space-y-1">
+135:             {[
+136:               { label: "Home", href: "/" },
+137:               { label: "Selected Projects", href: "/projects" },
+138:               { label: "Our Services", href: "/services" },
+139:               { label: "Pricing & Plans", href: "/pricing" },
+140:               { label: "About Us", href: "/about" },
+141:               { label: "Contact & Booking", href: "/contact" },
+142:             ].map((item, i) => (
+143:               <a
+144:                 key={i}
+145:                 href={item.href}
+146:                 onClick={() => setMoreOpen(false)}
+147:                 className="block px-3 py-2 rounded-xl text-slate-300 hover:text-[#00FF87] hover:bg-white/10 transition-colors font-medium"
+148:               >
+149:                 {item.label}
+150:               </a>
+151:             ))}
+152:           </div>
+153:         </div>
+154:       )}
+155: 
+156:       {/* 4. Main Floating Dock (Exact Match to User Reference Screenshot) */}
+157:       <div className="fixed bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-auto max-w-[96vw] animate-in fade-in slide-in-from-bottom-4 duration-500">
+158:         <nav className="rounded-[14px] px-3 sm:px-5 py-1.5 sm:py-2 flex items-center gap-2 sm:gap-5 text-xs sm:text-sm shadow-[0_16px_45px_rgba(0,0,0,0.95)] border border-white/[0.08] border-t-[#00FF87]/30 backdrop-blur-2xl bg-[#08080C]/95">
+159:           
+160:           {/* Projects Link */}
+161:           <a
+162:             href="/projects"
+163:             className="text-white/90 hover:text-white font-medium text-[13px] sm:text-[14px] px-2 sm:px-3 py-1.5 transition-colors tracking-tight"
+164:           >
+165:             Projects
+166:           </a>
+167: 
+168:           {/* Services Link with Dropdown */}
+169:           <button
+170:             onClick={() => {
+171:               setMoreOpen(false);
+172:               setServicesOpen(!servicesOpen);
+173:             }}
+174:             className={`font-medium text-[13px] sm:text-[14px] px-2 sm:px-3 py-1.5 transition-colors cursor-pointer tracking-tight ${
+175:               servicesOpen ? "text-[#00FF87]" : "text-white/90 hover:text-[#00FF87]"
+176:             }`}
+177:           >
+178:             Services
+179:           </button>
+180: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

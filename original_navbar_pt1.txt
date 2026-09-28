@@ -1,0 +1,68 @@
+Created At: 2026-09-21T12:00:46+06:00
+Completed At: 2026-09-21T12:00:46+06:00
+File Path: `file:///c:/Users/sq/Documents/Codex/2026-08-23/tu/work/qllix-agency/components/NavbarFloatingDock.tsx`
+Total Lines: 243
+Total Bytes: 11466
+Showing lines 1 to 60
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: "use client";
+2: 
+3: import React, { useState, useEffect } from "react";
+4: import { 
+5:   FolderKanban, 
+6:   Layers, 
+7:   Sparkles, 
+8:   BadgeDollarSign, 
+9:   Star, 
+10:   MessageSquare, 
+11:   ChevronUp, 
+12:   ArrowUpRight,
+13:   Palette,
+14:   Layout,
+15:   TrendingUp,
+16:   X,
+17:   Play,
+18:   VolumeX,
+19:   ArrowRight,
+20: } from "lucide-react";
+21: 
+22: interface NavbarFloatingDockProps {
+23:   onOpenBooking: (serviceId?: string) => void;
+24: }
+25: 
+26: export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDockProps) {
+27:   const [servicesOpen, setServicesOpen] = useState(false);
+28:   const [moreOpen, setMoreOpen] = useState(false);
+29:   const [showBackToTop, setShowBackToTop] = useState(false);
+30: 
+31:   useEffect(() => {
+32:     const handleScroll = () => {
+33:       if (window.scrollY > 400) {
+34:         setShowBackToTop(true);
+35:       } else {
+36:         setShowBackToTop(false);
+37:       }
+38:     };
+39:     window.addEventListener("scroll", handleScroll);
+40:     return () => window.removeEventListener("scroll", handleScroll);
+41:   }, []);
+42: 
+43:   const scrollToTop = () => {
+44:     window.scrollTo({ top: 0, behavior: "smooth" });
+45:   };
+46: 
+47:   return (
+48:     <>
+49:       {/* 1. Backdrop Overlay */}
+50:       {(servicesOpen || moreOpen) && (
+51:         <div 
+52:           className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity"
+53:           onClick={() => {
+54:             setServicesOpen(false);
+55:             setMoreOpen(false);
+56:           }}
+57:         />
+58:       )}
+59: 
+60:       {/* 2. Services Mega Menu */}
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
