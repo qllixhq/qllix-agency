@@ -194,7 +194,7 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
           {/* DESKTOP ONLY: Center "Let's Talk →" Button */}
           <a
             href="/contact"
-            className="hidden md:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
+            className="hidden lg:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
             title="Contact & Booking"
           >
             {activeTab === "contact" && <ActiveDockStroke isCta={true} rounded="rounded-[12px]" />}
