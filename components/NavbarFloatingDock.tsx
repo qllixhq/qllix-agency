@@ -163,28 +163,6 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
             <span className="relative z-10 text-[10px] md:text-[15.5px] font-semibold leading-none md:leading-normal">Services</span>
           </a>
 
-          {/* MOBILE / TABLET: Center contact button */}
-          <button
-            type="button"
-            onClick={() => setContactMenuOpen(!contactMenuOpen)}
-            className="hidden lg:hidden relative w-11 h-11 rounded-full items-center justify-center shadow-[0_4px_22px_rgba(0,255,135,0.5)] active:scale-95 transition-all cursor-pointer shrink-0 mx-1"
-            aria-label="Toggle Direct Contact Menu"
-            title="Direct Contact & Booking"
-          >
-            {!contactMenuOpen && (
-              <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#00FF87] border-2 border-[#08080C] shadow-[0_0_8px_#00FF87]">
-                <span className="absolute inset-0 rounded-full bg-[#00FF87] animate-ping opacity-75" />
-              </span>
-            )}
-            <div className="relative w-5 h-5 flex items-center justify-center">
-              {contactMenuOpen ? (
-                <X className="w-5 h-5 stroke-[2.5]" />
-              ) : (
-                <MessageCircle className="w-5 h-5 stroke-[2.4] fill-white/20" />
-              )}
-            </div>
-          </button>
-
           <a
             href="https://tidycal.com/qllix/next-step-together"
             target="_blank"
@@ -261,7 +239,7 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
 
       {/* MOBILE POPUP: Pure Borderless Smart CTA Icons */}
       {contactMenuOpen && (
-        <div className="md:hidden fixed bottom-[78px] left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200 px-3 w-max">
+        <div className="md:hidden fixed bottom-[78px] left-1/2 -translate-x-1/2 z-50 flex flex-row items-center justify-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200 px-3 w-max">
           {/* 1. Book a Call (TidyCal) */}
           <a
             href="https://tidycal.com/qllix/next-step-together"
