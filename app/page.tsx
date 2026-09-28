@@ -90,7 +90,7 @@ export default function HomePage() {
         <FAQSection />
 
         {/* 10. Final CTA */}
-        <CTASection onOpenBooking={() => handleOpenOrder()} />
+        <CTASection />
       </div>
 
       {/* 11. Footer */}

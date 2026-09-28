@@ -3,11 +3,7 @@
 import React from "react";
 import { Sparkles, ArrowRight, Calendar } from "lucide-react";
 
-interface CTASectionProps {
-  onOpenBooking: () => void;
-}
-
-export default function CTASection({ onOpenBooking }: CTASectionProps) {
+export default function CTASection() {
   return (
     <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
@@ -27,14 +23,16 @@ export default function CTASection({ onOpenBooking }: CTASectionProps) {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={onOpenBooking}
+            <a
+              href="https://tidycal.com/qllix/next-step-together"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-extrabold text-base hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 group cursor-pointer active:scale-98"
             >
               <Calendar className="w-5 h-5" />
               <span>Book Free Discovery Call</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
-            </button>
+            </a>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 font-mono">

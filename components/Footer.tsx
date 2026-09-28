@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { ArrowUpRight, ArrowRight, Check, Sparkles, Send, Calculator, DollarSign, Wallet } from "lucide-react";
+import { ArrowUp, ArrowUpRight, ArrowRight, Check, Sparkles, Send, Calculator, DollarSign, Wallet } from "lucide-react";
 import { useCms } from "@/context/CmsContext";
 import { triggerSecretAdminModal } from "@/components/SecretAdminModal";
 import AffiliateModal from "@/components/AffiliateModal";
@@ -20,6 +20,7 @@ export default function Footer({ onOpenBooking }: FooterProps) {
   // Affiliate Modal State
   const [isAffiliateOpen, setIsAffiliateOpen] = useState(false);
   const [affiliateTab, setAffiliateTab] = useState<"lead" | "partner" | "calculator" | "rules">("partner");
+  const orbitImages = cmsData.footerOrbitImages || [];
 
   const openAffiliate = (tab: "lead" | "partner" | "calculator" | "rules" = "partner") => {
     setAffiliateTab(tab);
@@ -50,6 +51,10 @@ export default function Footer({ onOpenBooking }: FooterProps) {
     setTimeout(() => {
       setNewsletterEmail("");
     }, 2500);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -173,64 +178,52 @@ export default function Footer({ onOpenBooking }: FooterProps) {
               {/* ─── Orbit Ring 1 (Inner, 160px diameter) - Clockwise 45s ─── */}
               <div className="absolute w-[160px] h-[160px] rounded-full border border-dashed border-white/25 pointer-events-none animate-orbit-medium">
                 {/* Avatar 1: Bottom-Left on Ring 1 */}
-                <div className="absolute bottom-2 left-3 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-emerald-400/80 shadow-[0_0_12px_rgba(0,255,135,0.5)] overflow-hidden">
-                  <img 
-                    src="/images/team/arsin-mahmud.png" 
-                    alt="Network Member" 
-                    className="w-full h-full object-cover rounded-full animate-counter-medium"
-                  />
-                </div>
+                {orbitImages[0] && (
+                  <div className="absolute bottom-2 left-3 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-emerald-400/80 shadow-[0_0_12px_rgba(0,255,135,0.5)] overflow-hidden">
+                    <img src={orbitImages[0]} alt="Qllix network member" className="w-full h-full object-cover rounded-full animate-counter-medium" />
+                  </div>
+                )}
               </div>
 
               {/* ─── Orbit Ring 2 (Middle, 260px diameter) - Counter-Clockwise 80s ─── */}
               <div className="absolute w-[260px] h-[260px] rounded-full border border-dashed border-white/18 pointer-events-none animate-orbit-slow-reverse">
                 {/* Avatar 2: Top-Right on Ring 2 */}
-                <div className="absolute top-4 right-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-sky-400/80 shadow-[0_0_12px_rgba(56,189,248,0.5)] overflow-hidden">
-                  <img 
-                    src="/images/team/mehedi-hassan-emon.png" 
-                    alt="Network Member" 
-                    className="w-full h-full object-cover rounded-full animate-counter-slow-reverse"
-                  />
-                </div>
+                {orbitImages[1] && (
+                  <div className="absolute top-4 right-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-sky-400/80 shadow-[0_0_12px_rgba(56,189,248,0.5)] overflow-hidden">
+                    <img src={orbitImages[1]} alt="Qllix network member" className="w-full h-full object-cover rounded-full animate-counter-slow-reverse" />
+                  </div>
+                )}
 
                 {/* Avatar 3: Bottom-Right on Ring 2 */}
-                <div className="absolute bottom-6 right-6 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-emerald-400/80 shadow-[0_0_12px_rgba(0,255,135,0.5)] overflow-hidden">
-                  <img 
-                    src="/images/team/md-arafat-rahman.png" 
-                    alt="Network Member" 
-                    className="w-full h-full object-cover rounded-full animate-counter-slow-reverse"
-                  />
-                </div>
+                {orbitImages[2] && (
+                  <div className="absolute bottom-6 right-6 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-emerald-400/80 shadow-[0_0_12px_rgba(0,255,135,0.5)] overflow-hidden">
+                    <img src={orbitImages[2]} alt="Qllix network member" className="w-full h-full object-cover rounded-full animate-counter-slow-reverse" />
+                  </div>
+                )}
               </div>
 
               {/* ─── Orbit Ring 3 (Outer, 370px diameter) - Clockwise 65s ─── */}
               <div className="absolute w-[370px] h-[370px] rounded-full border border-dashed border-white/12 pointer-events-none animate-orbit-slow">
                 {/* Avatar 4: Top-Left on Ring 3 */}
-                <div className="absolute top-6 left-12 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-amber-400/80 shadow-[0_0_12px_rgba(251,191,36,0.5)] overflow-hidden">
-                  <img 
-                    src="/images/team/bitto.png" 
-                    alt="Network Member" 
-                    className="w-full h-full object-cover rounded-full animate-counter-slow"
-                  />
-                </div>
+                {orbitImages[3] && (
+                  <div className="absolute top-6 left-12 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-amber-400/80 shadow-[0_0_12px_rgba(251,191,36,0.5)] overflow-hidden">
+                    <img src={orbitImages[3]} alt="Qllix network member" className="w-full h-full object-cover rounded-full animate-counter-slow" />
+                  </div>
+                )}
 
                 {/* Avatar 5: Right on Ring 3 */}
-                <div className="absolute top-1/2 -right-4 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-purple-400/80 shadow-[0_0_12px_rgba(168,85,247,0.5)] overflow-hidden">
-                  <img 
-                    src="/images/team/md-ashiquer-rahman.png" 
-                    alt="Network Member" 
-                    className="w-full h-full object-cover rounded-full animate-counter-slow"
-                  />
-                </div>
+                {orbitImages[4] && (
+                  <div className="absolute top-1/2 -right-4 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-purple-400/80 shadow-[0_0_12px_rgba(168,85,247,0.5)] overflow-hidden">
+                    <img src={orbitImages[4]} alt="Qllix network member" className="w-full h-full object-cover rounded-full animate-counter-slow" />
+                  </div>
+                )}
 
                 {/* Avatar 6: Bottom on Ring 3 */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-emerald-400/80 shadow-[0_0_12px_rgba(0,255,135,0.5)] overflow-hidden">
-                  <img 
-                    src="/images/team/mustak-sahariar-miraj.png" 
-                    alt="Network Member" 
-                    className="w-full h-full object-cover rounded-full animate-counter-slow"
-                  />
-                </div>
+                {orbitImages[5] && (
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[2px] bg-[#0A0E18] border border-emerald-400/80 shadow-[0_0_12px_rgba(0,255,135,0.5)] overflow-hidden">
+                    <img src={orbitImages[5]} alt="Qllix network member" className="w-full h-full object-cover rounded-full animate-counter-slow" />
+                  </div>
+                )}
               </div>
 
             </div>
@@ -386,7 +379,7 @@ export default function Footer({ onOpenBooking }: FooterProps) {
           </div>
 
           <div className="flex items-center gap-4 text-[11px]">
-            <span className="text-slate-400">Crafted with modern Framer aesthetics</span>
+            <span className="text-slate-400">Branding, design &amp; digital growth by Qllix</span>
             <div className="flex items-center gap-2.5 pl-2 text-slate-400">
               <a href="https://dribbble.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors" title="Dribbble">
                 <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
@@ -405,6 +398,15 @@ export default function Footer({ onOpenBooking }: FooterProps) {
               </a>
             </div>
           </div>
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-semibold text-slate-300 transition hover:border-[#00FF87]/50 hover:text-[#00FF87]"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp className="h-3.5 w-3.5" />
+            Top
+          </button>
         </div>
 
       </div>

@@ -101,6 +101,9 @@ interface CmsContextType {
   updateTeamMember: (id: string, partial: Partial<TeamMember>) => void;
   deleteTeamMember: (id: string) => void;
 
+  // Footer orbit images
+  updateFooterOrbitImages: (images: string[]) => void;
+
   // Campaigns & Offer Ads
   addCampaign: (campaign: CampaignOffer) => void;
   updateCampaign: (id: string, partial: Partial<CampaignOffer>) => void;
@@ -158,6 +161,10 @@ function normalizeCmsData(parsed: Partial<CmsData> | any): CmsData {
     Array.isArray(parsed.teamMembers) && parsed.teamMembers.length > 0
       ? parsed.teamMembers
       : DEFAULT_CMS_DATA.teamMembers;
+
+  const existingFooterOrbitImages = Array.isArray(parsed.footerOrbitImages)
+    ? parsed.footerOrbitImages.filter((image: unknown) => typeof image === "string" && image.trim())
+    : DEFAULT_CMS_DATA.footerOrbitImages;
 
   const existingPortfolio =
     Array.isArray(parsed.portfolioItems) && parsed.portfolioItems.length > 0
@@ -237,6 +244,7 @@ function normalizeCmsData(parsed: Partial<CmsData> | any): CmsData {
     agencyFaqs: existingFaqs,
     homeSections: existingHomeSections,
     teamMembers: existingTeam,
+    footerOrbitImages: existingFooterOrbitImages,
     campaigns: existingCampaigns,
     affiliateConfig: existingAffiliateConfig,
     affiliatePartners: Array.isArray(parsed.affiliatePartners)
@@ -744,6 +752,15 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  // ── Footer Orbit Images ───────────────────────────────────
+
+  const updateFooterOrbitImages = (images: string[]) => {
+    saveState({
+      ...cmsData,
+      footerOrbitImages: images,
+    });
+  };
+
   // ── Campaigns & Offer Ads ─────────────────────────────────
 
   const addCampaign = (campaign: CampaignOffer) => {
@@ -898,6 +915,7 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
         addTeamMember,
         updateTeamMember,
         deleteTeamMember,
+        updateFooterOrbitImages,
         addCampaign,
         updateCampaign,
         deleteCampaign,

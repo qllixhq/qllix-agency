@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Wrench, Package, ShoppingBag,
   Layers, Star, HelpCircle, Home, Settings, X,
-  ChevronRight, Inbox, Users, Megaphone, Sparkles, DollarSign, Wand2, MessageSquare,
+  ChevronRight, Inbox, Users, Megaphone, Sparkles, DollarSign, Wand2, MessageSquare, Images,
 } from "lucide-react";
 import { useAdminTheme } from "@/context/AdminThemeContext";
 
@@ -15,6 +15,7 @@ const NAV_ITEMS = [
   { href: "/admin/campaigns", label: "Campaigns & Offers", icon: Megaphone },
   { href: "/admin/brand-kit", label: "Brand Kit Generator", icon: Wand2 },
   { href: "/admin/affiliates", label: "Affiliates & 20% Referrals", icon: DollarSign },
+  { href: "/admin/footer-orbit", label: "Footer Orbit Images", icon: Images },
   { href: "/admin/showcase", label: "Hero Showcase", icon: Sparkles },
   { href: "/admin/services", label: "Services & Packages", icon: Wrench },
   { href: "/admin/orders", label: "Orders", icon: ShoppingBag },

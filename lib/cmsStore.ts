@@ -334,6 +334,7 @@ export interface CmsData {
   agencyFaqs: AgencyFAQ[];
   homeSections: HomeSectionConfig[];
   teamMembers: TeamMember[];
+  footerOrbitImages: string[];
   campaigns: CampaignOffer[];
   affiliateConfig?: AffiliateProgramConfig;
   affiliatePartners?: AffiliatePartner[];
@@ -1999,6 +2000,14 @@ export const DEFAULT_CMS_DATA: CmsData = {
   agencyFaqs: DEFAULT_FAQS,
   homeSections: DEFAULT_HOME_SECTIONS,
   teamMembers: DEFAULT_TEAM_MEMBERS,
+  footerOrbitImages: [
+    "/images/team/arsin-mahmud.png",
+    "/images/team/mehedi-hassan-emon.png",
+    "/images/team/md-arafat-rahman.png",
+    "/images/team/bitto.png",
+    "/images/team/md-ashiquer-rahman.png",
+    "/images/team/mustak-sahariar-miraj.png",
+  ],
   campaigns: DEFAULT_CAMPAIGNS,
   affiliateConfig: {
     enabled: true,
