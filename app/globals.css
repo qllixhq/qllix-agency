@@ -325,7 +325,6 @@
 /* ═══ Floating Dock "Let's Talk" CTA Button with Fill Color & Animated Glow Border ═══ */
 .dock-cta-animated {
   position: relative;
-  display: inline-flex;
   align-items: center;
   gap: 6px;
   border-radius: 12px;

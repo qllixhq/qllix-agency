@@ -180,7 +180,7 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
           <button
             type="button"
             onClick={() => setContactMenuOpen((isOpen) => !isOpen)}
-            className="md:hidden relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
+            className="flex md:hidden relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
             aria-expanded={contactMenuOpen}
             aria-controls="mobile-contact-options"
           >
