@@ -302,13 +302,16 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
   // Function to pull live content from server
   const refreshLiveContent = useCallback(async () => {
     try {
-      const res = await fetch(`/api/admin/content?t=${Date.now()}`, {
-        cache: "no-store",
-        headers: {
-          "Cache-Control": "no-cache",
-          Pragma: "no-cache",
-        },
-      });
+      const isAdminRoute = window.location.pathname.startsWith("/admin");
+      const res = await fetch(
+        isAdminRoute ? `/api/admin/content?t=${Date.now()}` : "/api/content",
+        isAdminRoute
+          ? {
+              cache: "no-store",
+              headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+            }
+          : { cache: "force-cache" },
+      );
 
       if (!res.ok) return;
 
@@ -345,17 +348,28 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
         localStorage.removeItem("qllix_cms_v4");
       } catch {}
 
-      const stored = localStorage.getItem(CMS_STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        setCmsData(normalizeCmsData(parsed));
+      const isAdminRoute = window.location.pathname.startsWith("/admin");
+      if (isAdminRoute) {
+        const stored = localStorage.getItem(CMS_STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          setCmsData(normalizeCmsData(parsed));
+        }
       }
     } catch (e) {
       console.warn("CMS localStorage load error:", e);
     }
 
-    // Immediately fetch live from Vercel / server
-    refreshLiveContent().finally(() => setIsLoaded(true));
+    // Public visitors render immediately from deployed content. Browser-local
+    // drafts remain available to the admin only, preventing a stale-data flash.
+    const isAdminRoute = window.location.pathname.startsWith("/admin");
+    let syncTimer: number | undefined;
+    if (isAdminRoute) {
+      refreshLiveContent().finally(() => setIsLoaded(true));
+    } else {
+      setIsLoaded(true);
+      syncTimer = window.setTimeout(() => void refreshLiveContent(), 1500);
+    }
 
     // Re-check live updates when user focuses tab
     const handleFocus = () => {
@@ -371,6 +385,7 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       window.removeEventListener("focus", handleFocus);
+      if (syncTimer) window.clearTimeout(syncTimer);
     };
   }, [refreshLiveContent]);
 
