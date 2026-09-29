@@ -10,6 +10,10 @@ export function toPublicCmsData(data: CmsData) {
     general,
     ...publicData
   } = data;
-  const { adminPasscode: _adminPasscode, ...publicGeneral } = general;
+  const {
+    adminPasscode: _adminPasscode,
+    adminPasscodeHash: _adminPasscodeHash,
+    ...publicGeneral
+  } = general;
   return { ...publicData, general: publicGeneral };
 }
