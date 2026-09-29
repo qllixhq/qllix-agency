@@ -165,7 +165,7 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
 
           <a
             href="/contact"
-            className="hidden lg:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
+            className="hidden md:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
             title="Contact & Booking"
           >
             {activeTab === "contact" && <ActiveDockStroke isCta={true} rounded="rounded-[12px]" />}
@@ -176,6 +176,16 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
             </svg>
           </a>
 
+          {/* Mobile CTA: show contact methods only after the user requests them. */}
+          <button
+            type="button"
+            onClick={() => setContactMenuOpen((isOpen) => !isOpen)}
+            className="md:hidden relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
+            aria-expanded={contactMenuOpen}
+            aria-controls="mobile-contact-options"
+          >
+            <span className="relative z-10 font-extrabold tracking-tight text-[#02180C] text-[12px] whitespace-nowrap">Let&apos;s Talk</span>
+          </button>
           {/* Pricing Link */}
           <a
             href="/pricing"
@@ -224,7 +234,7 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
 
       {/* MOBILE POPUP: Pure Borderless Smart CTA Icons */}
       {contactMenuOpen && (
-        <div className="md:hidden fixed bottom-[76px] left-1/2 -translate-x-1/2 z-50 flex flex-row items-center justify-center gap-2.5 rounded-full border border-white/10 bg-[#0b1014]/90 px-2.5 py-2 shadow-[0_10px_28px_rgba(0,0,0,0.4)] backdrop-blur-sm animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div id="mobile-contact-options" className="md:hidden fixed bottom-[76px] left-1/2 -translate-x-1/2 z-50 flex flex-row items-center justify-center gap-2.5 rounded-full border border-white/10 bg-[#0b1014]/90 px-2.5 py-2 shadow-[0_10px_28px_rgba(0,0,0,0.4)] backdrop-blur-sm animate-in fade-in slide-in-from-bottom-3 duration-200">
           {/* 1. Book a Call (TidyCal) */}
           <a
             href="https://tidycal.com/qllix/next-step-together"
@@ -322,33 +332,18 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
         </div>
       )}
 
-      {/* Main Floating Action Button (DESKTOP ONLY - On mobile it is located in the center of the dock) */}
-      <button
-        onClick={() => setContactMenuOpen(!contactMenuOpen)}
-        className={`fixed bottom-5 sm:bottom-7 right-5 sm:right-7 z-50 w-13 h-13 sm:w-14 sm:h-14 rounded-full items-center justify-center shadow-[0_10px_35px_rgba(0,200,83,0.45)] hover:scale-108 active:scale-95 transition-all cursor-pointer group md:hidden ${
-          contactMenuOpen 
-            ? "bg-slate-900 text-white shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
-            : "bg-gradient-to-tr from-[#00A859] via-[#00C853] to-[#00FF87] text-[#02180C]"
-        }`}
-        aria-label="Toggle Direct Contact Menu"
-        title="Contact Qllix"
+      {/* Keep the original desktop floating CTA. Mobile uses the dock CTA above. */}
+      <a
+        href="/contact"
+        className="hidden md:flex fixed bottom-5 sm:bottom-7 right-5 sm:right-7 z-50 w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-[#00A859] via-[#00C853] to-[#00FF87] text-[#02180C] items-center justify-center shadow-[0_10px_35px_rgba(0,200,83,0.45)] hover:scale-108 active:scale-95 transition-all cursor-pointer group"
+        aria-label="Contact Qllix"
+        title="Let's Talk"
       >
-        {/* Live Green Online Beacon Dot with Pulse (only when closed) */}
-        {!contactMenuOpen && (
-          <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#00FF87] border-2 border-white shadow-[0_0_10px_#00FF87]">
-            <span className="absolute inset-0 rounded-full bg-[#00FF87] animate-ping opacity-75" />
-          </span>
-        )}
-        
-        {/* Dynamic Icon */}
-        <div className="relative w-6 h-6 flex items-center justify-center">
-          {contactMenuOpen ? (
-            <X className="w-6 h-6 stroke-[2.5]" />
-          ) : (
-            <MessageCircle className="w-6 h-6 stroke-[2.4] fill-white/20" />
-          )}
-        </div>
-      </button>
+        <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#00FF87] border-2 border-[#02180C] shadow-[0_0_10px_#00FF87]">
+          <span className="absolute inset-0 rounded-full bg-[#00FF87] animate-ping opacity-75" />
+        </span>
+        <MessageCircle className="w-6 h-6 stroke-[2.4] fill-white/20" />
+      </a>
     </>
   );
 }
