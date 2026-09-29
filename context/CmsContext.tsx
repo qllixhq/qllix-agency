@@ -363,12 +363,11 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
     // Public visitors render immediately from deployed content. Browser-local
     // drafts remain available to the admin only, preventing a stale-data flash.
     const isAdminRoute = window.location.pathname.startsWith("/admin");
-    let syncTimer: number | undefined;
     if (isAdminRoute) {
       refreshLiveContent().finally(() => setIsLoaded(true));
     } else {
       setIsLoaded(true);
-      syncTimer = window.setTimeout(() => void refreshLiveContent(), 1500);
+      void refreshLiveContent();
     }
 
     // Re-check live updates when user focuses tab
@@ -385,7 +384,6 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       window.removeEventListener("focus", handleFocus);
-      if (syncTimer) window.clearTimeout(syncTimer);
     };
   }, [refreshLiveContent]);
 
