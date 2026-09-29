@@ -1,6 +1,7 @@
-﻿import { CmsData, DEFAULT_CMS_DATA } from "./cmsStore";
+import { CmsData, DEFAULT_CMS_DATA } from "./cmsStore";
 import fs from "fs";
 import path from "path";
+import { isBlobCmsConfigured, loadCmsFromBlob, saveCmsToBlob } from "./blobCmsStorage";
 
 // In-memory cache across serverless warm invocations
 declare global {
@@ -13,7 +14,7 @@ declare global {
 const STORAGE_KEY = "qllix_agency_cms_v5";
 
 export interface StorageInfo {
-  provider: "upstash_redis" | "vercel_kv" | "supabase" | "local_filesystem" | "in_memory";
+  provider: "vercel_blob" | "upstash_redis" | "vercel_kv" | "supabase" | "local_filesystem" | "in_memory";
   isCloudConnected: boolean;
   statusMessage: string;
   lastSyncedAt?: string;
@@ -27,6 +28,10 @@ export function detectStorageProvider(): {
   isCloudConnected: boolean;
   config: Record<string, string>;
 } {
+  // Vercel Blob stores both the compact CMS document and its image assets.
+  if (isBlobCmsConfigured()) {
+    return { provider: "vercel_blob", isCloudConnected: true, config: {} };
+  }
   // 1. Check Vercel KV / Upstash Redis
   const kvUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
   const kvToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -69,6 +74,17 @@ export async function getStoredCmsData(): Promise<{
 }> {
   const { provider, isCloudConnected, config } = detectStorageProvider();
 
+  if (provider === "vercel_blob") {
+    try {
+      const data = await loadCmsFromBlob();
+      if (data) {
+        globalThis.__qllix_cms_cache = data;
+        return { data, storage: { provider, isCloudConnected: true, statusMessage: "Live cloud synced via Vercel Blob", lastSyncedAt: globalThis.__qllix_last_sync } };
+      }
+    } catch (err) {
+      console.warn("[CloudStorage] Blob read error:", err);
+    }
+  }
   // Try Provider 1: Vercel KV / Upstash Redis
   if (provider === "vercel_kv" || provider === "upstash_redis") {
     try {
@@ -215,6 +231,16 @@ export async function saveStoredCmsData(newData: CmsData): Promise<{
   let savedToCloud = false;
   let saveErrorMessage = "";
 
+  if (provider === "vercel_blob") {
+    try {
+      const compactData = await saveCmsToBlob(newData);
+      globalThis.__qllix_cms_cache = compactData;
+      savedToCloud = true;
+    } catch (err: any) {
+      saveErrorMessage = err?.message || "Failed to write to Vercel Blob";
+      console.warn("[CloudStorage] Blob write error:", err);
+    }
+  }
   // 1. Upstash Redis / Vercel KV
   if (provider === "vercel_kv" || provider === "upstash_redis") {
     try {
@@ -308,7 +334,7 @@ export async function saveStoredCmsData(newData: CmsData): Promise<{
       provider,
       isCloudConnected,
       statusMessage: isCloudConnected
-        ? `Live saved to ${provider === "supabase" ? "Supabase" : "Vercel KV"}`
+        ? `Live saved to ${provider === "supabase" ? "Supabase" : provider === "vercel_blob" ? "Vercel Blob" : "Vercel KV"}`
         : "Saved locally & to memory",
       lastSyncedAt: timestamp,
     },

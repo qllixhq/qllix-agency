@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { saveUploadToBlob } from "@/lib/blobCmsStorage";
 
 export const dynamic = "force-dynamic";
 
@@ -63,6 +64,13 @@ export async function POST(request: Request) {
     }
 
     const fullFileName = `${filename}.${extension}`;
+    const mime = extension === "png" ? "image/png" : extension === "webp" ? "image/webp" : "image/jpeg";
+
+    // Vercel Blob keeps uploaded images persistent and prevents base64 CMS bloat.
+    const blob = await saveUploadToBlob(buffer, fullFileName, mime);
+    if (blob) {
+      return NextResponse.json({ success: true, url: blob.url, message: "Image saved securely to cloud storage" });
+    }
 
     // A. Local / Node.js filesystem write
     try {
