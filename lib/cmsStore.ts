@@ -49,12 +49,6 @@ export interface InquiryLead {
   status: "new" | "reviewing" | "contacted" | "closed";
 }
 
-export interface OfficeLocation {
-  country: string;
-  address: string;
-  phone: string;
-}
-
 export interface SiteGeneralConfig {
   agencyName: string;
   tagline: string;
@@ -83,7 +77,6 @@ export interface SiteGeneralConfig {
     youtube?: string;
     whatsapp?: string;
   };
-  offices: OfficeLocation[];
 }
 
 export interface CampaignOffer {
@@ -1917,9 +1910,6 @@ export const DEFAULT_CMS_DATA: CmsData = {
       youtube: "https://youtube.com/@qllix",
       whatsapp: "+8801XXXXXXXXX",
     },
-    offices: [
-      { country: "Bangladesh", address: "Dhaka, Bangladesh", phone: "+880 1XXX-XXXXXX" },
-    ],
   },
   banners: {
     home: {

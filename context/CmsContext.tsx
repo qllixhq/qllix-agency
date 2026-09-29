@@ -221,17 +221,20 @@ function normalizeCmsData(parsed: Partial<CmsData> | any): CmsData {
       parsed.affiliateConfig?.payoutTerms ?? DEFAULT_CMS_DATA.affiliateConfig!.payoutTerms,
   };
 
+  const existingGeneral = {
+    ...DEFAULT_CMS_DATA.general,
+    ...(parsed.general || {}),
+    socialLinks: {
+      ...DEFAULT_CMS_DATA.general.socialLinks,
+      ...(parsed.general?.socialLinks || {}),
+    },
+  };
+  delete (existingGeneral as any).offices;
+
   return {
     ...DEFAULT_CMS_DATA,
     ...parsed,
-    general: {
-      ...DEFAULT_CMS_DATA.general,
-      ...(parsed.general || {}),
-      socialLinks: {
-        ...DEFAULT_CMS_DATA.general.socialLinks,
-        ...(parsed.general?.socialLinks || {}),
-      },
-    },
+    general: existingGeneral,
     banners: { ...DEFAULT_CMS_DATA.banners, ...(parsed.banners || {}) },
     contactPage: {
       ...DEFAULT_CMS_DATA.contactPage,
@@ -349,12 +352,10 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       }
     } catch (e) {
       console.warn("CMS localStorage load error:", e);
-    } finally {
-      setIsLoaded(true);
     }
 
     // Immediately fetch live from Vercel / server
-    refreshLiveContent();
+    refreshLiveContent().finally(() => setIsLoaded(true));
 
     // Re-check live updates when user focuses tab
     const handleFocus = () => {
