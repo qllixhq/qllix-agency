@@ -114,7 +114,7 @@ export default function AdminAffiliatesPage() {
           <div className="p-5 rounded-2xl bg-[#0A0F14] border border-white/10 space-y-1">
             <div className="text-xs font-mono text-slate-400">Total Partners</div>
             <div className="text-2xl font-black text-white">{partners.length}</div>
-            <div className="text-[11px] text-emerald-400 font-mono">Active affiliates</div>
+            <div className="text-[11px] text-sky-400 font-mono">Active affiliates</div>
           </div>
           <div className="p-5 rounded-2xl bg-[#0A0F14] border border-white/10 space-y-1">
             <div className="text-xs font-mono text-slate-400">Client Leads</div>
@@ -123,12 +123,12 @@ export default function AdminAffiliatesPage() {
           </div>
           <div className="p-5 rounded-2xl bg-[#0A0F14] border border-white/10 space-y-1">
             <div className="text-xs font-mono text-slate-400">Deals Closed</div>
-            <div className="text-2xl font-black text-emerald-400">{dealsClosed}</div>
+            <div className="text-2xl font-black text-sky-400">{dealsClosed}</div>
             <div className="text-[11px] text-slate-400 font-mono">Projects confirmed</div>
           </div>
-          <div className="p-5 rounded-2xl bg-[#0A0F14] border border-emerald-500/30 bg-emerald-950/10 space-y-1">
-            <div className="text-xs font-mono text-[#00FF87]">Commissions Paid (20%)</div>
-            <div className="text-2xl font-black text-[#00FF87] font-mono">৳{totalPaidCommission.toLocaleString()}</div>
+          <div className="p-5 rounded-2xl bg-[#0A0F14] border border-sky-500/30 bg-sky-950/10 space-y-1">
+            <div className="text-xs font-mono text-[#60A5FA]">Commissions Paid (20%)</div>
+            <div className="text-2xl font-black text-[#60A5FA] font-mono">৳{totalPaidCommission.toLocaleString()}</div>
             <div className="text-[11px] text-slate-300 font-mono">Instant bKash/Bank</div>
           </div>
         </div>
@@ -140,7 +140,7 @@ export default function AdminAffiliatesPage() {
               onClick={() => setActiveTab("leads")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 activeTab === "leads"
-                  ? "bg-[#00FF87] text-[#02180C] shadow-md shadow-emerald-500/20"
+                  ? "bg-[#60A5FA] text-[#0F172A] shadow-md shadow-sky-500/20"
                   : "bg-white/5 text-slate-400 hover:text-white"
               }`}
             >
@@ -150,7 +150,7 @@ export default function AdminAffiliatesPage() {
               onClick={() => setActiveTab("partners")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 activeTab === "partners"
-                  ? "bg-[#00FF87] text-[#02180C] shadow-md shadow-emerald-500/20"
+                  ? "bg-[#60A5FA] text-[#0F172A] shadow-md shadow-sky-500/20"
                   : "bg-white/5 text-slate-400 hover:text-white"
               }`}
             >
@@ -160,7 +160,7 @@ export default function AdminAffiliatesPage() {
               onClick={() => setActiveTab("settings")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 activeTab === "settings"
-                  ? "bg-[#00FF87] text-[#02180C] shadow-md shadow-emerald-500/20"
+                  ? "bg-[#60A5FA] text-[#0F172A] shadow-md shadow-sky-500/20"
                   : "bg-white/5 text-slate-400 hover:text-white"
               }`}
             >
@@ -173,7 +173,7 @@ export default function AdminAffiliatesPage() {
               onClick={() => setShowAddPartner(true)}
               className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-1.5 transition-all"
             >
-              <Plus className="w-3.5 h-3.5 text-[#00FF87]" />
+              <Plus className="w-3.5 h-3.5 text-[#60A5FA]" />
               <span>Add Partner</span>
             </button>
           )}
@@ -230,14 +230,14 @@ export default function AdminAffiliatesPage() {
                               href={`https://wa.me/${lead.referrerPhone.replace(/[^0-9]/g, "")}`}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-emerald-400 hover:underline"
+                              className="text-sky-400 hover:underline"
                               title="Chat on WhatsApp"
                             >
                               <MessageCircle className="w-3 h-3" />
                             </a>
                           </div>
                           {lead.referrerCode && (
-                            <span className="text-[10px] font-mono text-[#00FF87]">{lead.referrerCode}</span>
+                            <span className="text-[10px] font-mono text-[#60A5FA]">{lead.referrerCode}</span>
                           )}
                         </td>
 
@@ -250,7 +250,7 @@ export default function AdminAffiliatesPage() {
                               href={`https://wa.me/${lead.clientPhone.replace(/[^0-9]/g, "")}`}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-emerald-400 hover:underline"
+                              className="text-sky-400 hover:underline"
                               title="Chat on WhatsApp"
                             >
                               <MessageCircle className="w-3 h-3" />
@@ -274,7 +274,7 @@ export default function AdminAffiliatesPage() {
 
                         {/* Commission */}
                         <td className="p-4">
-                          <div className="text-sm font-bold font-mono text-[#00FF87]">
+                          <div className="text-sm font-bold font-mono text-[#60A5FA]">
                             ৳{(lead.commissionEarned || 0).toLocaleString()}
                           </div>
                           <div className="text-[10px] text-slate-400 font-mono">20% Flat</div>
@@ -287,7 +287,7 @@ export default function AdminAffiliatesPage() {
                             onChange={(e) => updateAffiliateLead(lead.id, { status: e.target.value as any })}
                             className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold border ${
                               lead.status === "commission_paid"
-                                ? "bg-emerald-500/15 border-emerald-500/40 text-[#00FF87]"
+                                ? "bg-sky-500/15 border-sky-500/40 text-[#60A5FA]"
                                 : lead.status === "deal_closed"
                                 ? "bg-blue-500/15 border-blue-500/40 text-blue-400"
                                 : lead.status === "contacted"
@@ -312,7 +312,7 @@ export default function AdminAffiliatesPage() {
                             placeholder="bKash TrxID..."
                             value={lead.payoutTrxId || ""}
                             onChange={(e) => updateAffiliateLead(lead.id, { payoutTrxId: e.target.value })}
-                            className="bg-[#121822] border border-white/10 rounded px-2 py-1 text-[11px] font-mono text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00FF87]/40 w-28"
+                            className="bg-[#121822] border border-white/10 rounded px-2 py-1 text-[11px] font-mono text-white placeholder:text-slate-600 focus:outline-none focus:border-[#60A5FA]/40 w-28"
                           />
                         </td>
 
@@ -369,7 +369,7 @@ export default function AdminAffiliatesPage() {
                               href={`https://wa.me/${partner.phone.replace(/[^0-9]/g, "")}`}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-emerald-400 hover:underline"
+                              className="text-sky-400 hover:underline"
                               title="Chat on WhatsApp"
                             >
                               <MessageCircle className="w-3.5 h-3.5" />
@@ -378,13 +378,13 @@ export default function AdminAffiliatesPage() {
                           {partner.email && <div className="text-[10px] text-slate-500">{partner.email}</div>}
                         </td>
                         <td className="p-4">
-                          <div className="font-mono uppercase font-bold text-emerald-300 text-xs">
+                          <div className="font-mono uppercase font-bold text-sky-300 text-xs">
                             {partner.payoutMethod}
                           </div>
                           <div className="text-slate-400 font-mono text-[11px]">{partner.payoutNumber}</div>
                         </td>
                         <td className="p-4">
-                          <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-[#00FF87] font-mono font-bold text-xs">
+                          <span className="px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/30 text-[#60A5FA] font-mono font-bold text-xs">
                             {partner.referralCode}
                           </span>
                         </td>
@@ -395,7 +395,7 @@ export default function AdminAffiliatesPage() {
                             })}
                             className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
                               partner.status === "active"
-                                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                                ? "bg-sky-500/10 text-sky-400 border-sky-500/30"
                                 : "bg-amber-500/10 text-amber-400 border-amber-500/30"
                             }`}
                           >
@@ -431,7 +431,7 @@ export default function AdminAffiliatesPage() {
                 </p>
               </div>
               {savedSettingsNotice && (
-                <span className="text-xs text-[#00FF87] font-bold flex items-center gap-1">
+                <span className="text-xs text-[#60A5FA] font-bold flex items-center gap-1">
                   <Check className="w-4 h-4" /> Settings Saved!
                 </span>
               )}
@@ -513,7 +513,7 @@ export default function AdminAffiliatesPage() {
               <div className="sm:col-span-2 pt-2">
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#00e87a] text-[#02180C] font-black text-xs flex items-center gap-2 shadow-md cursor-pointer"
+                  className="px-6 py-2.5 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-xs flex items-center gap-2 shadow-md cursor-pointer"
                 >
                   <Check className="w-4 h-4" />
                   <span>Save Program Settings</span>
@@ -582,7 +582,7 @@ export default function AdminAffiliatesPage() {
                 <div className="flex items-center gap-2 pt-2">
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-xl bg-[#00FF87] text-[#02180C] font-black text-xs hover:bg-[#00e87a]"
+                    className="px-5 py-2.5 rounded-xl bg-[#60A5FA] text-[#0F172A] font-black text-xs hover:bg-[#3B82F6]"
                   >
                     Create Partner
                   </button>
@@ -605,4 +605,4 @@ export default function AdminAffiliatesPage() {
 }
 
 const inp =
-  "w-full bg-[#121822] border border-white/[0.12] rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00FF87]/50 transition-all";
+  "w-full bg-[#121822] border border-white/[0.12] rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-[#60A5FA]/50 transition-all";

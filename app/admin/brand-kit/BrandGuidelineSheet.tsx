@@ -96,7 +96,7 @@ export default function BrandGuidelineSheet({
       {/* ── Top Bar Controls: Theme Switcher & Print / PDF Export ── */}
       <div className="no-print flex items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-black/50 border border-slate-200 dark:border-white/10 shadow-xs flex-wrap">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-[#00FF87] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-600 dark:text-[#60A5FA] flex items-center justify-center">
             <FileText className="w-4 h-4" />
           </div>
           <div>
@@ -129,7 +129,7 @@ export default function BrandGuidelineSheet({
               onClick={() => setSheetTheme("dark")}
               className={`px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                 !isLightMode
-                  ? "bg-black text-[#00FF87] shadow-xs font-bold"
+                  ? "bg-black text-[#60A5FA] shadow-xs font-bold"
                   : "text-slate-500 hover:text-slate-900"
               }`}
             >
@@ -142,7 +142,7 @@ export default function BrandGuidelineSheet({
           <button
             type="button"
             onClick={handlePrint}
-            className="px-4 py-2 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs transition-all shadow-[0_0_20px_rgba(0,255,135,0.35)] flex items-center gap-2 cursor-pointer active:scale-95"
+            className="px-4 py-2 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-xs transition-all shadow-[0_0_20px_rgba(96,165,250,0.35)] flex items-center gap-2 cursor-pointer active:scale-95"
           >
             <Printer className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>Export / Print PDF</span>
@@ -175,7 +175,7 @@ export default function BrandGuidelineSheet({
           {/* Cover Top Info */}
           <div className="relative z-10 flex items-center justify-between gap-4 border-b border-white/15 pb-6">
             <div className="flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#00FF87] animate-pulse" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#60A5FA] animate-pulse" />
               <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-slate-300 font-bold">
                 OFFICIAL BRAND MANUAL &middot; VER 1.0
               </span>
@@ -189,7 +189,7 @@ export default function BrandGuidelineSheet({
 
           {/* Cover Hero Center */}
           <div className="relative z-10 my-10 space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-mono text-[#00FF87]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-mono text-[#60A5FA]">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Complete Brand Identity System</span>
             </div>
@@ -679,19 +679,19 @@ export default function BrandGuidelineSheet({
                 <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-slate-400">
                   08. CLEAR SPACE &amp; MIN SIZE
                 </span>
-                <span className="text-[10.5px] font-mono text-emerald-600 dark:text-[#00FF87] font-bold">1X Padding Rule</span>
+                <span className="text-[10.5px] font-mono text-sky-600 dark:text-[#60A5FA] font-bold">1X Padding Rule</span>
               </div>
               <p className={`text-xs ${textMuted} mb-6 leading-relaxed`}>
                 Maintain clear space equal to <strong>X (half mark height)</strong> on all 4 sides. No text or graphics may encroach within this zone.
               </p>
 
               {/* Clear Space Visual Diagram */}
-              <div className="p-6 rounded-2xl border-2 border-dashed border-[#00FF87]/50 bg-emerald-500/[0.04] relative flex items-center justify-center">
+              <div className="p-6 rounded-2xl border-2 border-dashed border-[#60A5FA]/50 bg-sky-500/[0.04] relative flex items-center justify-center">
                 {/* Corner markers */}
-                <span className="absolute top-2 left-2 text-[10px] font-mono font-bold text-emerald-500">X</span>
-                <span className="absolute top-2 right-2 text-[10px] font-mono font-bold text-emerald-500">X</span>
-                <span className="absolute bottom-2 left-2 text-[10px] font-mono font-bold text-emerald-500">X</span>
-                <span className="absolute bottom-2 right-2 text-[10px] font-mono font-bold text-emerald-500">X</span>
+                <span className="absolute top-2 left-2 text-[10px] font-mono font-bold text-sky-500">X</span>
+                <span className="absolute top-2 right-2 text-[10px] font-mono font-bold text-sky-500">X</span>
+                <span className="absolute bottom-2 left-2 text-[10px] font-mono font-bold text-sky-500">X</span>
+                <span className="absolute bottom-2 right-2 text-[10px] font-mono font-bold text-sky-500">X</span>
 
                 {/* Inner protected logo */}
                 <div className="p-4 rounded-xl bg-white dark:bg-black/60 shadow-sm border border-slate-200 dark:border-white/10 flex items-center gap-3">
@@ -745,7 +745,7 @@ export default function BrandGuidelineSheet({
                     <span className="font-black text-xs text-slate-950" style={{ fontFamily: headingFont }}>{brandName}</span>
                   </div>
                   <div>
-                    <span className="text-[9.5px] font-mono font-bold text-emerald-600 block">✓ Light Surfaces</span>
+                    <span className="text-[9.5px] font-mono font-bold text-sky-600 block">✓ Light Surfaces</span>
                     <span className="text-[8.5px] text-slate-400">Dark wordmark</span>
                   </div>
                 </div>
@@ -759,7 +759,7 @@ export default function BrandGuidelineSheet({
                     <span className="font-black text-xs text-white" style={{ fontFamily: headingFont }}>{brandName}</span>
                   </div>
                   <div>
-                    <span className="text-[9.5px] font-mono font-bold text-[#00FF87] block">✓ Dark Surfaces</span>
+                    <span className="text-[9.5px] font-mono font-bold text-[#60A5FA] block">✓ Dark Surfaces</span>
                     <span className="text-[8.5px] text-slate-400">White wordmark</span>
                   </div>
                 </div>
@@ -840,15 +840,15 @@ export default function BrandGuidelineSheet({
                   <span className="text-[9px] font-mono text-slate-400">TODAY</span>
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-base">3</span>
-                    <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold text-white bg-emerald-500">Completed</span>
+                    <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold text-white bg-sky-500">Completed</span>
                   </div>
                   <div className="space-y-1 text-[8.5px]">
                     <div className="flex items-center gap-1">
-                      <CheckCircle2 className="w-2.5 h-2.5 text-emerald-500" />
+                      <CheckCircle2 className="w-2.5 h-2.5 text-sky-500" />
                       <span>Edit YouTube video</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <CheckCircle2 className="w-2.5 h-2.5 text-emerald-500" />
+                      <CheckCircle2 className="w-2.5 h-2.5 text-sky-500" />
                       <span>Research references</span>
                     </div>
                   </div>
@@ -864,7 +864,7 @@ export default function BrandGuidelineSheet({
                   <div className="flex items-center gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
                     <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-sky-500" />
                   </div>
                   <span className="text-[10px] font-mono text-slate-400 mx-auto">
                     app.{brandName.toLowerCase()}.com/dashboard
@@ -1011,7 +1011,7 @@ export default function BrandGuidelineSheet({
                   return (
                     <div key={val.label} className="p-2.5 rounded-xl bg-white dark:bg-black/30 border border-slate-200 dark:border-white/5 flex items-center gap-3">
                       <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white shrink-0">
-                        <Icon className="w-4 h-4 text-emerald-500" />
+                        <Icon className="w-4 h-4 text-sky-500" />
                       </div>
                       <div>
                         <strong className="text-xs text-slate-900 dark:text-white block font-bold">{val.label}</strong>
@@ -1030,7 +1030,7 @@ export default function BrandGuidelineSheet({
             ───────────────────────────────────────────────────────────── */}
         <div className={`pt-6 border-t ${borderSubtle} flex items-center justify-between flex-wrap gap-4 text-xs font-mono ${textMuted}`}>
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#00FF87]" />
+            <ShieldCheck className="w-4 h-4 text-[#60A5FA]" />
             <span>AUTHENTIC BRAND IDENTITY GUIDELINE &middot; ALL RIGHTS RESERVED</span>
           </div>
           <div>

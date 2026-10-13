@@ -183,21 +183,21 @@ export default function AdminTeamPage() {
   };
 
   const inp = isDark
-    ? "w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#00FF87] transition-colors"
-    : "w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#00FF87] transition-colors";
+    ? "w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#60A5FA] transition-colors"
+    : "w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#60A5FA] transition-colors";
 
   // Reusable Form Component for both inline editing and new member
   const renderMemberForm = (onClose: () => void, isCreateMode: boolean) => (
     <div
       className={`rounded-2xl border p-6 sm:p-7 shadow-xl animate-in fade-in zoom-in-95 duration-200 ${
         isDark
-          ? "bg-[#0A0F14] border-[#00FF87]/30 text-white"
+          ? "bg-[#0A0F14] border-[#60A5FA]/30 text-white"
           : "bg-white border-slate-200 text-slate-900 shadow-lg"
       }`}
     >
       <div className="flex items-center justify-between mb-5 border-b border-black/5 dark:border-white/[0.08] pb-4">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#00FF87]/10 border border-[#00FF87]/30 text-[#00FF87] flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-[#60A5FA]/10 border border-[#60A5FA]/30 text-[#60A5FA] flex items-center justify-center shrink-0">
             <Users className="w-4 h-4" />
           </div>
           <div>
@@ -285,7 +285,7 @@ export default function AdminTeamPage() {
           </label>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             {/* Live Rectangle Avatar Preview */}
-            <div className="w-16 h-20 rounded-xl overflow-hidden p-0.5 bg-gradient-to-tr from-[#00FF87] via-[#30FF97] to-[#059669] shrink-0 shadow-md">
+            <div className="w-16 h-20 rounded-xl overflow-hidden p-0.5 bg-gradient-to-tr from-[#60A5FA] via-[#30FF97] to-[#059669] shrink-0 shadow-md">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={form.imageUrl || "/images/team/mohammad-alam.png"}
@@ -312,12 +312,12 @@ export default function AdminTeamPage() {
             }`}>
               {isUploading ? (
                 <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-[#00FF87]" />
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-[#60A5FA]" />
                   <span>Processing...</span>
                 </>
               ) : (
                 <>
-                  <Upload className="w-3.5 h-3.5 text-[#00FF87]" />
+                  <Upload className="w-3.5 h-3.5 text-[#60A5FA]" />
                   <span>Upload Photo</span>
                 </>
               )}
@@ -333,7 +333,7 @@ export default function AdminTeamPage() {
             id={`activeMember-${isCreateMode ? 'new' : editingId}`}
             checked={form.active}
             onChange={(e) => setForm({ ...form, active: e.target.checked })}
-            className="w-4 h-4 rounded text-[#00FF87] focus:ring-[#00FF87] accent-[#00FF87] cursor-pointer"
+            className="w-4 h-4 rounded text-[#60A5FA] focus:ring-[#60A5FA] accent-[#60A5FA] cursor-pointer"
           />
           <label htmlFor={`activeMember-${isCreateMode ? 'new' : editingId}`} className="text-sm text-slate-700 dark:text-slate-300 font-medium cursor-pointer">
             Display on live website (Active)
@@ -358,7 +358,7 @@ export default function AdminTeamPage() {
           type="button"
           onClick={handleSave}
           disabled={isSaving || isUploading}
-          className="px-6 py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#30FF97] disabled:opacity-50 text-[#02180C] text-xs font-extrabold shadow-[0_0_20px_rgba(0,255,135,0.3)] transition-all cursor-pointer flex items-center gap-2 active:scale-95"
+          className="px-6 py-2.5 rounded-xl bg-[#60A5FA] hover:bg-[#30FF97] disabled:opacity-50 text-[#0F172A] text-xs font-extrabold shadow-[0_0_20px_rgba(96,165,250,0.3)] transition-all cursor-pointer flex items-center gap-2 active:scale-95"
         >
           {isSaving ? (
             <>
@@ -387,8 +387,8 @@ export default function AdminTeamPage() {
       <div className="p-6 lg:p-10 max-w-5xl space-y-5">
         {/* Success Alert Banner */}
         {saveAlertMessage && (
-          <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
-            <CheckCircle2 className="w-5 h-5 text-[#00FF87] shrink-0" />
+          <div className="p-4 rounded-2xl bg-sky-500/10 border border-sky-500/30 text-sky-800 dark:text-sky-300 flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+            <CheckCircle2 className="w-5 h-5 text-[#60A5FA] shrink-0" />
             <span className="text-sm font-semibold">{saveAlertMessage}</span>
           </div>
         )}
@@ -412,14 +412,14 @@ export default function AdminTeamPage() {
                   className={`flex items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl border transition-all ${
                     isCurrentlyEditing
                       ? isDark
-                        ? "bg-[#09111A] border-[#00FF87] shadow-[0_0_25px_rgba(0,255,135,0.15)] ring-1 ring-[#00FF87]"
+                        ? "bg-[#09111A] border-[#60A5FA] shadow-[0_0_25px_rgba(96,165,250,0.15)] ring-1 ring-[#60A5FA]"
                         : "bg-white border-[#00C853] shadow-md ring-1 ring-[#00C853]"
                       : isDark
                       ? m.active
-                        ? "bg-[#09111A]/90 border-white/[0.08] hover:border-[#00FF87]/30"
+                        ? "bg-[#09111A]/90 border-white/[0.08] hover:border-[#60A5FA]/30"
                         : "bg-black/30 border-white/[0.03] opacity-60"
                       : m.active
-                      ? "bg-white border-slate-200 hover:border-emerald-500/50 shadow-sm"
+                      ? "bg-white border-slate-200 hover:border-sky-500/50 shadow-sm"
                       : "bg-slate-50 border-slate-200 opacity-60"
                   }`}
                 >
@@ -450,7 +450,7 @@ export default function AdminTeamPage() {
                     </div>
 
                     {/* ═══ RECTANGLE PORTRAIT AVATAR (Not Circle!) ═══ */}
-                    <div className="w-13 h-16 sm:w-14 sm:h-17 rounded-xl overflow-hidden p-0.5 bg-gradient-to-tr from-[#00FF87] via-[#30FF97] to-[#059669] shrink-0 shadow-md">
+                    <div className="w-13 h-16 sm:w-14 sm:h-17 rounded-xl overflow-hidden p-0.5 bg-gradient-to-tr from-[#60A5FA] via-[#30FF97] to-[#059669] shrink-0 shadow-md">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={m.imageUrl}
@@ -471,7 +471,7 @@ export default function AdminTeamPage() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-[#00FF87] font-medium truncate">{m.role}</p>
+                      <p className="text-xs text-[#60A5FA] font-medium truncate">{m.role}</p>
                       {m.department && (
                         <span className={`text-[11px] font-mono block mt-0.5 ${isDark ? "text-slate-400" : "text-slate-500"}`}>
                           {m.department}
@@ -488,8 +488,8 @@ export default function AdminTeamPage() {
                       className={`p-2.5 rounded-xl border transition-all cursor-pointer ${
                         m.active
                           ? isDark
-                            ? "bg-[#00FF87]/10 text-[#00FF87] border-[#00FF87]/20 hover:bg-[#00FF87]/20"
-                            : "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"
+                            ? "bg-[#60A5FA]/10 text-[#60A5FA] border-[#60A5FA]/20 hover:bg-[#60A5FA]/20"
+                            : "bg-sky-50 text-sky-700 border-sky-200 hover:bg-sky-100"
                           : isDark
                             ? "bg-white/[0.04] text-slate-500 border-white/[0.06] hover:text-white"
                             : "bg-slate-100 text-slate-400 border-slate-200 hover:text-slate-700"
@@ -504,7 +504,7 @@ export default function AdminTeamPage() {
                       onClick={() => openEdit(m)}
                       className={`p-2.5 rounded-xl border transition-colors cursor-pointer ${
                         isCurrentlyEditing
-                          ? "bg-[#00FF87] text-[#02180C] border-[#00FF87] font-bold"
+                          ? "bg-[#60A5FA] text-[#0F172A] border-[#60A5FA] font-bold"
                           : isDark
                           ? "bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white border-white/[0.06]"
                           : "bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border-slate-200"
@@ -531,7 +531,7 @@ export default function AdminTeamPage() {
 
                 {/* ═══ INLINE EDIT FORM (Opens right here under the clicked member) ═══ */}
                 {isCurrentlyEditing && (
-                  <div className="pl-4 sm:pl-8 border-l-2 border-[#00FF87]/50 pt-1 pb-2">
+                  <div className="pl-4 sm:pl-8 border-l-2 border-[#60A5FA]/50 pt-1 pb-2">
                     {renderMemberForm(() => setEditingId(null), false)}
                   </div>
                 )}

@@ -103,12 +103,15 @@ export interface CampaignOffer {
 // NEW DATA MODELS
 // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-export type ServiceCategory =
-  | "Graphic Design"
-  | "Video & Motion"
-  | "Branding"
-  | "Digital Marketing"
-  | "Social Media";
+export type ServiceCategory = string;
+
+export const DEFAULT_SERVICE_CATEGORIES: ServiceCategory[] = [
+  "Graphic Design",
+  "Video & Motion",
+  "Branding",
+  "Digital Marketing",
+  "Social Media",
+];
 
 export interface AgencyService {
   id: string;
@@ -326,6 +329,7 @@ export interface CmsData {
   inquiries: InquiryLead[];
   // NEW
   agencyServices: AgencyService[];
+  serviceCategories: ServiceCategory[];
   packages: ServicePackage[];
   orders: AgencyOrder[];
   portfolioItems: PortfolioItem[];
@@ -1993,6 +1997,7 @@ export const DEFAULT_CMS_DATA: CmsData = {
     },
   ],
   agencyServices: DEFAULT_AGENCY_SERVICES,
+  serviceCategories: DEFAULT_SERVICE_CATEGORIES,
   packages: DEFAULT_PACKAGES,
   orders: [],
   portfolioItems: DEFAULT_PORTFOLIO_ITEMS,

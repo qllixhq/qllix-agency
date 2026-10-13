@@ -24,7 +24,7 @@ const STATUS_COLORS: Record<OrderStatus, string> = {
   in_progress: "bg-amber-500/10 text-amber-400 border-amber-500/30",
   waiting: "bg-orange-500/10 text-orange-400 border-orange-500/30",
   revision: "bg-purple-500/10 text-purple-400 border-purple-500/30",
-  completed: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+  completed: "bg-sky-500/10 text-sky-400 border-sky-500/30",
   cancelled: "bg-red-500/10 text-red-400 border-red-500/30",
 };
 
@@ -60,7 +60,7 @@ export default function AdminOrdersPage() {
             { label: "Total Orders", value: stats.total, color: "text-white" },
             { label: "New Orders", value: stats.new, color: "text-blue-400" },
             { label: "In Progress", value: stats.inProgress, color: "text-amber-400" },
-            { label: "Completed", value: stats.completed, color: "text-emerald-400" },
+            { label: "Completed", value: stats.completed, color: "text-sky-400" },
           ].map((s) => (
             <div key={s.label} className="rounded-xl bg-[#0A0F14] border border-white/[0.07] p-4 text-center">
               <div className={`text-2xl font-black ${s.color} mb-1`}>{s.value}</div>
@@ -73,7 +73,7 @@ export default function AdminOrdersPage() {
         <div className="flex items-center gap-3 flex-wrap">
           <div className="relative">
             <select
-              className="appearance-none bg-[#0A0F14] border border-white/[0.08] rounded-xl px-3 py-2 pr-8 text-sm text-white focus:outline-none focus:border-[#00FF87]/40"
+              className="appearance-none bg-[#0A0F14] border border-white/[0.08] rounded-xl px-3 py-2 pr-8 text-sm text-white focus:outline-none focus:border-[#60A5FA]/40"
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value as OrderStatus | "")}
             >
@@ -113,11 +113,11 @@ export default function AdminOrdersPage() {
                       <div className="text-slate-500 text-xs">{o.packageName}</div>
                     </td>
                     <td className="py-3 px-4">
-                      <div className="font-mono text-[#00FF87] font-bold text-sm">
+                      <div className="font-mono text-[#60A5FA] font-bold text-sm">
                         ৳{o.amount.toLocaleString()}
                       </div>
                       {o.couponCode && (
-                        <div className="text-[10.5px] font-mono text-emerald-400/90 flex items-center gap-1 mt-0.5">
+                        <div className="text-[10.5px] font-mono text-sky-400/90 flex items-center gap-1 mt-0.5">
                           <span>🏷️ {o.couponCode}</span>
                           {o.discountAmount ? <span>(-৳{o.discountAmount.toLocaleString()})</span> : null}
                         </div>
@@ -140,7 +140,7 @@ export default function AdminOrdersPage() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
-                        <button onClick={() => setViewOrder(o.id)} className="p-1.5 rounded-lg text-slate-400 hover:text-[#00FF87] hover:bg-[#00FF87]/10 transition-all"><Eye className="w-3.5 h-3.5" /></button>
+                        <button onClick={() => setViewOrder(o.id)} className="p-1.5 rounded-lg text-slate-400 hover:text-[#60A5FA] hover:bg-[#60A5FA]/10 transition-all"><Eye className="w-3.5 h-3.5" /></button>
                         <button onClick={() => { if (confirm("Delete this order?")) deleteOrder(o.id); }} className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-all"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </td>
@@ -192,7 +192,7 @@ export default function AdminOrdersPage() {
             {selectedOrder.referenceUrl && (
               <div className="mb-4">
                 <div className="text-xs text-slate-500 mb-1">Reference</div>
-                <a href={selectedOrder.referenceUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-[#00FF87] hover:underline break-all">{selectedOrder.referenceUrl}</a>
+                <a href={selectedOrder.referenceUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-[#60A5FA] hover:underline break-all">{selectedOrder.referenceUrl}</a>
               </div>
             )}
 

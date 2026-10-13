@@ -229,7 +229,7 @@ function ColorSwatch({ color, isDark }: { color: BrandColor; isDark: boolean }) 
 
 function BusinessCardMockup({ kit }: { kit: BrandKit }) {
   const primary = kit.colors[0]?.hex || "#1A1A2E";
-  const accent = kit.colors[2]?.hex || "#00FF87";
+  const accent = kit.colors[2]?.hex || "#60A5FA";
   const bg = kit.colors[4]?.hex || "#FFFFFF";
 
   return (
@@ -286,7 +286,7 @@ function BusinessCardMockup({ kit }: { kit: BrandKit }) {
 
 function SocialMockup({ kit }: { kit: BrandKit }) {
   const primary = kit.colors[0]?.hex || "#1A1A2E";
-  const accent = kit.colors[2]?.hex || "#00FF87";
+  const accent = kit.colors[2]?.hex || "#60A5FA";
 
   return (
     <div className="flex gap-6 flex-wrap items-end">
@@ -353,7 +353,7 @@ function SocialMockup({ kit }: { kit: BrandKit }) {
 
 function StoryMockup({ kit }: { kit: BrandKit }) {
   const primary = kit.colors[0]?.hex || "#1A1A2E";
-  const accent = kit.colors[2]?.hex || "#00FF87";
+  const accent = kit.colors[2]?.hex || "#60A5FA";
 
   return (
     <div className="flex flex-col gap-2">
@@ -404,7 +404,7 @@ function StoryMockup({ kit }: { kit: BrandKit }) {
 
 function LetterheadMockup({ kit }: { kit: BrandKit }) {
   const primary = kit.colors[0]?.hex || "#1A1A2E";
-  const accent = kit.colors[2]?.hex || "#00FF87";
+  const accent = kit.colors[2]?.hex || "#60A5FA";
 
   return (
     <div className="flex flex-col gap-2">
@@ -632,7 +632,7 @@ export default function BrandKitPage() {
   ];
 
   return (
-    <div className={`min-h-screen ${isDark ? "bg-[#010804]" : "bg-slate-50"} pb-16`}>
+    <div className={`min-h-screen ${isDark ? "bg-[#020617]" : "bg-slate-50"} pb-16`}>
       {/* Header */}
       <div
         className={`border-b px-6 py-5 no-print ${
@@ -642,8 +642,8 @@ export default function BrandKitPage() {
         <div className="max-w-6xl mx-auto flex items-center justify-between flex-wrap gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Sparkles className="w-4 h-4 text-[#00FF87]" />
-              <span className="text-[11px] font-mono uppercase tracking-widest text-[#00FF87] font-bold">
+              <Sparkles className="w-4 h-4 text-[#60A5FA]" />
+              <span className="text-[11px] font-mono uppercase tracking-widest text-[#60A5FA] font-bold">
                 Design System Engine
               </span>
             </div>
@@ -656,14 +656,14 @@ export default function BrandKitPage() {
             {brandKit && (
               <button
                 onClick={regenerate}
-                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${subtle} ${muted} hover:border-[#00FF87]/40 cursor-pointer`}
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${subtle} ${muted} hover:border-[#60A5FA]/40 cursor-pointer`}
               >
                 <RefreshCw className="w-3.5 h-3.5" /> Regenerate
               </button>
             )}
             <button
               onClick={() => window.print()}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] text-xs font-black transition-all shadow-[0_4px_20px_rgba(0,255,135,0.3)] cursor-pointer active:scale-95"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] text-xs font-black transition-all shadow-[0_4px_20px_rgba(96,165,250,0.3)] cursor-pointer active:scale-95"
             >
               <Download className="w-3.5 h-3.5" /> Export Brand Manual (PDF)
             </button>
@@ -676,7 +676,7 @@ export default function BrandKitPage() {
         <div className={`rounded-2xl border p-6 no-print ${card}`}>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="text-[10px] font-mono uppercase tracking-wider font-bold text-[#00FF87]">
+              <p className="text-[10px] font-mono uppercase tracking-wider font-bold text-[#60A5FA]">
                 Step 01
               </p>
               <h2 className={`text-sm font-bold ${text}`}>Upload Brand Logo</h2>
@@ -696,8 +696,8 @@ export default function BrandKitPage() {
                 onChange={(e) => setBrandName(e.target.value)}
                 className={`w-full px-3 py-2 rounded-xl border text-xs outline-none transition-all ${
                   isDark
-                    ? "bg-[#161B22] border-white/10 text-white placeholder-slate-600 focus:border-[#00FF87]/50"
-                    : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400 focus:border-[#00FF87]"
+                    ? "bg-[#161B22] border-white/10 text-white placeholder-slate-600 focus:border-[#60A5FA]/50"
+                    : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400 focus:border-[#60A5FA]"
                 }`}
               />
             </div>
@@ -712,8 +712,8 @@ export default function BrandKitPage() {
                 onChange={(e) => setTagline(e.target.value)}
                 className={`w-full px-3 py-2 rounded-xl border text-xs outline-none transition-all ${
                   isDark
-                    ? "bg-[#161B22] border-white/10 text-white placeholder-slate-600 focus:border-[#00FF87]/50"
-                    : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400 focus:border-[#00FF87]"
+                    ? "bg-[#161B22] border-white/10 text-white placeholder-slate-600 focus:border-[#60A5FA]/50"
+                    : "bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400 focus:border-[#60A5FA]"
                 }`}
               />
             </div>
@@ -732,7 +732,7 @@ export default function BrandKitPage() {
                   onClick={() => loadPreset(preset)}
                   className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
                     brandName === preset.name
-                      ? "border-[#00FF87] bg-emerald-500/10 shadow-xs"
+                      ? "border-[#60A5FA] bg-sky-500/10 shadow-xs"
                       : isDark
                       ? "border-white/10 hover:border-white/20 bg-white/[0.02]"
                       : "border-slate-200 hover:border-slate-300 bg-white"
@@ -744,7 +744,7 @@ export default function BrandKitPage() {
                     className="w-8 h-8 rounded-lg object-cover border border-white/20 shrink-0 shadow-xs"
                   />
                   <div className="min-w-0">
-                    <p className={`text-xs font-bold truncate ${brandName === preset.name ? "text-[#00FF87]" : text}`}>
+                    <p className={`text-xs font-bold truncate ${brandName === preset.name ? "text-[#60A5FA]" : text}`}>
                       {preset.name}
                     </p>
                     <p className="text-[9.5px] font-mono text-slate-400 truncate">
@@ -767,7 +767,7 @@ export default function BrandKitPage() {
             onClick={() => fileRef.current?.click()}
             className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-2 ${
               dragging
-                ? "border-[#00FF87] bg-[#00FF87]/5"
+                ? "border-[#60A5FA] bg-[#60A5FA]/5"
                 : isDark
                 ? "border-white/10 hover:border-white/20 bg-white/[0.01]"
                 : "border-slate-300 hover:border-slate-400 bg-slate-50"
@@ -799,7 +799,7 @@ export default function BrandKitPage() {
                     isDark ? "bg-white/5" : "bg-slate-200"
                   }`}
                 >
-                  <Upload className="w-5 h-5 text-[#00FF87]" />
+                  <Upload className="w-5 h-5 text-[#60A5FA]" />
                 </div>
                 <div>
                   <p className={`text-xs font-bold ${text}`}>Drop your brand logo here</p>
@@ -807,7 +807,7 @@ export default function BrandKitPage() {
                     PNG, SVG, JPG, WebP supported
                   </p>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#00FF87]/10 text-[#00FF87] text-[10px] font-mono font-bold border border-[#00FF87]/20">
+                <span className="px-3 py-1 rounded-full bg-[#60A5FA]/10 text-[#60A5FA] text-[10px] font-mono font-bold border border-[#60A5FA]/20">
                   Click or drag to upload
                 </span>
               </>
@@ -817,7 +817,7 @@ export default function BrandKitPage() {
           {logoUrl && !isProcessing && (
             <button
               onClick={regenerate}
-              className="mt-4 w-full py-3 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-sm transition-all shadow-[0_4px_20px_rgba(0,255,135,0.3)] flex items-center justify-center gap-2 cursor-pointer"
+              className="mt-4 w-full py-3 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-sm transition-all shadow-[0_4px_20px_rgba(96,165,250,0.3)] flex items-center justify-center gap-2 cursor-pointer"
             >
               <Sparkles className="w-4 h-4" /> Generate / Refresh Brand Kit
             </button>
@@ -832,8 +832,8 @@ export default function BrandKitPage() {
               onClick={() => setActiveTab(id)}
               className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === id
-                  ? "bg-[#00FF87] text-[#02180C] shadow-sm font-bold"
-                  : `${muted} hover:text-[#00FF87]`
+                  ? "bg-[#60A5FA] text-[#0F172A] shadow-sm font-bold"
+                  : `${muted} hover:text-[#60A5FA]`
               }`}
             >
               <Icon className="w-3.5 h-3.5 flex-shrink-0" />
@@ -880,7 +880,7 @@ export default function BrandKitPage() {
                         navigator.clipboard.writeText(cssVars);
                         alert("CSS Variables copied to clipboard!");
                       }}
-                      className="px-3 py-1.5 rounded-lg border text-xs font-semibold hover:border-[#00FF87]/50 flex items-center gap-1.5 cursor-pointer"
+                      className="px-3 py-1.5 rounded-lg border text-xs font-semibold hover:border-[#60A5FA]/50 flex items-center gap-1.5 cursor-pointer"
                     >
                       <Copy className="w-3.5 h-3.5" />
                       <span>Copy CSS Variables</span>
@@ -895,7 +895,7 @@ export default function BrandKitPage() {
                         a.download = `${(brandName || "brand").toLowerCase().replace(/\s/g, "-")}-colors.json`;
                         a.click();
                       }}
-                      className="px-3 py-1.5 rounded-lg bg-[#00FF87]/20 border border-[#00FF87]/40 text-[#00FF87] text-xs font-semibold hover:bg-[#00FF87]/30 flex items-center gap-1.5 cursor-pointer"
+                      className="px-3 py-1.5 rounded-lg bg-[#60A5FA]/20 border border-[#60A5FA]/40 text-[#60A5FA] text-xs font-semibold hover:bg-[#60A5FA]/30 flex items-center gap-1.5 cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5" />
                       <span>Export JSON</span>
@@ -943,14 +943,14 @@ export default function BrandKitPage() {
               </div>
             ) : (
               <div className={`rounded-2xl border p-12 ${card} text-center`}>
-                <Palette className="w-10 h-10 text-[#00FF87] mx-auto mb-3 opacity-60" />
+                <Palette className="w-10 h-10 text-[#60A5FA] mx-auto mb-3 opacity-60" />
                 <h3 className={`text-sm font-bold ${text}`}>No Colors Extracted Yet</h3>
                 <p className={`text-xs mt-1 max-w-sm mx-auto ${muted}`}>
                   Upload your logo in Step 01 above to auto-extract the dominant color palette with Canvas API.
                 </p>
                 <button
                   onClick={() => fileRef.current?.click()}
-                  className="mt-4 px-4 py-2 rounded-xl bg-[#00FF87] text-[#02180C] text-xs font-bold inline-flex items-center gap-2"
+                  className="mt-4 px-4 py-2 rounded-xl bg-[#60A5FA] text-[#0F172A] text-xs font-bold inline-flex items-center gap-2"
                 >
                   <Upload className="w-3.5 h-3.5" /> Upload Logo Now
                 </button>
@@ -994,7 +994,7 @@ export default function BrandKitPage() {
                     <p className={`text-[11px] font-mono mt-3 ${muted}`}>
                       {brandKit.typography.heading} · Weight {brandKit.typography.headingWeight}
                     </p>
-                    <span className="inline-block mt-2 px-2.5 py-0.5 rounded-full bg-[#00FF87]/10 text-[#00FF87] text-[9px] font-mono font-bold border border-[#00FF87]/20">
+                    <span className="inline-block mt-2 px-2.5 py-0.5 rounded-full bg-[#60A5FA]/10 text-[#60A5FA] text-[9px] font-mono font-bold border border-[#60A5FA]/20">
                       {brandKit.typography.mood}
                     </span>
                   </div>
@@ -1085,14 +1085,14 @@ export default function BrandKitPage() {
               </div>
             ) : (
               <div className={`rounded-2xl border p-12 ${card} text-center`}>
-                <Type className="w-10 h-10 text-[#00FF87] mx-auto mb-3 opacity-60" />
+                <Type className="w-10 h-10 text-[#60A5FA] mx-auto mb-3 opacity-60" />
                 <h3 className={`text-sm font-bold ${text}`}>No Typography Generated Yet</h3>
                 <p className={`text-xs mt-1 max-w-sm mx-auto ${muted}`}>
                   Upload your logo in Step 01 above to auto-detect the matching typography pairings and mood.
                 </p>
                 <button
                   onClick={() => fileRef.current?.click()}
-                  className="mt-4 px-4 py-2 rounded-xl bg-[#00FF87] text-[#02180C] text-xs font-bold inline-flex items-center gap-2"
+                  className="mt-4 px-4 py-2 rounded-xl bg-[#60A5FA] text-[#0F172A] text-xs font-bold inline-flex items-center gap-2"
                 >
                   <Upload className="w-3.5 h-3.5" /> Upload Logo Now
                 </button>
@@ -1193,7 +1193,7 @@ export default function BrandKitPage() {
                     )}
                     <div
                       className="border-l-2 pl-4"
-                      style={{ borderColor: brandKit.colors[2]?.hex || "#00FF87" }}
+                      style={{ borderColor: brandKit.colors[2]?.hex || "#60A5FA" }}
                     >
                       <p
                         className={`text-xs font-bold ${text}`}
@@ -1213,14 +1213,14 @@ export default function BrandKitPage() {
               </div>
             ) : (
               <div className={`rounded-2xl border p-12 ${card} text-center`}>
-                <Layout className="w-10 h-10 text-[#00FF87] mx-auto mb-3 opacity-60" />
+                <Layout className="w-10 h-10 text-[#60A5FA] mx-auto mb-3 opacity-60" />
                 <h3 className={`text-sm font-bold ${text}`}>No Mockups Generated Yet</h3>
                 <p className={`text-xs mt-1 max-w-sm mx-auto ${muted}`}>
                   Upload your brand logo to view live rendered mockups: Business Card, Social Assets, Story/Reel, Letterhead, and Email Signature.
                 </p>
                 <button
                   onClick={() => fileRef.current?.click()}
-                  className="mt-4 px-4 py-2 rounded-xl bg-[#00FF87] text-[#02180C] text-xs font-bold inline-flex items-center gap-2"
+                  className="mt-4 px-4 py-2 rounded-xl bg-[#60A5FA] text-[#0F172A] text-xs font-bold inline-flex items-center gap-2"
                 >
                   <Upload className="w-3.5 h-3.5" /> Upload Logo Now
                 </button>
@@ -1262,7 +1262,7 @@ export default function BrandKitPage() {
               {brandKit.typography.heading} + {brandKit.typography.body}
             </p>
             <div className="ml-auto">
-              <span className="px-3 py-1 rounded-full bg-[#00FF87]/10 text-[#00FF87] text-[10px] font-mono font-bold border border-[#00FF87]/20">
+              <span className="px-3 py-1 rounded-full bg-[#60A5FA]/10 text-[#60A5FA] text-[10px] font-mono font-bold border border-[#60A5FA]/20">
                 {brandKit.typography.mood}
               </span>
             </div>

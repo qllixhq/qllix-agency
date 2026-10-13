@@ -163,10 +163,12 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
             <span className="relative z-10 text-[10px] md:text-[15.5px] font-semibold leading-none md:leading-normal">Services</span>
           </a>
 
-          <a
-            href="/contact"
+          <button
+            type="button"
+            onClick={() => onOpenBooking()}
             className="hidden md:flex relative dock-cta-animated active:scale-95 transition-all whitespace-nowrap"
             title="Contact & Booking"
+            aria-haspopup="dialog"
           >
             {activeTab === "contact" && <ActiveDockStroke isCta={true} rounded="rounded-[12px]" />}
             <span className="relative z-10 font-extrabold tracking-tight text-[#02180C] text-[15px] whitespace-nowrap">Let&apos;s Talk</span>
@@ -174,7 +176,7 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
               <path d="M5 12h14" />
               <path d="M13 5l7 7-7 7" />
             </svg>
-          </a>
+          </button>
 
           {/* Mobile CTA: show contact methods only after the user requests them. */}
           <button
@@ -283,7 +285,7 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
 
       {/* DESKTOP POPUP: Pure Borderless Smart CTA Icons (Vertical Stack, No Text, No White Borders) */}
       {contactMenuOpen && (
-        <div className="hidden md:flex fixed bottom-[94px] right-7 z-50 flex-col items-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div id="desktop-contact-options" className="hidden md:flex fixed bottom-[94px] right-7 z-50 flex-col items-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200">
           
           {/* 1. Schedule / Book a Call (TidyCal) */}
           <a
@@ -333,17 +335,20 @@ export default function NavbarFloatingDock({ onOpenBooking }: NavbarFloatingDock
       )}
 
       {/* Keep the original desktop floating CTA. Mobile uses the dock CTA above. */}
-      <a
-        href="/contact"
+      <button
+        type="button"
+        onClick={() => setContactMenuOpen((isOpen) => !isOpen)}
         className="hidden md:flex fixed bottom-5 sm:bottom-7 right-5 sm:right-7 z-50 w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-[#00A859] via-[#00C853] to-[#00FF87] text-[#02180C] items-center justify-center shadow-[0_10px_35px_rgba(0,200,83,0.45)] hover:scale-108 active:scale-95 transition-all cursor-pointer group"
         aria-label="Contact Qllix"
         title="Let's Talk"
+        aria-expanded={contactMenuOpen}
+        aria-controls="desktop-contact-options"
       >
         <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#00FF87] border-2 border-[#02180C] shadow-[0_0_10px_#00FF87]">
           <span className="absolute inset-0 rounded-full bg-[#00FF87] animate-ping opacity-75" />
         </span>
         <MessageCircle className="w-6 h-6 stroke-[2.4] fill-white/20" />
-      </a>
+      </button>
     </>
   );
 }

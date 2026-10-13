@@ -11,6 +11,7 @@ import {
   InquiryLead,
   ShowcaseItem,
   AgencyService,
+  ServiceCategory,
   ServicePackage,
   AgencyOrder,
   OrderStatus,
@@ -39,6 +40,7 @@ export interface CloudSyncInfo {
 interface CmsContextType {
   cmsData: CmsData;
   isLoaded: boolean;
+  cmsLoadError: string | null;
   isSyncing: boolean;
   cloudSyncInfo: CloudSyncInfo;
   refreshLiveContent: () => Promise<void>;
@@ -64,6 +66,7 @@ interface CmsContextType {
   deleteService: (id: string) => void;
   reorderServices: (reorderedServices: AgencyService[]) => void;
   saveServiceWithPackages: (service: AgencyService, packages: ServicePackage[]) => void;
+  addServiceCategory: (category: ServiceCategory) => Promise<boolean>;
 
   // Service Packages
   addPackage: (pkg: ServicePackage) => void;
@@ -251,6 +254,18 @@ function normalizeCmsData(parsed: Partial<CmsData> | any): CmsData {
         : DEFAULT_CMS_DATA.showcase,
     inquiries: Array.isArray(parsed.inquiries) ? parsed.inquiries : DEFAULT_CMS_DATA.inquiries,
     agencyServices: existingServices,
+    serviceCategories: Array.from(
+      new Set(
+        [
+          ...DEFAULT_CMS_DATA.serviceCategories,
+          ...(Array.isArray(parsed.serviceCategories) ? parsed.serviceCategories : []),
+          ...existingServices.map((service: AgencyService) => service.category),
+        ].filter(
+          (category): category is ServiceCategory =>
+            typeof category === "string" && category.trim().length > 0
+        )
+      )
+    ),
     packages: existingPackages,
     orders: Array.isArray(parsed.orders) ? parsed.orders : DEFAULT_CMS_DATA.orders,
     portfolioItems: normalizedPortfolio,
@@ -285,6 +300,8 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
   const [cmsData, setCmsData] = useState<CmsData>(DEFAULT_CMS_DATA);
   const cmsDataRef = useRef<CmsData>(DEFAULT_CMS_DATA);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [cmsLoadError, setCmsLoadError] = useState<string | null>(null);
+  const liveContentReady = useRef(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [cloudSyncInfo, setCloudSyncInfo] = useState<CloudSyncInfo>({
     isCloudConnected: false,
@@ -310,13 +327,15 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
               cache: "no-store",
               headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
             }
-          : { cache: "force-cache" },
+          : { cache: "no-store" },
       );
 
-      if (!res.ok) return;
+      if (!res.ok) throw new Error("Live CMS could not be loaded. Check the Vercel Blob storage status.");
 
       const result = await res.json();
       if (result.success && result.data) {
+        liveContentReady.current = true;
+        setCmsLoadError(null);
         const normalized = normalizeCmsData(result.data);
         setCmsData(normalized);
         try {
@@ -334,6 +353,9 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       }
     } catch (err) {
       console.warn("[CmsContext] Background sync fetch error:", err);
+      liveContentReady.current = false;
+      setCmsLoadError("Live data is temporarily unavailable. Editing is paused to protect your projects. Check Vercel Blob storage, then retry.");
+      setCloudSyncInfo((current) => ({ ...current, isCloudConnected: false, statusMessage: "Live CMS unavailable" }));
     }
   }, []);
 
@@ -360,15 +382,9 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       console.warn("CMS localStorage load error:", e);
     }
 
-    // Public visitors render immediately from deployed content. Browser-local
-    // drafts remain available to the admin only, preventing a stale-data flash.
-    const isAdminRoute = window.location.pathname.startsWith("/admin");
-    if (isAdminRoute) {
-      refreshLiveContent().finally(() => setIsLoaded(true));
-    } else {
-      setIsLoaded(true);
-      void refreshLiveContent();
-    }
+    // Browser-local drafts remain available to the admin only. Wait for the
+    // live response on public pages so default CMS data is never shown as live.
+    refreshLiveContent().finally(() => setIsLoaded(true));
 
     // Re-check live updates when user focuses tab
     const handleFocus = () => {
@@ -389,6 +405,7 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
 
   // Save changes locally + POST to serverless route
   const saveState = useCallback(async (newData: CmsData): Promise<boolean> => {
+    if (!liveContentReady.current) return false;
     isSavingRef.current = true;
     const now = Date.now();
     const dataWithTimestamp: CmsData = {
@@ -578,6 +595,25 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       ...cmsData,
       agencyServices: updatedServices,
       packages: updatedPackages,
+    });
+  };
+
+  const addServiceCategory = (category: ServiceCategory): Promise<boolean> => {
+    const normalizedCategory = category.trim();
+    if (!normalizedCategory) return Promise.resolve(false);
+
+    if (
+      cmsData.serviceCategories.some(
+        (existingCategory) =>
+          existingCategory.toLocaleLowerCase() === normalizedCategory.toLocaleLowerCase()
+      )
+    ) {
+      return Promise.resolve(true);
+    }
+
+    return saveState({
+      ...cmsData,
+      serviceCategories: [...cmsData.serviceCategories, normalizedCategory],
     });
   };
 
@@ -915,6 +951,7 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       value={{
         cmsData,
         isLoaded,
+        cmsLoadError,
         isSyncing,
         cloudSyncInfo,
         refreshLiveContent,
@@ -932,6 +969,7 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
         deleteService,
         reorderServices,
         saveServiceWithPackages,
+        addServiceCategory,
         addPackage,
         updatePackage,
         deletePackage,

@@ -63,7 +63,7 @@ export default function AdminHomepagePage() {
                 onClick={() => updateHomeSection(sec.id, { enabled: !sec.enabled })}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono border transition-all ${
                   sec.enabled
-                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                    ? "bg-sky-500/10 text-sky-400 border-sky-500/30"
                     : "bg-white/5 text-slate-500 border-white/10"
                 }`}
               >
@@ -129,4 +129,4 @@ export default function AdminHomepagePage() {
   );
 }
 
-const inp = "w-full bg-[#131920] border border-white/[0.08] rounded-xl px-3 py-2 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00FF87]/40 transition-all";
+const inp = "w-full bg-[#131920] border border-white/[0.08] rounded-xl px-3 py-2 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-[#60A5FA]/40 transition-all";

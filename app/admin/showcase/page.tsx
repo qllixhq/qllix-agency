@@ -113,7 +113,7 @@ export default function AdminShowcasePage() {
         actionButton={
           <button
             onClick={handleOpenAdd}
-            className="px-4 py-2 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs transition-all shadow-[0_0_20px_rgba(0,255,135,0.3)] flex items-center gap-1.5 cursor-pointer active:scale-95"
+            className="px-4 py-2 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-xs transition-all shadow-[0_0_20px_rgba(96,165,250,0.3)] flex items-center gap-1.5 cursor-pointer active:scale-95"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Add Showcase Card</span>
@@ -125,22 +125,22 @@ export default function AdminShowcasePage() {
         
         {/* Toast */}
         {savedSuccess && (
-          <div className="p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-[#00FF87] flex items-center gap-2 text-xs font-semibold">
+          <div className="p-4 rounded-xl bg-sky-500/15 border border-sky-500/40 text-[#60A5FA] flex items-center gap-2 text-xs font-semibold">
             <CheckCircle2 className="w-4 h-4" />
             <span>Showcase carousel updated live! The home hero marquee now reflects your changes.</span>
           </div>
         )}
 
         {/* ═══ RECOMMENDED DESIGN DIMENSIONS & ASPECT RATIOS GUIDE ═══ */}
-        <div className="p-5 rounded-2xl bg-[#03150B] border border-emerald-500/30 shadow-lg">
+        <div className="p-5 rounded-2xl bg-[#03150B] border border-sky-500/30 shadow-lg">
           <div className="flex items-center justify-between flex-wrap gap-2 mb-2.5">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#00FF87] animate-pulse" />
-              <h3 className="text-xs font-mono uppercase font-bold text-[#00FF87] tracking-wider">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#60A5FA] animate-pulse" />
+              <h3 className="text-xs font-mono uppercase font-bold text-[#60A5FA] tracking-wider">
                 Recommended Design Dimensions &amp; Aspect Ratio Guide (Canvas Cheat-Sheet)
               </h3>
             </div>
-            <span className="text-[11px] font-mono text-emerald-400/90 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+            <span className="text-[11px] font-mono text-sky-400/90 bg-sky-500/10 px-2.5 py-0.5 rounded-full border border-sky-500/20">
               For Figma / Photoshop / Blender
             </span>
           </div>
@@ -152,15 +152,15 @@ export default function AdminShowcasePage() {
             {presetAspectRatios.map((preset, idx) => (
               <div 
                 key={idx} 
-                className="p-3.5 rounded-xl bg-black/60 border border-white/10 hover:border-emerald-500/40 transition-all space-y-1.5"
+                className="p-3.5 rounded-xl bg-black/60 border border-white/10 hover:border-sky-500/40 transition-all space-y-1.5"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white leading-tight">{preset.label}</span>
-                  <span className="text-[10px] font-mono font-bold text-[#00FF87] bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                  <span className="text-[10px] font-mono font-bold text-[#60A5FA] bg-sky-500/10 px-1.5 py-0.5 rounded border border-sky-500/20">
                     {preset.ratioStr}
                   </span>
                 </div>
-                <div className="text-[13px] font-mono font-black text-[#00FF87]">
+                <div className="text-[13px] font-mono font-black text-[#60A5FA]">
                   {preset.dimensions}
                 </div>
                 <p className="text-[10.5px] text-slate-400 leading-snug">
@@ -172,13 +172,13 @@ export default function AdminShowcasePage() {
         </div>
 
         {/* Row Switcher Tabs */}
-        <div className="flex items-center justify-between bg-[#020F07] border border-white/10 p-3 rounded-2xl">
+        <div className="flex items-center justify-between bg-[#0F172A] border border-white/10 p-3 rounded-2xl">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveRow("row1")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                 activeRow === "row1"
-                  ? "bg-[#00FF87] text-[#02180C] shadow-[0_0_15px_rgba(0,255,135,0.3)]"
+                  ? "bg-[#60A5FA] text-[#0F172A] shadow-[0_0_15px_rgba(96,165,250,0.3)]"
                   : "text-slate-400 hover:text-white bg-white/5"
               }`}
             >
@@ -192,7 +192,7 @@ export default function AdminShowcasePage() {
               onClick={() => setActiveRow("row2")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                 activeRow === "row2"
-                  ? "bg-[#00FF87] text-[#02180C] shadow-[0_0_15px_rgba(0,255,135,0.3)]"
+                  ? "bg-[#60A5FA] text-[#0F172A] shadow-[0_0_15px_rgba(96,165,250,0.3)]"
                   : "text-slate-400 hover:text-white bg-white/5"
               }`}
             >
@@ -207,7 +207,7 @@ export default function AdminShowcasePage() {
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-[#00FF87] hover:underline font-mono font-bold flex items-center gap-1"
+            className="text-xs text-[#60A5FA] hover:underline font-mono font-bold flex items-center gap-1"
           >
             <span>Preview on Home</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -219,7 +219,7 @@ export default function AdminShowcasePage() {
           {currentCards.map((card, index) => (
             <div
               key={card.id}
-              className="rounded-2xl bg-[#020F07] border border-white/10 overflow-hidden flex flex-col justify-between group hover:border-[#00FF87]/40 transition-all shadow-md"
+              className="rounded-2xl bg-[#0F172A] border border-white/10 overflow-hidden flex flex-col justify-between group hover:border-[#60A5FA]/40 transition-all shadow-md"
             >
               <div>
                 {/* Media Preview */}
@@ -231,8 +231,8 @@ export default function AdminShowcasePage() {
                   />
                   
                   {card.video && (
-                    <div className="absolute top-2.5 right-2.5 px-2 py-1 rounded-full bg-black/80 backdrop-blur-md border border-emerald-500/40 text-[10px] font-mono text-[#00FF87] flex items-center gap-1 font-bold">
-                      <Play className="w-2.5 h-2.5 fill-[#00FF87]" />
+                    <div className="absolute top-2.5 right-2.5 px-2 py-1 rounded-full bg-black/80 backdrop-blur-md border border-sky-500/40 text-[10px] font-mono text-[#60A5FA] flex items-center gap-1 font-bold">
+                      <Play className="w-2.5 h-2.5 fill-[#60A5FA]" />
                       <span>Video</span>
                     </div>
                   )}
@@ -243,7 +243,7 @@ export default function AdminShowcasePage() {
                     );
                     return (
                       <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-black/85 backdrop-blur-sm text-[10px] font-mono text-slate-300 border border-white/10 flex items-center gap-1.5">
-                        <span className="text-[#00FF87] font-semibold">{matchedPreset?.ratioStr || `${card.aspectRatio.toFixed(2)}x`}</span>
+                        <span className="text-[#60A5FA] font-semibold">{matchedPreset?.ratioStr || `${card.aspectRatio.toFixed(2)}x`}</span>
                         <span className="text-slate-400">({matchedPreset?.dimensions || "Custom"})</span>
                       </div>
                     );
@@ -270,7 +270,7 @@ export default function AdminShowcasePage() {
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => handleOpenEdit(card)}
-                    className="p-1.5 rounded-lg bg-white/5 hover:bg-[#00FF87]/20 text-slate-300 hover:text-[#00FF87] transition-colors cursor-pointer"
+                    className="p-1.5 rounded-lg bg-white/5 hover:bg-[#60A5FA]/20 text-slate-300 hover:text-[#60A5FA] transition-colors cursor-pointer"
                     title="Edit Card"
                   >
                     <Edit2 className="w-3.5 h-3.5" />
@@ -292,7 +292,7 @@ export default function AdminShowcasePage() {
         {/* ═══ ADD / EDIT MODAL ═══ */}
         {editingItem && (
           <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-            <div className="bg-[#020F07] border border-emerald-500/30 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl my-8">
+            <div className="bg-[#0F172A] border border-sky-500/30 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl my-8">
               
               <div className="px-6 py-5 border-b border-white/10 flex items-center justify-between">
                 <div>
@@ -323,7 +323,7 @@ export default function AdminShowcasePage() {
                     value={editingItem.title}
                     onChange={(e) => setEditingItem({ ...editingItem, title: e.target.value })}
                     placeholder="Ex. FITMATE Mobile Experience"
-                    className="w-full px-3.5 py-2 rounded-xl bg-black/60 border border-white/10 text-white text-xs focus:outline-none focus:border-[#00FF87]"
+                    className="w-full px-3.5 py-2 rounded-xl bg-black/60 border border-white/10 text-white text-xs focus:outline-none focus:border-[#60A5FA]"
                   />
                 </div>
 
@@ -335,14 +335,14 @@ export default function AdminShowcasePage() {
                   return (
                     <>
                       {/* Active Dimension Highlight Box */}
-                      <div className="p-3 rounded-2xl bg-emerald-950/40 border border-[#00FF87]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="p-3 rounded-2xl bg-sky-950/40 border border-[#60A5FA]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="space-y-0.5">
                           <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
                             Current Target Dimension
                           </div>
-                          <div className="text-sm font-bold font-mono text-[#00FF87] flex items-center gap-2">
+                          <div className="text-sm font-bold font-mono text-[#60A5FA] flex items-center gap-2">
                             <span>{currentPreset.dimensions}</span>
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#00FF87]/20 border border-[#00FF87]/30 text-[#00FF87]">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#60A5FA]/20 border border-[#60A5FA]/30 text-[#60A5FA]">
                               {currentPreset.ratioStr} ({currentPreset.value.toFixed(2)}x)
                             </span>
                           </div>
@@ -395,16 +395,16 @@ export default function AdminShowcasePage() {
                           onClick={() => setEditingItem({ ...editingItem, aspectRatio: preset.value })}
                           className={`p-2.5 rounded-xl text-left border transition-all cursor-pointer flex flex-col justify-between ${
                             isSelected
-                              ? "bg-[#00FF87]/15 border-[#00FF87] shadow-[0_0_12px_rgba(0,255,135,0.15)]"
+                              ? "bg-[#60A5FA]/15 border-[#60A5FA] shadow-[0_0_12px_rgba(96,165,250,0.15)]"
                               : "bg-black/40 border-white/10 hover:border-white/20"
                           }`}
                         >
                           <div className="flex items-center justify-between gap-1 mb-1">
-                            <span className={`text-xs font-bold ${isSelected ? "text-[#00FF87]" : "text-white"}`}>
+                            <span className={`text-xs font-bold ${isSelected ? "text-[#60A5FA]" : "text-white"}`}>
                               {preset.label}
                             </span>
                             <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                              isSelected ? "bg-[#00FF87]/20 text-[#00FF87]" : "bg-white/10 text-slate-400"
+                              isSelected ? "bg-[#60A5FA]/20 text-[#60A5FA]" : "bg-white/10 text-slate-400"
                             }`}>
                               {preset.ratioStr}
                             </span>
@@ -439,7 +439,7 @@ export default function AdminShowcasePage() {
 
                   <button
                     type="submit"
-                    className="px-6 py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs transition-all shadow-[0_0_20px_rgba(0,255,135,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
+                    className="px-6 py-2.5 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-xs transition-all shadow-[0_0_20px_rgba(96,165,250,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
                   >
                     <Save className="w-3.5 h-3.5 stroke-[2.5]" />
                     <span>Save Card</span>

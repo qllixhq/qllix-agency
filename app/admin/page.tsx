@@ -33,8 +33,8 @@ export default function AdminDashboardPage() {
 
   const stats = [
     { label: "Campaigns & Offers", value: `${activeCampaigns}/${totalCampaigns}`, note: "active / total ads", icon: Megaphone, href: "/admin/campaigns", color: "text-rose-500", bg: isDark ? "bg-rose-500/10 border-rose-500/20" : "bg-rose-50 border-rose-200", badge: activeCampaigns > 0 ? "LIVE" : undefined },
-    { label: "Hero Showcase", value: totalShowcase, note: "marquee cards", icon: Sparkles, href: "/admin/showcase", color: "text-[#00FF87]", bg: isDark ? "bg-[#00FF87]/10 border-[#00FF87]/20" : "bg-emerald-50 border-emerald-200" },
-    { label: "Services", value: `${activeServices}/${totalServices}`, note: "active/total", icon: Wrench, href: "/admin/services", color: "text-emerald-500", bg: isDark ? "bg-emerald-500/10 border-emerald-500/20" : "bg-emerald-50 border-emerald-200" },
+    { label: "Hero Showcase", value: totalShowcase, note: "marquee cards", icon: Sparkles, href: "/admin/showcase", color: "text-[#60A5FA]", bg: isDark ? "bg-[#60A5FA]/10 border-[#60A5FA]/20" : "bg-sky-50 border-sky-200" },
+    { label: "Services", value: `${activeServices}/${totalServices}`, note: "active/total", icon: Wrench, href: "/admin/services", color: "text-sky-500", bg: isDark ? "bg-sky-500/10 border-sky-500/20" : "bg-sky-50 border-sky-200" },
     { label: "Packages", value: totalPackages, note: `across ${totalServices} services`, icon: Package, href: "/admin/packages", color: "text-cyan-500", bg: isDark ? "bg-cyan-500/10 border-cyan-500/20" : "bg-cyan-50 border-cyan-200" },
     { label: "Orders", value: totalOrders, note: `${newOrders} new`, icon: ShoppingBag, href: "/admin/orders", color: "text-amber-500", bg: isDark ? "bg-amber-500/10 border-amber-500/20" : "bg-amber-50 border-amber-200", badge: newOrders > 0 ? `${newOrders} new` : undefined },
     { label: "Team Members", value: `${activeTeam}/${totalTeam}`, note: "active members", icon: Users, href: "/admin/team", color: "text-teal-500", bg: isDark ? "bg-teal-500/10 border-teal-500/20" : "bg-teal-50 border-teal-200" },
@@ -55,7 +55,7 @@ export default function AdminDashboardPage() {
     in_progress: "bg-amber-500/10 text-amber-400 border-amber-500/30",
     waiting: "bg-orange-500/10 text-orange-400 border-orange-500/30",
     revision: "bg-purple-500/10 text-purple-400 border-purple-500/30",
-    completed: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+    completed: "bg-sky-500/10 text-sky-400 border-sky-500/30",
     cancelled: "bg-red-500/10 text-red-400 border-red-500/30",
   };
 
@@ -82,7 +82,7 @@ export default function AdminDashboardPage() {
                 }`}
               >
                 {stat.badge && (
-                  <div className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-mono text-[10px] font-black flex items-center justify-center shadow-md">
+                  <div className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-sky-500 text-slate-950 font-mono text-[10px] font-black flex items-center justify-center shadow-md">
                     {stat.badge}
                   </div>
                 )}
@@ -110,13 +110,13 @@ export default function AdminDashboardPage() {
             isDark ? "border-white/[0.06]" : "border-slate-200"
           }`}>
             <div className="flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-[#00FF87]" />
+              <ShoppingBag className="w-4 h-4 text-[#60A5FA]" />
               <span className={`font-bold text-sm ${isDark ? "text-white" : "text-slate-900"}`}>Recent Orders</span>
             </div>
             <Link
               href="/admin/orders"
               className={`text-xs flex items-center gap-1 transition-colors ${
-                isDark ? "text-slate-400 hover:text-[#00FF87]" : "text-slate-500 hover:text-emerald-600"
+                isDark ? "text-slate-400 hover:text-[#60A5FA]" : "text-slate-500 hover:text-sky-600"
               }`}
             >
               View all <ArrowRight className="w-3.5 h-3.5" />
@@ -135,7 +135,7 @@ export default function AdminDashboardPage() {
                     <div className={`font-semibold text-sm truncate ${isDark ? "text-white" : "text-slate-900"}`}>{order.fullName}</div>
                     <div className="text-xs text-slate-500 truncate">{order.serviceName} — {order.packageName}</div>
                   </div>
-                  <div className="text-sm font-mono text-[#00FF87] shrink-0 font-bold">৳{order.amount.toLocaleString()}</div>
+                  <div className="text-sm font-mono text-[#60A5FA] shrink-0 font-bold">৳{order.amount.toLocaleString()}</div>
                   <div className={`text-[10px] font-mono px-2 py-1 rounded-full border shrink-0 ${STATUS_COLORS[order.status] || ""}`}>
                     {order.status.replace("_", " ")}
                   </div>
@@ -156,60 +156,60 @@ export default function AdminDashboardPage() {
             href="/admin/campaigns"
             className={`group flex items-center gap-3 p-4 rounded-xl border transition-all ${
               isDark
-                ? "bg-[#0A0F14] border-white/[0.07] hover:border-[#00FF87]/30"
-                : "bg-white border-slate-200 hover:border-emerald-300 shadow-sm"
+                ? "bg-[#0A0F14] border-white/[0.07] hover:border-[#60A5FA]/30"
+                : "bg-white border-slate-200 hover:border-sky-300 shadow-sm"
             }`}
           >
             <Megaphone className="w-5 h-5 text-rose-500 shrink-0" />
             <div>
               <div className={`text-sm font-bold transition-colors ${
-                isDark ? "text-white group-hover:text-[#00FF87]" : "text-slate-900 group-hover:text-emerald-700"
+                isDark ? "text-white group-hover:text-[#60A5FA]" : "text-slate-900 group-hover:text-sky-700"
               }`}>
                 Launch Campaign &amp; Ads
               </div>
               <div className="text-xs text-slate-500">Create promo announcement bars &amp; offer popups</div>
             </div>
-            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-[#00FF87] ml-auto transition-colors" />
+            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-[#60A5FA] ml-auto transition-colors" />
           </Link>
 
           <Link
             href="/admin/settings"
             className={`group flex items-center gap-3 p-4 rounded-xl border transition-all ${
               isDark
-                ? "bg-[#0A0F14] border-white/[0.07] hover:border-[#00FF87]/30"
-                : "bg-white border-slate-200 hover:border-emerald-300 shadow-sm"
+                ? "bg-[#0A0F14] border-white/[0.07] hover:border-[#60A5FA]/30"
+                : "bg-white border-slate-200 hover:border-sky-300 shadow-sm"
             }`}
           >
             <Sparkles className="w-5 h-5 text-cyan-500 shrink-0" />
             <div>
               <div className={`text-sm font-bold transition-colors ${
-                isDark ? "text-white group-hover:text-[#00FF87]" : "text-slate-900 group-hover:text-emerald-700"
+                isDark ? "text-white group-hover:text-[#60A5FA]" : "text-slate-900 group-hover:text-sky-700"
               }`}>
                 Global Brand &amp; Colors
               </div>
               <div className="text-xs text-slate-500">Header &amp; footer logo, favicon, fonts, loading bar</div>
             </div>
-            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-[#00FF87] ml-auto transition-colors" />
+            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-[#60A5FA] ml-auto transition-colors" />
           </Link>
 
           <Link
             href="/admin/packages"
             className={`group flex items-center gap-3 p-4 rounded-xl border transition-all ${
               isDark
-                ? "bg-[#0A0F14] border-white/[0.07] hover:border-[#00FF87]/30"
-                : "bg-white border-slate-200 hover:border-emerald-300 shadow-sm"
+                ? "bg-[#0A0F14] border-white/[0.07] hover:border-[#60A5FA]/30"
+                : "bg-white border-slate-200 hover:border-sky-300 shadow-sm"
             }`}
           >
             <Package className="w-5 h-5 text-purple-500 shrink-0" />
             <div>
               <div className={`text-sm font-bold transition-colors ${
-                isDark ? "text-white group-hover:text-[#00FF87]" : "text-slate-900 group-hover:text-emerald-700"
+                isDark ? "text-white group-hover:text-[#60A5FA]" : "text-slate-900 group-hover:text-sky-700"
               }`}>
                 Manage Packages &amp; Pricing
               </div>
               <div className="text-xs text-slate-500">Adjust service packages, prices &amp; features</div>
             </div>
-            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-[#00FF87] ml-auto transition-colors" />
+            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-[#60A5FA] ml-auto transition-colors" />
           </Link>
         </div>
       </div>

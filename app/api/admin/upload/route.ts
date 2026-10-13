@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { saveUploadToBlob } from "@/lib/blobCmsStorage";
+import { localStorageDirectory } from "@/lib/localCmsStorage";
 
 export const dynamic = "force-dynamic";
 
@@ -65,6 +66,17 @@ export async function POST(request: Request) {
 
     const fullFileName = `${filename}.${extension}`;
     const mime = extension === "png" ? "image/png" : extension === "webp" ? "image/webp" : "image/jpeg";
+
+    if (process.env.QLLIX_STORAGE_DIR) {
+      if (!["jpg", "jpeg", "png", "webp", "gif", "avif", "mp4", "webm", "mov"].includes(extension)) {
+        return NextResponse.json({ success: false, error: "Unsupported media file type" }, { status: 400 });
+      }
+      if (buffer.length > 5 * 1024 * 1024) return NextResponse.json({ success: false, error: "File exceeds the 5 MB limit" }, { status: 413 });
+      const uploadDir = path.join(localStorageDirectory(), "media");
+      fs.mkdirSync(uploadDir, { recursive: true });
+      fs.writeFileSync(path.join(uploadDir, fullFileName), buffer, { flag: "wx", mode: 0o600 });
+      return NextResponse.json({ success: true, url: `/media/${fullFileName}`, message: "Saved to hosting storage" });
+    }
 
     // Vercel Blob keeps uploaded images persistent and prevents base64 CMS bloat.
     const blob = await saveUploadToBlob(buffer, fullFileName, mime);

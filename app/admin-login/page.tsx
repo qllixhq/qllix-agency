@@ -2,12 +2,14 @@
 
 import { FormEvent, useState } from "react";
 import { ArrowRight, Eye, EyeOff, KeyRound } from "lucide-react";
+import { ADMIN_AUTH_KEY } from "@/lib/cmsStore";
 
 export default function AdminLoginPage() {
   const [passcode, setPasscode] = useState("");
   const [showPasscode, setShowPasscode] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [logoFailed, setLogoFailed] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,9 +28,9 @@ export default function AdminLoginPage() {
         return;
       }
 
-      localStorage.setItem("qllix_admin_auth_session", "true");
+      localStorage.setItem(ADMIN_AUTH_KEY, "true");
       const destination = new URLSearchParams(window.location.search).get("next");
-      window.location.assign(destination?.startsWith("/admin") ? destination : "/admin");
+      window.location.replace(destination?.startsWith("/admin") ? destination : "/admin");
     } catch {
       setError("Unable to connect. Please try again.");
     } finally {
@@ -42,7 +44,16 @@ export default function AdminLoginPage() {
       <form onSubmit={handleSubmit} className="relative w-full max-w-md rounded-[28px] border border-white/15 bg-[#0b0b0b] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.75)] sm:p-10">
         <div className="mb-9 text-center">
           <div className="mx-auto mb-5 grid h-20 w-20 place-items-center overflow-hidden rounded-2xl border border-white/15 bg-black">
-            <img src="/images/qllix-admin-logo.png" alt="Qllix" className="h-full w-full object-cover" />
+            {logoFailed ? (
+              <span className="text-2xl font-black tracking-tight text-emerald-400">Q</span>
+            ) : (
+              <img
+                src="/images/qllix-admin-logo.png"
+                alt="Qllix"
+                className="h-full w-full object-cover"
+                onError={() => setLogoFailed(true)}
+              />
+            )}
           </div>
           <h1 className="text-2xl font-semibold tracking-[-0.04em]">Qllix Admin</h1>
           <p className="mt-2 text-sm text-zinc-400">Enter your access code to continue.</p>

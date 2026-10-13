@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -37,6 +37,7 @@ interface AdminSidebarProps {
 export default function AdminSidebar({ onClose, onLogout }: AdminSidebarProps) {
   const pathname = usePathname();
   const { isDark } = useAdminTheme();
+  const [logoFailed, setLogoFailed] = useState(false);
 
   const isActive = (href: string, exact?: boolean) => {
     if (exact) return pathname === href;
@@ -55,7 +56,16 @@ export default function AdminSidebar({ onClose, onLogout }: AdminSidebarProps) {
       }`}>
         <Link href="/" className="flex items-center gap-2.5 group">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/logo.png" alt="Qllix" className="h-7 w-auto object-contain" />
+        {!logoFailed ? (
+          <img
+            src="/images/logo.png"
+            alt="Qllix"
+            className="h-7 w-auto object-contain"
+            onError={() => setLogoFailed(true)}
+          />
+        ) : (
+          <span className="text-sm font-black tracking-tight text-emerald-neon">Qllix</span>
+        )}
           <span className={`text-xs font-mono font-semibold transition-colors ${
             isDark ? "text-slate-500 group-hover:text-slate-300" : "text-slate-400 group-hover:text-slate-700"
           }`}>
@@ -87,7 +97,7 @@ export default function AdminSidebar({ onClose, onLogout }: AdminSidebarProps) {
               className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all group ${
                 active
                   ? isDark
-                    ? "bg-[#00FF87]/10 text-[#00FF87] border border-[#00FF87]/20 font-semibold"
+                    ? "bg-emerald-neon/10 text-emerald-neon border border-emerald-neon/20 font-semibold"
                     : "bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold"
                   : isDark
                   ? "text-slate-400 hover:text-white hover:bg-white/[0.04]"
@@ -96,12 +106,12 @@ export default function AdminSidebar({ onClose, onLogout }: AdminSidebarProps) {
             >
               <Icon className={`w-4 h-4 shrink-0 transition-colors ${
                 active
-                  ? isDark ? "text-[#00FF87]" : "text-emerald-600"
+                  ? isDark ? "text-emerald-neon" : "text-emerald-600"
                   : isDark ? "text-slate-500 group-hover:text-slate-300" : "text-slate-400 group-hover:text-slate-700"
               }`} />
               <span className="flex-1">{item.label}</span>
               {active && (
-                <ChevronRight className={`w-3.5 h-3.5 ${isDark ? "text-[#00FF87]/60" : "text-emerald-500"}`} />
+                <ChevronRight className={`w-3.5 h-3.5 ${isDark ? "text-emerald-neon/60" : "text-emerald-600"}`} />
               )}
             </Link>
           );
@@ -114,10 +124,10 @@ export default function AdminSidebar({ onClose, onLogout }: AdminSidebarProps) {
           href="/"
           target="_blank"
           className={`flex items-center gap-2 text-xs transition-colors ${
-            isDark ? "text-slate-500 hover:text-[#00FF87]" : "text-slate-500 hover:text-emerald-600"
+            isDark ? "text-slate-500 hover:text-emerald-neon" : "text-slate-500 hover:text-emerald-600"
           }`}
         >
-          <span className="w-2 h-2 rounded-full bg-[#00FF87] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-emerald-neon animate-pulse" />
           View Live Site
         </Link>
         {onLogout && (

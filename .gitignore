@@ -6,3 +6,11 @@ node_modules
 .vscode/
 tsconfig.tsbuildinfo
 .vercel
+scratch/
+data/cms-data.json
+live-cms.json
+site-home*.html
+original_navbar*.txt
+prompt_full.txt
+scratch_prompt.txt
+**/*.code-workspace

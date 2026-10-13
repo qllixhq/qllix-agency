@@ -23,7 +23,7 @@ export default function ProjectsPage() {
       {/* Signature Top Banner with Centered Logo & Breadcrumbs (No Button, No Subtitle) */}
       <SubpageHeroBanner 
         pageKey="projects" 
-        title={<span>Crafted with <em className="text-[#00FF87] not-italic font-serif">Precision</em></span>}
+        title={<span>Projects We&apos;ve <em className="text-[#00FF87] not-italic font-serif">Done</em></span>}
       />
 
       {/* ═══ WHITE SHEET CONTENT WRAPPER ═══ */}

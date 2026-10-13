@@ -184,7 +184,7 @@ function CampaignsPageSimplified() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  const fieldClass = `w-full rounded-xl border px-3.5 py-2.5 text-sm outline-none transition focus:border-[#00FF87] ${
+  const fieldClass = `w-full rounded-xl border px-3.5 py-2.5 text-sm outline-none transition focus:border-[#60A5FA] ${
     isDark ? "border-white/10 bg-black/50 text-white" : "border-slate-300 bg-white text-slate-900"
   }`;
 
@@ -197,7 +197,7 @@ function CampaignsPageSimplified() {
           <button
             type="button"
             onClick={openNew}
-            className="flex items-center gap-2 rounded-xl bg-[#00FF87] px-5 py-2.5 text-xs font-black text-[#02180C] shadow-[0_0_20px_rgba(0,255,135,0.3)] transition hover:bg-[#00DF81] active:scale-95"
+            className="flex items-center gap-2 rounded-xl bg-[#60A5FA] px-5 py-2.5 text-xs font-black text-[#0F172A] shadow-[0_0_20px_rgba(96,165,250,0.3)] transition hover:bg-[#3B82F6] active:scale-95"
           >
             <Plus className="h-4 w-4 stroke-[3]" />
             Create campaign
@@ -207,17 +207,17 @@ function CampaignsPageSimplified() {
 
       <div className="max-w-6xl space-y-6 p-6 lg:p-10">
         {toastMessage && (
-          <div className="flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/15 p-3 text-xs font-semibold text-emerald-600 dark:text-[#00FF87]">
+          <div className="flex items-center gap-2 rounded-xl border border-sky-500/40 bg-sky-500/15 p-3 text-xs font-semibold text-sky-600 dark:text-[#60A5FA]">
             <CheckCircle2 className="h-4 w-4" />
             {toastMessage}
           </div>
         )}
 
         {campaigns.length === 0 ? (
-          <div className={`rounded-3xl border p-12 text-center ${isDark ? "border-white/10 bg-[#020F07]" : "border-slate-200 bg-white"}`}>
+          <div className={`rounded-3xl border p-12 text-center ${isDark ? "border-white/10 bg-[#0F172A]" : "border-slate-200 bg-white"}`}>
             <Megaphone className="mx-auto mb-3 h-10 w-10 text-slate-500" />
             <h2 className={`text-base font-bold ${isDark ? "text-white" : "text-slate-900"}`}>No campaigns yet</h2>
-            <button type="button" onClick={openNew} className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#00FF87] px-4 py-2.5 text-xs font-black text-[#02180C]">
+            <button type="button" onClick={openNew} className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#60A5FA] px-4 py-2.5 text-xs font-black text-[#0F172A]">
               <Plus className="h-4 w-4" />
               Create campaign
             </button>
@@ -230,8 +230,8 @@ function CampaignsPageSimplified() {
                 className={`overflow-hidden rounded-3xl border transition ${
                   campaign.active
                     ? isDark
-                      ? "border-emerald-500/35 bg-[#020F07]"
-                      : "border-emerald-300 bg-white"
+                      ? "border-sky-500/35 bg-[#0F172A]"
+                      : "border-sky-300 bg-white"
                     : isDark
                     ? "border-white/10 bg-[#080D12] opacity-70"
                     : "border-slate-200 bg-slate-50 opacity-80"
@@ -243,13 +243,13 @@ function CampaignsPageSimplified() {
                 )}
                 <div className="p-5">
                   <div className="mb-3 flex items-center justify-between gap-3">
-                    <span className={`text-xs font-bold ${campaign.active ? "text-emerald-600 dark:text-[#00FF87]" : "text-slate-500"}`}>
+                    <span className={`text-xs font-bold ${campaign.active ? "text-sky-600 dark:text-[#60A5FA]" : "text-slate-500"}`}>
                       {campaign.active ? "Active" : "Inactive"}
                     </span>
                     <button
                       type="button"
                       onClick={() => toggleCampaignActive(campaign.id)}
-                      className={`h-6 w-11 rounded-full p-1 transition ${campaign.active ? "bg-[#00FF87]" : "bg-slate-300 dark:bg-slate-700"}`}
+                      className={`h-6 w-11 rounded-full p-1 transition ${campaign.active ? "bg-[#60A5FA]" : "bg-slate-300 dark:bg-slate-700"}`}
                       aria-label={campaign.active ? "Deactivate campaign" : "Activate campaign"}
                     >
                       <span className={`block h-4 w-4 rounded-full bg-slate-950 transition-transform ${campaign.active ? "translate-x-5" : "translate-x-0"}`} />
@@ -257,9 +257,9 @@ function CampaignsPageSimplified() {
                   </div>
                   <h2 className={`text-lg font-bold leading-tight ${isDark ? "text-white" : "text-slate-900"}`}>{campaign.title}</h2>
                   {campaign.subtitle && <p className="mt-1.5 line-clamp-2 text-sm text-slate-400">{campaign.subtitle}</p>}
-                  <p className="mt-4 truncate text-xs font-semibold text-emerald-600 dark:text-[#00FF87]">{campaign.ctaText} · {campaign.ctaLink}</p>
+                  <p className="mt-4 truncate text-xs font-semibold text-sky-600 dark:text-[#60A5FA]">{campaign.ctaText} · {campaign.ctaLink}</p>
                   <div className={`mt-5 flex justify-end gap-2 border-t pt-4 ${isDark ? "border-white/10" : "border-slate-200"}`}>
-                    <button type="button" onClick={() => openEdit(campaign)} className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/35 px-3 py-2 text-xs font-bold text-emerald-600 transition hover:bg-emerald-500/10 dark:text-[#00FF87]">
+                    <button type="button" onClick={() => openEdit(campaign)} className="inline-flex items-center gap-1.5 rounded-xl border border-sky-500/35 px-3 py-2 text-xs font-bold text-sky-600 transition hover:bg-sky-500/10 dark:text-[#60A5FA]">
                       <Edit2 className="h-3.5 w-3.5" /> Edit
                     </button>
                     <button
@@ -284,7 +284,7 @@ function CampaignsPageSimplified() {
 
       {editingCampaign && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/80 p-4 backdrop-blur-sm">
-          <div className={`my-auto w-full max-w-4xl overflow-hidden rounded-[28px] border shadow-2xl ${isDark ? "border-emerald-500/30 bg-[#031008] text-white" : "border-slate-200 bg-white text-slate-900"}`}>
+          <div className={`my-auto w-full max-w-4xl overflow-hidden rounded-[28px] border shadow-2xl ${isDark ? "border-sky-500/30 bg-[#031008] text-white" : "border-slate-200 bg-white text-slate-900"}`}>
             <div className={`flex items-center justify-between border-b px-5 py-4 sm:px-6 ${isDark ? "border-white/10" : "border-slate-200"}`}>
               <h2 className="text-lg font-bold">{isNew ? "New campaign" : "Edit campaign"}</h2>
               <button type="button" onClick={closeEditor} className="rounded-lg p-2 text-slate-400 transition hover:bg-white/10 hover:text-white" aria-label="Close editor">
@@ -315,22 +315,22 @@ function CampaignsPageSimplified() {
                   <div className="flex flex-col gap-2 sm:flex-row">
                     <input value={editingCampaign.imageUrl || ""} onChange={(event) => setEditingCampaign({ ...editingCampaign, imageUrl: event.target.value })} className={fieldClass} placeholder="Paste an image URL" />
                     <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
-                    <button type="button" onClick={() => fileInputRef.current?.click()} disabled={isUploading} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-emerald-500/35 px-4 py-2.5 text-xs font-bold text-emerald-600 transition hover:bg-emerald-500/10 disabled:opacity-60 dark:text-[#00FF87]">
+                    <button type="button" onClick={() => fileInputRef.current?.click()} disabled={isUploading} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-sky-500/35 px-4 py-2.5 text-xs font-bold text-sky-600 transition hover:bg-sky-500/10 disabled:opacity-60 dark:text-[#60A5FA]">
                       <Upload className="h-4 w-4" /> {isUploading ? "Uploading" : "Upload"}
                     </button>
                   </div>
                 </div>
-                <label className={`flex items-center justify-between rounded-2xl border p-4 ${editingCampaign.active ? "border-emerald-500/35 bg-emerald-500/10" : isDark ? "border-white/10 bg-black/30" : "border-slate-200 bg-slate-50"}`}>
+                <label className={`flex items-center justify-between rounded-2xl border p-4 ${editingCampaign.active ? "border-sky-500/35 bg-sky-500/10" : isDark ? "border-white/10 bg-black/30" : "border-slate-200 bg-slate-50"}`}>
                   <span className="text-sm font-bold">Campaign active</span>
-                  <input type="checkbox" checked={editingCampaign.active} onChange={(event) => setEditingCampaign({ ...editingCampaign, active: event.target.checked })} className="h-4 w-4 accent-emerald-500" />
+                  <input type="checkbox" checked={editingCampaign.active} onChange={(event) => setEditingCampaign({ ...editingCampaign, active: event.target.checked })} className="h-4 w-4 accent-sky-500" />
                 </label>
               </div>
 
               <div className={`border-t p-5 sm:p-6 lg:border-l lg:border-t-0 ${isDark ? "border-white/10 bg-black/20" : "border-slate-200 bg-slate-50"}`}>
-                <div className="mb-3 flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-[#00FF87]">
+                <div className="mb-3 flex items-center gap-2 text-xs font-bold text-sky-600 dark:text-[#60A5FA]">
                   <ImageIcon className="h-4 w-4" /> Campaign preview
                 </div>
-                <div className="overflow-hidden rounded-3xl border border-emerald-500/25 bg-[#031008] shadow-xl">
+                <div className="overflow-hidden rounded-3xl border border-sky-500/25 bg-[#031008] shadow-xl">
                   <div className="relative aspect-[16/10] bg-[#06140c]">
                     {editingCampaign.imageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -340,7 +340,7 @@ function CampaignsPageSimplified() {
                     <div className="absolute inset-x-0 bottom-0 p-5 text-white">
                       <h3 className="text-xl font-bold leading-tight">{editingCampaign.title || "Your offer title"}</h3>
                       {editingCampaign.subtitle && <p className="mt-2 text-sm text-white/70">{editingCampaign.subtitle}</p>}
-                      <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#00FF87] px-4 py-2 text-xs font-black text-[#02180C]">
+                      <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#60A5FA] px-4 py-2 text-xs font-black text-[#0F172A]">
                         {editingCampaign.ctaText || "Learn more"}
                         <ExternalLink className="h-3.5 w-3.5" />
                       </div>
@@ -352,7 +352,7 @@ function CampaignsPageSimplified() {
 
             <div className={`flex justify-end gap-3 border-t px-5 py-4 sm:px-6 ${isDark ? "border-white/10" : "border-slate-200"}`}>
               <button type="button" onClick={closeEditor} className="rounded-xl px-4 py-2.5 text-xs font-bold text-slate-400 transition hover:bg-white/10">Cancel</button>
-              <button type="button" onClick={saveCampaign} className="inline-flex items-center gap-2 rounded-xl bg-[#00FF87] px-5 py-2.5 text-xs font-black text-[#02180C] shadow-[0_0_20px_rgba(0,255,135,0.3)] transition hover:bg-[#00DF81]">
+              <button type="button" onClick={saveCampaign} className="inline-flex items-center gap-2 rounded-xl bg-[#60A5FA] px-5 py-2.5 text-xs font-black text-[#0F172A] shadow-[0_0_20px_rgba(96,165,250,0.3)] transition hover:bg-[#3B82F6]">
                 <Save className="h-4 w-4" /> Save campaign
               </button>
             </div>
@@ -494,7 +494,7 @@ function LegacyAdminCampaignsPage() {
           <button
             onClick={handleOpenNew}
             type="button"
-            className="px-5 py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs transition-all shadow-[0_0_20px_rgba(0,255,135,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
+            className="px-5 py-2.5 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-xs transition-all shadow-[0_0_20px_rgba(96,165,250,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
           >
             <Plus className="w-4 h-4 stroke-[3]" />
             <span>Create Campaign</span>
@@ -505,7 +505,7 @@ function LegacyAdminCampaignsPage() {
       <div className="p-6 lg:p-10 space-y-8 max-w-7xl">
         {/* Toast Notification */}
         {toastMessage && (
-          <div className="p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-600 dark:text-[#00FF87] flex items-center gap-2 text-xs font-semibold animate-fadeIn">
+          <div className="p-4 rounded-xl bg-sky-500/15 border border-sky-500/40 text-sky-600 dark:text-[#60A5FA] flex items-center gap-2 text-xs font-semibold animate-fadeIn">
             <CheckCircle2 className="w-4 h-4" />
             <span>{toastMessage}</span>
           </div>
@@ -514,11 +514,11 @@ function LegacyAdminCampaignsPage() {
         {/* Campaign Placement Guide Info */}
         <div className={`p-6 rounded-3xl border flex flex-col md:flex-row md:items-center justify-between gap-6 transition-colors ${
           isDark
-            ? "bg-gradient-to-r from-emerald-950/30 via-[#020F07] to-cyan-950/30 border-emerald-500/20"
-            : "bg-gradient-to-r from-emerald-50 via-white to-cyan-50 border-emerald-200 shadow-sm"
+            ? "bg-gradient-to-r from-sky-950/30 via-[#0F172A] to-cyan-950/30 border-sky-500/20"
+            : "bg-gradient-to-r from-sky-50 via-white to-cyan-50 border-sky-200 shadow-sm"
         }`}>
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-500 text-[10px] font-mono font-bold uppercase">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/15 border border-sky-500/30 text-sky-500 text-[10px] font-mono font-bold uppercase">
               <Sparkles className="w-3 h-3" />
               <span>Multi-Channel Promotional Engine</span>
             </div>
@@ -534,7 +534,7 @@ function LegacyAdminCampaignsPage() {
             <div className={`px-3 py-2 rounded-xl text-xs font-mono border ${
               isDark ? "bg-black/50 border-white/10 text-slate-300" : "bg-white border-slate-200 text-slate-700"
             }`}>
-              Active: <strong className="text-emerald-500">{campaigns.filter((c) => c.active).length}</strong>
+              Active: <strong className="text-sky-500">{campaigns.filter((c) => c.active).length}</strong>
             </div>
             <div className={`px-3 py-2 rounded-xl text-xs font-mono border ${
               isDark ? "bg-black/50 border-white/10 text-slate-300" : "bg-white border-slate-200 text-slate-700"
@@ -547,7 +547,7 @@ function LegacyAdminCampaignsPage() {
         {/* ═══ CAMPAIGNS LIST ═══ */}
         {campaigns.length === 0 ? (
           <div className={`p-12 text-center rounded-3xl border ${
-            isDark ? "bg-[#020F07] border-white/10" : "bg-white border-slate-200"
+            isDark ? "bg-[#0F172A] border-white/10" : "bg-white border-slate-200"
           }`}>
             <Megaphone className="w-12 h-12 text-slate-600 mx-auto mb-3" />
             <h4 className={`text-base font-bold ${isDark ? "text-white" : "text-slate-900"}`}>No Campaigns Created Yet</h4>
@@ -557,7 +557,7 @@ function LegacyAdminCampaignsPage() {
             <button
               onClick={handleOpenNew}
               type="button"
-              className="mt-5 px-5 py-2.5 rounded-xl bg-[#00FF87] text-[#02180C] font-black text-xs inline-flex items-center gap-2 cursor-pointer shadow-md"
+              className="mt-5 px-5 py-2.5 rounded-xl bg-[#60A5FA] text-[#0F172A] font-black text-xs inline-flex items-center gap-2 cursor-pointer shadow-md"
             >
               <Plus className="w-4 h-4" />
               <span>Create Campaign</span>
@@ -571,8 +571,8 @@ function LegacyAdminCampaignsPage() {
                 className={`rounded-3xl border p-6 flex flex-col justify-between transition-all group ${
                   camp.active
                     ? isDark
-                      ? "bg-[#020F07] border-emerald-500/40 shadow-[0_0_30px_rgba(0,255,135,0.06)]"
-                      : "bg-white border-emerald-400 shadow-md"
+                      ? "bg-[#0F172A] border-sky-500/40 shadow-[0_0_30px_rgba(96,165,250,0.06)]"
+                      : "bg-white border-sky-400 shadow-md"
                     : isDark
                     ? "bg-[#080D12] border-white/5 opacity-75"
                     : "bg-slate-50 border-slate-200 opacity-80"
@@ -582,12 +582,12 @@ function LegacyAdminCampaignsPage() {
                   {/* Card Header: Badges & Toggle */}
                   <div className="flex items-center justify-between gap-2 mb-4">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#00FF87]/20 text-emerald-700 dark:text-[#00FF87] border border-[#00FF87]/30 uppercase">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#60A5FA]/20 text-sky-700 dark:text-[#60A5FA] border border-[#60A5FA]/30 uppercase">
                         {camp.badge || "Special Promo"}
                       </span>
 
                       {camp.discountPercent ? (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-700 dark:text-[#00FF87] border border-emerald-500/30">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sky-500/15 text-sky-700 dark:text-[#60A5FA] border border-sky-500/30">
                           {camp.discountPercent}% AUTO-DISCOUNT
                         </span>
                       ) : null}
@@ -615,8 +615,8 @@ function LegacyAdminCampaignsPage() {
                       title={camp.active ? "Pause Campaign" : "Activate Campaign"}
                     >
                       {camp.active ? (
-                        <span className="text-emerald-500 flex items-center gap-1">
-                          <span className="w-2 h-2 rounded-full bg-[#00FF87] animate-ping" />
+                        <span className="text-sky-500 flex items-center gap-1">
+                          <span className="w-2 h-2 rounded-full bg-[#60A5FA] animate-ping" />
                           LIVE
                         </span>
                       ) : (
@@ -641,8 +641,8 @@ function LegacyAdminCampaignsPage() {
                   }`}>
                     {camp.code ? (
                       <div className="flex items-center gap-2">
-                        <Tag className="w-3.5 h-3.5 text-emerald-500" />
-                        <span className="text-xs font-mono font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                        <Tag className="w-3.5 h-3.5 text-sky-500" />
+                        <span className="text-xs font-mono font-bold text-sky-500 bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20">
                           {camp.code}
                         </span>
                       </div>
@@ -683,8 +683,8 @@ function LegacyAdminCampaignsPage() {
                       onClick={() => handleOpenEdit(camp)}
                       className={`p-2 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
                         isDark
-                          ? "bg-white/5 border-white/10 hover:border-[#00FF87] text-slate-300 hover:text-[#00FF87]"
-                          : "bg-white border-slate-200 hover:border-emerald-500 text-slate-700 hover:text-emerald-600 shadow-xs"
+                          ? "bg-white/5 border-white/10 hover:border-[#60A5FA] text-slate-300 hover:text-[#60A5FA]"
+                          : "bg-white border-slate-200 hover:border-sky-500 text-slate-700 hover:text-sky-600 shadow-xs"
                       }`}
                       title="Edit Campaign"
                     >
@@ -718,7 +718,7 @@ function LegacyAdminCampaignsPage() {
           <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
             <div className={`border rounded-[32px] w-full max-w-5xl overflow-hidden shadow-2xl my-auto transition-all flex flex-col max-h-[94vh] ${
               isDark
-                ? "bg-[#030e07] border-emerald-500/30 text-white shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
+                ? "bg-[#030e07] border-sky-500/30 text-white shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
                 : "bg-white border-slate-200 text-slate-900 shadow-[0_25px_80px_rgba(0,0,0,0.2)]"
             }`}>
               
@@ -727,8 +727,8 @@ function LegacyAdminCampaignsPage() {
                 isDark ? "border-white/10 bg-black/40" : "border-slate-200 bg-slate-50/70"
               }`}>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#00FF87]/20 border border-[#00FF87]/40 flex items-center justify-center text-[#00FF87] shrink-0">
-                    <Sparkles className="w-5 h-5 text-emerald-600 dark:text-[#00FF87]" />
+                  <div className="w-10 h-10 rounded-2xl bg-[#60A5FA]/20 border border-[#60A5FA]/40 flex items-center justify-center text-[#60A5FA] shrink-0">
+                    <Sparkles className="w-5 h-5 text-sky-600 dark:text-[#60A5FA]" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2.5 flex-wrap">
@@ -736,8 +736,8 @@ function LegacyAdminCampaignsPage() {
                         {isNew ? "Create New Campaign & Offer" : "Edit Campaign & Offer"}
                       </h3>
                       {editingCampaign.active ? (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-[#00FF87] border border-emerald-500/30 inline-flex items-center gap-1.5 shadow-xs">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sky-500/15 text-sky-600 dark:text-[#60A5FA] border border-sky-500/30 inline-flex items-center gap-1.5 shadow-xs">
+                          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping" />
                           LIVE ON WEBSITE
                         </span>
                       ) : (
@@ -759,7 +759,7 @@ function LegacyAdminCampaignsPage() {
                       type="button"
                       onClick={() => setMobileTab("editor")}
                       className={`px-3 py-1 rounded-lg transition-all ${
-                        mobileTab === "editor" ? "bg-[#00FF87] text-[#02180C] font-bold" : "text-slate-500 dark:text-slate-400"
+                        mobileTab === "editor" ? "bg-[#60A5FA] text-[#0F172A] font-bold" : "text-slate-500 dark:text-slate-400"
                       }`}
                     >
                       Editor
@@ -768,7 +768,7 @@ function LegacyAdminCampaignsPage() {
                       type="button"
                       onClick={() => setMobileTab("preview")}
                       className={`px-3 py-1 rounded-lg transition-all flex items-center gap-1 ${
-                        mobileTab === "preview" ? "bg-[#00FF87] text-[#02180C] font-bold" : "text-slate-500 dark:text-slate-400"
+                        mobileTab === "preview" ? "bg-[#60A5FA] text-[#0F172A] font-bold" : "text-slate-500 dark:text-slate-400"
                       }`}
                     >
                       <Eye className="w-3.5 h-3.5" />
@@ -801,10 +801,10 @@ function LegacyAdminCampaignsPage() {
                   
                   {/* Smart 1-Click Preset Starters */}
                   <div className={`p-3.5 rounded-2xl border transition-colors ${
-                    isDark ? "bg-black/40 border-white/10" : "bg-emerald-50/50 border-emerald-200"
+                    isDark ? "bg-black/40 border-white/10" : "bg-sky-50/50 border-sky-200"
                   }`}>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-600 dark:text-[#00FF87] flex items-center gap-1.5">
+                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-sky-600 dark:text-[#60A5FA] flex items-center gap-1.5">
                         <Zap className="w-3.5 h-3.5" />
                         <span>1-Click Smart Campaign Presets</span>
                       </span>
@@ -820,7 +820,7 @@ function LegacyAdminCampaignsPage() {
                           onClick={() => handleApplyPreset(preset)}
                           className={`p-2 rounded-xl text-left border transition-all cursor-pointer hover:scale-[1.02] text-xs font-semibold ${
                             editingCampaign.code === preset.code
-                              ? "border-[#00FF87] bg-emerald-500/15 text-emerald-700 dark:text-[#00FF87] font-bold shadow-xs"
+                              ? "border-[#60A5FA] bg-sky-500/15 text-sky-700 dark:text-[#60A5FA] font-bold shadow-xs"
                               : isDark
                               ? "border-white/10 hover:border-white/20 bg-black/50 text-slate-300"
                               : "border-slate-200 hover:border-slate-300 bg-white text-slate-700 shadow-xs"
@@ -840,7 +840,7 @@ function LegacyAdminCampaignsPage() {
                         <label className={`block text-xs font-mono uppercase font-bold ${
                           isDark ? "text-slate-300" : "text-slate-700"
                         }`}>
-                          Campaign Headline <span className="text-emerald-500">*</span>
+                          Campaign Headline <span className="text-sky-500">*</span>
                         </label>
                         <span className={`text-[11px] font-mono ${
                           editingCampaign.title.length > 70
@@ -856,7 +856,7 @@ function LegacyAdminCampaignsPage() {
                         value={editingCampaign.title}
                         onChange={(e) => setEditingCampaign({ ...editingCampaign, title: e.target.value })}
                         placeholder="Ex. Seasonal Creative Sprint: Enjoy 25% Off"
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-medium focus:outline-none focus:border-[#00FF87] transition-all shadow-xs ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-medium focus:outline-none focus:border-[#60A5FA] transition-all shadow-xs ${
                           isDark
                             ? "bg-black/60 border-white/10 text-white placeholder-slate-500"
                             : "bg-white border-slate-300 text-slate-900 placeholder-slate-400"
@@ -883,7 +883,7 @@ function LegacyAdminCampaignsPage() {
                         value={editingCampaign.subtitle || ""}
                         onChange={(e) => setEditingCampaign({ ...editingCampaign, subtitle: e.target.value })}
                         placeholder="Short description highlighting the value or offer details"
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] transition-all shadow-xs ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#60A5FA] transition-all shadow-xs ${
                           isDark
                             ? "bg-black/60 border-white/10 text-white placeholder-slate-500"
                             : "bg-white border-slate-300 text-slate-900 placeholder-slate-400"
@@ -903,7 +903,7 @@ function LegacyAdminCampaignsPage() {
                         value={editingCampaign.badge}
                         onChange={(e) => setEditingCampaign({ ...editingCampaign, badge: e.target.value })}
                         placeholder="Ex. Special Promo, Limited Time, 25% Off"
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-semibold focus:outline-none focus:border-[#00FF87] transition-all shadow-xs ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-semibold focus:outline-none focus:border-[#60A5FA] transition-all shadow-xs ${
                           isDark
                             ? "bg-black/60 border-white/10 text-white"
                             : "bg-white border-slate-300 text-slate-900"
@@ -920,7 +920,7 @@ function LegacyAdminCampaignsPage() {
                             onClick={() => setEditingCampaign({ ...editingCampaign, badge: bp })}
                             className={`text-[10px] font-mono px-2 py-0.5 rounded-md border transition-all cursor-pointer ${
                               editingCampaign.badge.toUpperCase() === bp
-                                ? "bg-emerald-500/20 text-emerald-600 dark:text-[#00FF87] border-[#00FF87]"
+                                ? "bg-sky-500/20 text-sky-600 dark:text-[#60A5FA] border-[#60A5FA]"
                                 : isDark
                                 ? "border-white/10 text-slate-400 hover:text-white"
                                 : "border-slate-200 text-slate-600 hover:text-slate-900 bg-slate-100"
@@ -938,7 +938,7 @@ function LegacyAdminCampaignsPage() {
                     isDark ? "bg-black/30 border-white/10" : "bg-slate-50 border-slate-200"
                   }`}>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-600 dark:text-[#00FF87] flex items-center gap-1.5">
+                      <span className="text-xs font-mono font-bold uppercase tracking-wider text-sky-600 dark:text-[#60A5FA] flex items-center gap-1.5">
                         <Tag className="w-3.5 h-3.5" />
                         <span>Discount &amp; Coupon Engine</span>
                       </span>
@@ -956,7 +956,7 @@ function LegacyAdminCampaignsPage() {
                           <button
                             type="button"
                             onClick={handleGenerateRandomCode}
-                            className="text-[10.5px] text-emerald-600 dark:text-[#00FF87] hover:underline flex items-center gap-1 font-bold cursor-pointer"
+                            className="text-[10.5px] text-sky-600 dark:text-[#60A5FA] hover:underline flex items-center gap-1 font-bold cursor-pointer"
                             title="Generate random code"
                           >
                             <Dices className="w-3 h-3" />
@@ -969,7 +969,7 @@ function LegacyAdminCampaignsPage() {
                             value={editingCampaign.code || ""}
                             onChange={(e) => setEditingCampaign({ ...editingCampaign, code: e.target.value.toUpperCase() })}
                             placeholder="Ex. QLLIX25"
-                            className={`w-full pl-3.5 pr-14 py-2.5 rounded-xl border text-xs font-mono font-bold uppercase focus:outline-none focus:border-[#00FF87] transition-all shadow-xs ${
+                            className={`w-full pl-3.5 pr-14 py-2.5 rounded-xl border text-xs font-mono font-bold uppercase focus:outline-none focus:border-[#60A5FA] transition-all shadow-xs ${
                               isDark
                                 ? "bg-black/60 border-white/10 text-white"
                                 : "bg-white border-slate-300 text-slate-900"
@@ -981,7 +981,7 @@ function LegacyAdminCampaignsPage() {
                               onClick={handleCopyCode}
                               className={`absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer ${
                                 copiedCode
-                                  ? "bg-emerald-500 text-black font-bold"
+                                  ? "bg-sky-500 text-black font-bold"
                                   : isDark
                                   ? "text-slate-400 hover:text-white hover:bg-white/10"
                                   : "text-slate-500 hover:text-slate-900 hover:bg-slate-200"
@@ -1005,7 +1005,7 @@ function LegacyAdminCampaignsPage() {
                           }`}>
                             Auto-Discount Percentage
                           </label>
-                          <span className="text-[11px] font-mono font-bold text-emerald-600 dark:text-[#00FF87]">
+                          <span className="text-[11px] font-mono font-bold text-sky-600 dark:text-[#60A5FA]">
                             {editingCampaign.discountPercent || 0}% OFF
                           </span>
                         </div>
@@ -1020,13 +1020,13 @@ function LegacyAdminCampaignsPage() {
                               discountPercent: Math.max(0, Math.min(90, Number(e.target.value) || 0))
                             })}
                             placeholder="25"
-                            className={`w-full pl-3.5 pr-16 py-2.5 rounded-xl border text-xs font-mono font-bold focus:outline-none focus:border-[#00FF87] transition-all shadow-xs ${
+                            className={`w-full pl-3.5 pr-16 py-2.5 rounded-xl border text-xs font-mono font-bold focus:outline-none focus:border-[#60A5FA] transition-all shadow-xs ${
                               isDark
                                 ? "bg-black/60 border-white/10 text-white"
                                 : "bg-white border-slate-300 text-slate-900"
                             }`}
                           />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10.5px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-[#00FF87] pointer-events-none">
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10.5px] font-mono font-bold px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-600 dark:text-[#60A5FA] pointer-events-none">
                             % OFF
                           </span>
                         </div>
@@ -1040,7 +1040,7 @@ function LegacyAdminCampaignsPage() {
                               onClick={() => setEditingCampaign({ ...editingCampaign, discountPercent: pct })}
                               className={`text-[10.5px] font-mono px-2 py-0.5 rounded-md border transition-all cursor-pointer ${
                                 editingCampaign.discountPercent === pct
-                                  ? "bg-[#00FF87] text-[#02180C] font-bold border-[#00FF87]"
+                                  ? "bg-[#60A5FA] text-[#0F172A] font-bold border-[#60A5FA]"
                                   : isDark
                                   ? "border-white/10 text-slate-400 hover:text-white"
                                   : "border-slate-200 text-slate-600 hover:text-slate-900 bg-white"
@@ -1098,8 +1098,8 @@ function LegacyAdminCampaignsPage() {
                             className={`p-3 rounded-2xl text-left border transition-all cursor-pointer relative flex flex-col justify-between ${
                               isSelected
                                 ? isDark
-                                  ? "border-[#00FF87] bg-emerald-500/15 shadow-[0_0_20px_rgba(0,255,135,0.15)] ring-1 ring-[#00FF87]"
-                                  : "border-emerald-500 bg-emerald-50/80 shadow-sm ring-1 ring-emerald-500"
+                                  ? "border-[#60A5FA] bg-sky-500/15 shadow-[0_0_20px_rgba(96,165,250,0.15)] ring-1 ring-[#60A5FA]"
+                                  : "border-sky-500 bg-sky-50/80 shadow-sm ring-1 ring-sky-500"
                                 : isDark
                                 ? "border-white/10 bg-black/40 hover:border-white/20 text-slate-400"
                                 : "border-slate-200 bg-slate-50 hover:border-slate-300 text-slate-600"
@@ -1107,11 +1107,11 @@ function LegacyAdminCampaignsPage() {
                           >
                             <div className="flex items-center justify-between gap-1 mb-2">
                               <IconComponent className={`w-4 h-4 ${
-                                isSelected ? "text-emerald-600 dark:text-[#00FF87]" : "text-slate-400"
+                                isSelected ? "text-sky-600 dark:text-[#60A5FA]" : "text-slate-400"
                               }`} />
                               <span className={`text-[9.5px] font-mono px-1.5 py-0.5 rounded-full font-bold ${
                                 isSelected
-                                  ? "bg-[#00FF87] text-[#02180C]"
+                                  ? "bg-[#60A5FA] text-[#0F172A]"
                                   : isDark
                                   ? "bg-white/10 text-slate-400"
                                   : "bg-slate-200 text-slate-600"
@@ -1139,7 +1139,7 @@ function LegacyAdminCampaignsPage() {
                       <label className={`block text-xs font-mono uppercase font-bold mb-1.5 ${
                         isDark ? "text-slate-300" : "text-slate-700"
                       }`}>
-                        CTA Button Label <span className="text-emerald-500">*</span>
+                        CTA Button Label <span className="text-sky-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -1147,7 +1147,7 @@ function LegacyAdminCampaignsPage() {
                         value={editingCampaign.ctaText}
                         onChange={(e) => setEditingCampaign({ ...editingCampaign, ctaText: e.target.value })}
                         placeholder="Ex. Claim 25% Off Now"
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] transition-all shadow-xs ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#60A5FA] transition-all shadow-xs ${
                           isDark
                             ? "bg-black/60 border-white/10 text-white"
                             : "bg-white border-slate-300 text-slate-900"
@@ -1161,7 +1161,7 @@ function LegacyAdminCampaignsPage() {
                             onClick={() => setEditingCampaign({ ...editingCampaign, ctaText: preset })}
                             className={`text-[10px] px-2 py-0.5 rounded-md border transition-all cursor-pointer ${
                               editingCampaign.ctaText === preset
-                                ? "bg-emerald-500/20 text-emerald-600 dark:text-[#00FF87] border-[#00FF87]"
+                                ? "bg-sky-500/20 text-sky-600 dark:text-[#60A5FA] border-[#60A5FA]"
                                 : isDark
                                 ? "border-white/10 text-slate-400 hover:text-white"
                                 : "border-slate-200 text-slate-600 bg-white hover:text-slate-900"
@@ -1177,7 +1177,7 @@ function LegacyAdminCampaignsPage() {
                       <label className={`block text-xs font-mono uppercase font-bold mb-1.5 ${
                         isDark ? "text-slate-300" : "text-slate-700"
                       }`}>
-                        Destination Link / Target URL <span className="text-emerald-500">*</span>
+                        Destination Link / Target URL <span className="text-sky-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -1185,7 +1185,7 @@ function LegacyAdminCampaignsPage() {
                         value={editingCampaign.ctaLink}
                         onChange={(e) => setEditingCampaign({ ...editingCampaign, ctaLink: e.target.value })}
                         placeholder="Ex. /pricing, /contact, #order"
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-mono focus:outline-none focus:border-[#00FF87] transition-all shadow-xs ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-mono focus:outline-none focus:border-[#60A5FA] transition-all shadow-xs ${
                           isDark
                             ? "bg-black/60 border-white/10 text-white"
                             : "bg-white border-slate-300 text-slate-900"
@@ -1199,7 +1199,7 @@ function LegacyAdminCampaignsPage() {
                             onClick={() => setEditingCampaign({ ...editingCampaign, ctaLink: lp.url })}
                             className={`text-[10px] font-mono px-2 py-0.5 rounded-md border transition-all cursor-pointer ${
                               editingCampaign.ctaLink === lp.url
-                                ? "bg-emerald-500/20 text-emerald-600 dark:text-[#00FF87] border-[#00FF87]"
+                                ? "bg-sky-500/20 text-sky-600 dark:text-[#60A5FA] border-[#60A5FA]"
                                 : isDark
                                 ? "border-white/10 text-slate-400 hover:text-white"
                                 : "border-slate-200 text-slate-600 bg-white hover:text-slate-900"
@@ -1230,8 +1230,8 @@ function LegacyAdminCampaignsPage() {
                   <div className={`flex items-center justify-between p-4 rounded-2xl border transition-all ${
                     editingCampaign.active
                       ? isDark
-                        ? "border-[#00FF87]/40 bg-emerald-500/10 shadow-[0_0_20px_rgba(0,255,135,0.08)]"
-                        : "border-emerald-300 bg-emerald-50/70"
+                        ? "border-[#60A5FA]/40 bg-sky-500/10 shadow-[0_0_20px_rgba(96,165,250,0.08)]"
+                        : "border-sky-300 bg-sky-50/70"
                       : isDark
                       ? "border-white/10 bg-black/40"
                       : "border-slate-200 bg-slate-50"
@@ -1244,7 +1244,7 @@ function LegacyAdminCampaignsPage() {
                           Campaign Active Status
                         </span>
                         {editingCampaign.active ? (
-                          <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-[#00FF87] bg-[#00FF87]/20 px-2 py-0.5 rounded-full">
+                          <span className="text-[10px] font-mono font-bold text-sky-600 dark:text-[#60A5FA] bg-[#60A5FA]/20 px-2 py-0.5 rounded-full">
                             ● Active
                           </span>
                         ) : (
@@ -1266,7 +1266,7 @@ function LegacyAdminCampaignsPage() {
                         className="hidden"
                       />
                       <div className={`w-12 h-6 rounded-full p-1 transition-all duration-300 flex items-center ${
-                        editingCampaign.active ? "bg-[#00FF87] justify-end" : "bg-slate-300 dark:bg-slate-700 justify-start"
+                        editingCampaign.active ? "bg-[#60A5FA] justify-end" : "bg-slate-300 dark:bg-slate-700 justify-start"
                       }`}>
                         <div className="w-4 h-4 rounded-full bg-slate-950 shadow-md transition-transform" />
                       </div>
@@ -1284,8 +1284,8 @@ function LegacyAdminCampaignsPage() {
                     {/* Live Preview Header */}
                     <div className="flex items-center justify-between gap-2 flex-wrap">
                       <div className="flex items-center gap-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-600 dark:text-[#00FF87]">
+                        <div className="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse" />
+                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-sky-600 dark:text-[#60A5FA]">
                           Live Website Preview
                         </span>
                       </div>
@@ -1296,7 +1296,7 @@ function LegacyAdminCampaignsPage() {
                           type="button"
                           onClick={() => setActivePreviewTab("both")}
                           className={`px-2 py-0.5 rounded-lg transition-all ${
-                            activePreviewTab === "both" ? "bg-[#00FF87] text-[#02180C] font-bold" : "text-slate-500"
+                            activePreviewTab === "both" ? "bg-[#60A5FA] text-[#0F172A] font-bold" : "text-slate-500"
                           }`}
                         >
                           All
@@ -1305,7 +1305,7 @@ function LegacyAdminCampaignsPage() {
                           type="button"
                           onClick={() => setActivePreviewTab("bar")}
                           className={`px-2 py-0.5 rounded-lg transition-all ${
-                            activePreviewTab === "bar" ? "bg-[#00FF87] text-[#02180C] font-bold" : "text-slate-500"
+                            activePreviewTab === "bar" ? "bg-[#60A5FA] text-[#0F172A] font-bold" : "text-slate-500"
                           }`}
                         >
                           Top Bar
@@ -1314,7 +1314,7 @@ function LegacyAdminCampaignsPage() {
                           type="button"
                           onClick={() => setActivePreviewTab("modal")}
                           className={`px-2 py-0.5 rounded-lg transition-all ${
-                            activePreviewTab === "modal" ? "bg-[#00FF87] text-[#02180C] font-bold" : "text-slate-500"
+                            activePreviewTab === "modal" ? "bg-[#60A5FA] text-[#0F172A] font-bold" : "text-slate-500"
                           }`}
                         >
                           Popup
@@ -1331,15 +1331,15 @@ function LegacyAdminCampaignsPage() {
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
                           <span>TOP ANNOUNCEMENT BAR</span>
-                          <span className="text-emerald-500 font-bold">Sticky Header Marquee</span>
+                          <span className="text-sky-500 font-bold">Sticky Header Marquee</span>
                         </div>
-                        <div className="rounded-2xl overflow-hidden border border-emerald-500/30 shadow-md">
-                          <div className="bg-[#02180C] text-white p-3 relative overflow-hidden text-xs">
-                            <div className="absolute top-0 left-1/4 w-48 h-full bg-[#00FF87]/15 blur-lg pointer-events-none" />
+                        <div className="rounded-2xl overflow-hidden border border-sky-500/30 shadow-md">
+                          <div className="bg-[#0F172A] text-white p-3 relative overflow-hidden text-xs">
+                            <div className="absolute top-0 left-1/4 w-48 h-full bg-[#60A5FA]/15 blur-lg pointer-events-none" />
                             <div className="relative z-10 flex items-center justify-between gap-2 flex-wrap">
                               <div className="flex items-center gap-2 flex-wrap min-w-0">
-                                <span className="px-2 py-0.5 rounded-full bg-[#00FF87] text-[#02180C] font-black text-[9px] font-mono tracking-wider uppercase flex items-center gap-1 shrink-0">
-                                  <Sparkles className="w-2.5 h-2.5 fill-[#02180C]" />
+                                <span className="px-2 py-0.5 rounded-full bg-[#60A5FA] text-[#0F172A] font-black text-[9px] font-mono tracking-wider uppercase flex items-center gap-1 shrink-0">
+                                  <Sparkles className="w-2.5 h-2.5 fill-[#0F172A]" />
                                   <span>{editingCampaign.badge || "Special Offer"}</span>
                                 </span>
 
@@ -1348,13 +1348,13 @@ function LegacyAdminCampaignsPage() {
                                 </span>
 
                                 {editingCampaign.code && (
-                                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-black/60 border border-[#00FF87]/40 text-[#00FF87] font-mono font-bold text-[10px] shrink-0">
+                                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-black/60 border border-[#60A5FA]/40 text-[#60A5FA] font-mono font-bold text-[10px] shrink-0">
                                     <Tag className="w-2.5 h-2.5" />
                                     <span>{editingCampaign.code}</span>
                                   </span>
                                 )}
 
-                                <span className="inline-flex items-center gap-1 font-bold text-[#00FF87] text-[11px] hover:underline shrink-0">
+                                <span className="inline-flex items-center gap-1 font-bold text-[#60A5FA] text-[11px] hover:underline shrink-0">
                                   <span>{editingCampaign.ctaText || "Claim Now"}</span>
                                   <ArrowRight className="w-2.5 h-2.5" />
                                 </span>
@@ -1374,7 +1374,7 @@ function LegacyAdminCampaignsPage() {
                       <div className="space-y-1.5 pt-2">
                         <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
                           <span>POPUP OFFER CARD</span>
-                          <span className="text-emerald-500 font-bold">1:1 Square Lightbox</span>
+                          <span className="text-sky-500 font-bold">1:1 Square Lightbox</span>
                         </div>
 
                         {/* Interactive mini lightbox simulation */}
@@ -1404,7 +1404,7 @@ function LegacyAdminCampaignsPage() {
                             <div className="p-3.5 bg-white space-y-2 text-center">
                               <button
                                 type="button"
-                                className="w-full py-2.5 px-4 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs tracking-wide shadow-[0_4px_16px_rgba(0,255,135,0.4)] flex items-center justify-center gap-1.5 transition-transform cursor-pointer"
+                                className="w-full py-2.5 px-4 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-xs tracking-wide shadow-[0_4px_16px_rgba(96,165,250,0.4)] flex items-center justify-center gap-1.5 transition-transform cursor-pointer"
                               >
                                 <span>{editingCampaign.ctaText || "Claim 25% Off Now"}</span>
                                 <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -1426,13 +1426,13 @@ function LegacyAdminCampaignsPage() {
                   }`}>
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-[10px] uppercase text-slate-400 font-bold">Auto-Discount:</span>
-                      <strong className="text-emerald-600 dark:text-[#00FF87] font-mono">
+                      <strong className="text-sky-600 dark:text-[#60A5FA] font-mono">
                         {editingCampaign.discountPercent || 25}% OFF
                       </strong>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-[10px] uppercase text-slate-400 font-bold">Coupon Code:</span>
-                      <strong className="font-mono text-emerald-600 dark:text-[#00FF87]">
+                      <strong className="font-mono text-sky-600 dark:text-[#60A5FA]">
                         {editingCampaign.code || "None"}
                       </strong>
                     </div>
@@ -1497,7 +1497,7 @@ function LegacyAdminCampaignsPage() {
                   <button
                     type="button"
                     onClick={() => handleSaveModal()}
-                    className="px-6 py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs transition-all shadow-[0_0_25px_rgba(0,255,135,0.4)] flex items-center gap-2 cursor-pointer active:scale-95 hover:scale-[1.02]"
+                    className="px-6 py-2.5 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-xs transition-all shadow-[0_0_25px_rgba(96,165,250,0.4)] flex items-center gap-2 cursor-pointer active:scale-95 hover:scale-[1.02]"
                   >
                     <Save className="w-4 h-4 stroke-[2.5]" />
                     <span>Save &amp; Publish Live</span>

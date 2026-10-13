@@ -2,6 +2,7 @@ import { CmsData, DEFAULT_CMS_DATA } from "./cmsStore";
 import fs from "fs";
 import path from "path";
 import { isBlobCmsConfigured, loadCmsFromBlob, saveCmsToBlob } from "./blobCmsStorage";
+import { readLocalCms, writeLocalCms } from "./localCmsStorage";
 
 // In-memory cache across serverless warm invocations
 declare global {
@@ -28,6 +29,9 @@ export function detectStorageProvider(): {
   isCloudConnected: boolean;
   config: Record<string, string>;
 } {
+  if (process.env.QLLIX_STORAGE_DIR) {
+    return { provider: "local_filesystem", isCloudConnected: false, config: {} };
+  }
   // Vercel Blob stores both the compact CMS document and its image assets.
   if (isBlobCmsConfigured()) {
     return { provider: "vercel_blob", isCloudConnected: true, config: {} };
@@ -74,6 +78,10 @@ export async function getStoredCmsData(): Promise<{
 }> {
   const { provider, isCloudConnected, config } = detectStorageProvider();
 
+  if (process.env.QLLIX_STORAGE_DIR) {
+    return { data: readLocalCms(), storage: { provider: "local_filesystem", isCloudConnected: false, statusMessage: "Persistent hosting storage", lastSyncedAt: globalThis.__qllix_last_sync } };
+  }
+
   if (provider === "vercel_blob") {
     try {
       const data = await loadCmsFromBlob();
@@ -81,8 +89,12 @@ export async function getStoredCmsData(): Promise<{
         globalThis.__qllix_cms_cache = data;
         return { data, storage: { provider, isCloudConnected: true, statusMessage: "Live cloud synced via Vercel Blob", lastSyncedAt: globalThis.__qllix_last_sync } };
       }
+      throw new Error("Live CMS document is unavailable in Vercel Blob");
     } catch (err) {
       console.warn("[CloudStorage] Blob read error:", err);
+      // A configured cloud store is authoritative. Never present demo data or
+      // a bundled local snapshot as live when the cloud store cannot be read.
+      throw new Error("Live CMS storage is unavailable. Check Vercel Blob status before editing.");
     }
   }
   // Try Provider 1: Vercel KV / Upstash Redis
@@ -224,6 +236,16 @@ export async function saveStoredCmsData(newData: CmsData): Promise<{
   error?: string;
 }> {
   const { provider, isCloudConnected, config } = detectStorageProvider();
+  if (process.env.QLLIX_STORAGE_DIR) {
+    writeLocalCms(newData);
+    globalThis.__qllix_last_sync = new Date().toISOString();
+    return { success: true, storage: { provider: "local_filesystem", isCloudConnected: false, statusMessage: "Saved to persistent hosting storage", lastSyncedAt: globalThis.__qllix_last_sync } };
+  }
+  if (provider === "vercel_blob") {
+    // Verify the existing record can be read before allowing a full replacement.
+    // This prevents saving stale/default browser data during a storage outage.
+    await getStoredCmsData();
+  }
   const timestamp = new Date().toISOString();
   globalThis.__qllix_cms_cache = newData;
   globalThis.__qllix_last_sync = timestamp;

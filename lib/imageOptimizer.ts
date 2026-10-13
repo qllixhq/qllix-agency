@@ -12,6 +12,48 @@ export interface CompressionOptions {
   mimeType?: "image/webp" | "image/jpeg" | "image/png";
 }
 
+export interface CropOptions extends CompressionOptions {
+  width: number;
+  height: number;
+}
+
+/** Creates a consistently sized centre-cropped image for fixed-ratio CMS media. */
+export async function cropImageFile(file: File, options: CropOptions): Promise<string> {
+  const { width, height, quality = 0.86, mimeType = "image/webp" } = options;
+
+  if (!file.type.startsWith("image/") || file.type === "image/svg+xml") {
+    return compressImageFile(file, { maxWidth: width, maxHeight: height, quality, mimeType });
+  }
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("Failed to read image file"));
+    reader.onload = () => {
+      const image = new Image();
+      image.onerror = () => reject(new Error("Failed to load image file"));
+      image.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          reject(new Error("Canvas is unavailable"));
+          return;
+        }
+        const scale = Math.max(width / image.width, height / image.height);
+        const drawnWidth = image.width * scale;
+        const drawnHeight = image.height * scale;
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(image, (width - drawnWidth) / 2, (height - drawnHeight) / 2, drawnWidth, drawnHeight);
+        resolve(canvas.toDataURL(mimeType, quality));
+      };
+      image.src = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 export async function compressImageFile(
   file: File,
   options: CompressionOptions = {}

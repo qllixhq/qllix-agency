@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useCms } from "@/context/CmsContext";
 import { PortfolioCategory, PortfolioItem } from "@/lib/cmsStore";
+import { mixPortfolioItems } from "@/lib/mixPortfolioItems";
 
 const CATEGORIES: PortfolioCategory[] = [
   "Branding", "Logo", "Social Media", "Packaging", "Motion", "Video", "Marketing"
@@ -72,7 +73,7 @@ function PortfolioCard({
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.04 }}
       onClick={onClick}
-      className="group relative rounded-2xl overflow-hidden cursor-pointer bg-white border border-slate-200/90 aspect-[4/3] hover:border-[#00875A] transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1.5"
+      className="group relative rounded-2xl overflow-hidden cursor-pointer bg-white aspect-[5/4] transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1.5"
     >
       {/* Cover Image — explicit z-0 so overlays always sit above it */}
       <img
@@ -113,26 +114,26 @@ function PortfolioCard({
         </div>
       </div>
 
-      {/* Top Right Direct Live Link or View Icon */}
+      {/* Top Left Direct Live Link or View Icon */}
       {directLink ? (
         <a
           href={directLink}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-white/90 hover:bg-[#00FF87] hover:text-[#02180C] backdrop-blur-sm border border-white flex items-center justify-center text-slate-900 opacity-0 group-hover:opacity-100 transition-all shadow-md z-[3] cursor-pointer"
+          className="absolute top-3.5 left-3.5 w-9 h-9 rounded-full bg-white/90 hover:bg-[#00FF87] hover:text-[#02180C] backdrop-blur-sm border border-white flex items-center justify-center text-slate-900 opacity-0 group-hover:opacity-100 transition-all shadow-md z-[3] cursor-pointer"
           title="Open Live Project"
         >
           <ExternalLink className="w-4 h-4" />
         </a>
       ) : (
-        <div className="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm border border-white flex items-center justify-center text-slate-900 opacity-0 group-hover:opacity-100 transition-opacity shadow-md z-[3]">
+        <div className="absolute top-3.5 left-3.5 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm border border-white flex items-center justify-center text-slate-900 opacity-0 group-hover:opacity-100 transition-opacity shadow-md z-[3]">
           <ExternalLink className="w-4 h-4" />
         </div>
       )}
 
       {/* Category badge */}
-      <div className="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-slate-200 text-[10px] font-mono font-bold text-slate-800 shadow-sm z-[3]">
+      <div className="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-slate-200 text-[10px] font-mono font-bold text-slate-800 shadow-sm z-[3]">
         {item.category}
       </div>
     </motion.div>
@@ -385,9 +386,23 @@ function PortfolioModal({
 }
 
 export default function PortfolioSection({ onOrderClick, hideHeader = false }: PortfolioSectionProps) {
-  const { cmsData } = useCms();
+  const { cmsData, isLoaded } = useCms();
   const [selectedCat, setSelectedCat] = useState<string>("All");
   const router = useRouter();
+
+  if (!isLoaded) {
+    return (
+      <section
+        className={`relative bg-white ${hideHeader ? "pt-4 sm:pt-6 pb-20" : "py-24 md:py-32"}`}
+        id="portfolio"
+        aria-busy="true"
+      >
+        <div className="mx-auto flex min-h-40 max-w-7xl items-center justify-center px-4 text-sm font-medium text-slate-500 sm:px-6 lg:px-8">
+          Loading latest projects…
+        </div>
+      </section>
+    );
+  }
 
   const section = cmsData.homeSections.find((s) => s.id === "portfolio");
   if (section && !section.enabled) return null;
@@ -399,7 +414,7 @@ export default function PortfolioSection({ onOrderClick, hideHeader = false }: P
   const categories = ["All", ...CATEGORIES];
 
   const filtered = selectedCat === "All"
-    ? activeItems
+    ? mixPortfolioItems(activeItems)
     : activeItems.filter((p) => p.category === selectedCat);
 
   return (

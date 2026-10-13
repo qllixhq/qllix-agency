@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import { useCms } from "@/context/CmsContext";
-import { AgencyService, ServiceCategory, ServicePackage } from "@/lib/cmsStore";
+import { AgencyService, ServicePackage } from "@/lib/cmsStore";
 import { SERVICE_BUNDLES } from "@/components/ServicesOverview";
 import {
   Plus, Pencil, Trash2, Eye, EyeOff, Star, StarOff, X, Check, ArrowUp, ArrowDown,
@@ -14,10 +14,6 @@ import {
 const ICON_OPTIONS = [
   "Sparkles", "Share2", "Package", "Film", "Clapperboard", "Palette",
   "TrendingUp", "Globe", "Flag", "Calendar", "PlayCircle", "BookOpen", "Layers"
-];
-
-const CATEGORIES: ServiceCategory[] = [
-  "Graphic Design", "Video & Motion", "Branding", "Digital Marketing", "Social Media"
 ];
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -106,24 +102,28 @@ export default function AdminServicesPage() {
     deleteService,
     reorderServices,
     saveServiceWithPackages,
+    addServiceCategory,
     updateService,
   } = useCms();
 
   // Search & Filter state
   const [search, setSearch] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("all");
-  const [gridDensity, setGridDensity] = useState<"auto" | "4" | "5" | "6">("4");
+  const [gridDensity, setGridDensity] = useState<"auto" | "3" | "4" | "5" | "6">("3");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Helper for responsive grid columns (Default 4 per row as requested)
+  // Keep the default grid spacious while preserving denser manual layouts.
   const getGridColsClass = () => {
     switch (gridDensity) {
+      case "3":
+        return "grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3";
       case "5":
         return "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5";
       case "6":
         return "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6";
-      case "4":
       case "auto":
+        return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5";
+      case "4":
       default:
         return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4";
     }
@@ -164,6 +164,9 @@ export default function AdminServicesPage() {
   const [activeModalTab, setActiveModalTab] = useState<"service" | "packages">("service");
   const [selectedPkgTab, setSelectedPkgTab] = useState<number>(0); // 0 = Basic, 1 = Business, 2 = Premium
   const [featureInput, setFeatureInput] = useState("");
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [isSavingCategory, setIsSavingCategory] = useState(false);
 
   // Form state
   const [serviceForm, setServiceForm] = useState<AgencyService>({
@@ -190,6 +193,12 @@ export default function AdminServicesPage() {
   };
 
   const services = [...(cmsData.agencyServices || [])].sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
+  const categories = Array.from(
+    new Set([
+      ...cmsData.serviceCategories,
+      ...services.map((service) => service.category).filter(Boolean),
+    ])
+  );
 
   const filteredServices = services.filter((s) => {
     const matchesSearch = s.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -223,6 +232,8 @@ export default function AdminServicesPage() {
     setActiveModalTab("service");
     setSelectedPkgTab(0);
     setFeatureInput("");
+    setIsAddingCategory(false);
+    setNewCategoryName("");
     setIsModalOpen(true);
   };
 
@@ -251,6 +262,8 @@ export default function AdminServicesPage() {
     setActiveModalTab("service");
     setSelectedPkgTab(0);
     setFeatureInput("");
+    setIsAddingCategory(false);
+    setNewCategoryName("");
     setIsModalOpen(true);
   };
 
@@ -296,6 +309,37 @@ export default function AdminServicesPage() {
     saveServiceWithPackages(finalizedService, finalizedPackages);
     showToast(isNew ? "🎉 Service & 3 Packages created!" : "✅ Service & Packages updated successfully!");
     setIsModalOpen(false);
+  };
+
+  const handleAddCategory = async () => {
+    const categoryName = newCategoryName.trim();
+    if (!categoryName) {
+      showToast("Please enter a category name.");
+      return;
+    }
+
+    const existingCategory = categories.find(
+      (category) => category.toLocaleLowerCase() === categoryName.toLocaleLowerCase()
+    );
+    if (existingCategory) {
+      setServiceForm((current) => ({ ...current, category: existingCategory }));
+      setNewCategoryName("");
+      setIsAddingCategory(false);
+      showToast(`Category "${existingCategory}" already exists and is selected.`);
+      return;
+    }
+
+    setIsSavingCategory(true);
+    const saved = await addServiceCategory(categoryName);
+    setServiceForm((current) => ({ ...current, category: categoryName }));
+    setNewCategoryName("");
+    setIsAddingCategory(false);
+    setIsSavingCategory(false);
+    showToast(
+      saved
+        ? `Category "${categoryName}" added.`
+        : `Category "${categoryName}" is available on this device, but cloud sync failed.`
+    );
   };
 
   // Delete service & its packages
@@ -384,7 +428,7 @@ export default function AdminServicesPage() {
           <button
             onClick={handleOpenNew}
             type="button"
-            className="px-5 py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs transition-all shadow-[0_0_20px_rgba(0,255,135,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
+            className="px-5 py-2.5 rounded-xl bg-emerald-neon hover:bg-[#00D970] text-[#0F172A] font-black text-xs transition-all shadow-sm hover:shadow-md flex items-center gap-2 cursor-pointer active:scale-95"
           >
             <Plus className="w-4 h-4 stroke-[3]" />
             <span>Add New Service</span>
@@ -394,7 +438,7 @@ export default function AdminServicesPage() {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-2xl bg-[#00FF87] text-[#02180C] font-bold text-xs shadow-2xl flex items-center gap-2 animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div className="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-2xl bg-emerald-neon text-[#0F172A] font-bold text-xs shadow-2xl flex items-center gap-2 animate-in fade-in slide-in-from-bottom-3 duration-200">
           <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
           <span>{toastMessage}</span>
         </div>
@@ -412,7 +456,7 @@ export default function AdminServicesPage() {
                 placeholder="Search services or packages..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-[#050A0F] border border-white/[0.08] rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00FF87]/50 focus:ring-1 focus:ring-[#00FF87]/30 transition-all"
+                className="w-full bg-[#050A0F] border border-white/[0.08] rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-neon/50 focus:ring-1 focus:ring-[#00FF87]/30 transition-all"
               />
             </div>
 
@@ -423,13 +467,13 @@ export default function AdminServicesPage() {
                 onClick={() => setFilterCategory("all")}
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                   filterCategory === "all"
-                    ? "bg-[#00FF87] text-[#02180C] font-bold"
+                    ? "bg-emerald-neon text-[#0F172A] font-bold"
                     : "bg-white/[0.04] text-slate-400 hover:text-white"
                 }`}
               >
                 All ({services.length})
               </button>
-              {CATEGORIES.map((cat) => {
+              {categories.map((cat) => {
                 const count = services.filter((s) => s.category === cat).length;
                 return (
                   <button
@@ -438,7 +482,7 @@ export default function AdminServicesPage() {
                     onClick={() => setFilterCategory(cat)}
                     className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                       filterCategory === cat
-                        ? "bg-[#00FF87] text-[#02180C] font-bold"
+                        ? "bg-emerald-neon text-[#0F172A] font-bold"
                         : "bg-white/[0.04] text-slate-400 hover:text-white"
                     }`}
                   >
@@ -449,15 +493,25 @@ export default function AdminServicesPage() {
             </div>
           </div>
 
-          {/* Right: Grid Column Density Controls (4, 5, 6 per row) */}
+          {/* Right: Grid Column Density Controls */}
           <div className="flex items-center justify-between xl:justify-end gap-2.5 pt-2 xl:pt-0 border-t xl:border-t-0 border-white/[0.06]">
             <div className="flex items-center gap-1 bg-white/[0.03] border border-white/[0.08] p-1 rounded-xl">
               <span className="text-[10px] font-mono text-slate-500 px-1.5 uppercase hidden sm:inline">Density:</span>
               <button
                 type="button"
+                onClick={() => setGridDensity("3")}
+                className={`px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                  gridDensity === "3" ? "bg-emerald-neon text-[#0F172A] shadow-xs" : "text-slate-400 hover:text-white"
+                }`}
+                title="Show 3 cards per row"
+              >
+                3 / row
+              </button>
+              <button
+                type="button"
                 onClick={() => setGridDensity("4")}
                 className={`px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
-                  gridDensity === "4" ? "bg-[#00FF87] text-[#02180C] shadow-xs" : "text-slate-400 hover:text-white"
+                  gridDensity === "4" ? "bg-emerald-neon text-[#0F172A] shadow-xs" : "text-slate-400 hover:text-white"
                 }`}
                 title="Force 4 cards per row"
               >
@@ -467,7 +521,7 @@ export default function AdminServicesPage() {
                 type="button"
                 onClick={() => setGridDensity("5")}
                 className={`px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
-                  gridDensity === "5" ? "bg-[#00FF87] text-[#02180C] shadow-xs" : "text-slate-400 hover:text-white"
+                  gridDensity === "5" ? "bg-emerald-neon text-[#0F172A] shadow-xs" : "text-slate-400 hover:text-white"
                 }`}
                 title="Force 5 cards per row"
               >
@@ -477,7 +531,7 @@ export default function AdminServicesPage() {
                 type="button"
                 onClick={() => setGridDensity("6")}
                 className={`px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
-                  gridDensity === "6" ? "bg-[#00FF87] text-[#02180C] shadow-xs" : "text-slate-400 hover:text-white"
+                  gridDensity === "6" ? "bg-emerald-neon text-[#0F172A] shadow-xs" : "text-slate-400 hover:text-white"
                 }`}
                 title="Force 6 cards per row"
               >
@@ -487,15 +541,15 @@ export default function AdminServicesPage() {
                 type="button"
                 onClick={() => setGridDensity("auto")}
                 className={`px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
-                  gridDensity === "auto" ? "bg-[#00FF87] text-[#02180C] shadow-xs" : "text-slate-400 hover:text-white"
+                  gridDensity === "auto" ? "bg-emerald-neon text-[#0F172A] shadow-xs" : "text-slate-400 hover:text-white"
                 }`}
-                title="Auto responsive columns (4-6 per row)"
+                title="Auto responsive columns"
               >
-                Auto (4-6)
+                Auto
               </button>
             </div>
 
-            <span className="font-mono text-[11px] text-[#00FF87] bg-[#00FF87]/10 px-2.5 py-1 rounded-lg border border-[#00FF87]/20 whitespace-nowrap">
+            <span className="font-mono text-[11px] text-emerald-neon bg-emerald-neon/10 px-2.5 py-1 rounded-lg border border-emerald-neon/20 whitespace-nowrap">
               {filteredServices.length} Services
             </span>
           </div>
@@ -504,14 +558,14 @@ export default function AdminServicesPage() {
         {/* Drag Instruction Banner */}
         <div className="px-3.5 py-2 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between gap-3 text-xs text-slate-400">
           <div className="flex items-center gap-2">
-            <GripVertical className="w-3.5 h-3.5 text-[#00FF87]" />
+            <GripVertical className="w-3.5 h-3.5 text-emerald-neon" />
             <span>
               <strong className="text-white">Smart Reorder:</strong> Drag cards by the handle <kbd className="px-1 py-0.5 rounded bg-white/10 text-white font-mono text-[10px]">⋮⋮</kbd> or click <kbd className="px-1 py-0.5 rounded bg-white/10 text-white font-mono text-[10px]">↑</kbd> <kbd className="px-1 py-0.5 rounded bg-white/10 text-white font-mono text-[10px]">↓</kbd> to reorder. Live site updates instantly.
             </span>
           </div>
         </div>
 
-        {/* ═══ SERVICES & PACKAGES COMPACT SMART CARD GRID (4-6 PER LINE) ═══ */}
+        {/* ═══ SERVICES & PACKAGES CARD GRID ═══ */}
         <div className={`grid ${getGridColsClass()} gap-3`}>
           {filteredServices.map((service, index) => {
             const ServiceIcon = ICON_MAP[service.icon] || Sparkles;
@@ -554,27 +608,27 @@ export default function AdminServicesPage() {
                   setDraggedIdx(null);
                   setDragOverIdx(null);
                 }}
-                className={`rounded-xl bg-[#0A0F14] border transition-all duration-200 p-3 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md ${
+                className={`rounded-2xl bg-[#0A0F14] border transition-all duration-200 p-5 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-lg ${
                   isBeingDragged
-                    ? "opacity-30 scale-95 border-dashed border-[#00FF87]"
+                    ? "opacity-30 scale-95 border-dashed border-emerald-neon"
                     : isDragOver
-                    ? "border-[#00FF87] ring-2 ring-[#00FF87]/30 scale-[1.01]"
+                    ? "border-emerald-neon ring-2 ring-[#00FF87]/30 scale-[1.01]"
                     : "border-white/[0.08] hover:border-white/[0.2] hover:bg-[#0D141B]"
                 }`}
               >
                 <div>
                   {/* 1. Top Card Bar: Drag Handle, Position Badge, Arrows, Active & Featured */}
-                  <div className="flex items-center justify-between gap-1 pb-2 mb-2.5 border-b border-white/[0.06]">
+                  <div className="flex items-center justify-between gap-2 pb-3 mb-4 border-b border-white/[0.06]">
                     {/* Left: Drag Handle, Position Badge & Quick Nudge */}
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-2">
                       <div
-                        className="cursor-grab active:cursor-grabbing p-1 rounded hover:bg-white/10 text-slate-500 hover:text-white transition-colors"
+                        className="cursor-grab active:cursor-grabbing p-2 rounded-lg hover:bg-white/10 text-slate-500 hover:text-white transition-colors"
                         title="Drag to reorder"
                       >
                         <GripVertical className="w-3.5 h-3.5" />
                       </div>
 
-                      <span className="font-mono font-bold text-[10px] px-1.5 py-0.5 rounded bg-white/[0.06] text-slate-300 border border-white/10">
+                      <span className="font-mono font-bold text-xs px-2 py-1 rounded-lg bg-white/[0.06] text-slate-300 border border-white/10">
                         #{service.displayOrder || index + 1}
                       </span>
 
@@ -587,10 +641,10 @@ export default function AdminServicesPage() {
                             handleNudge(index, "up");
                           }}
                           disabled={index === 0}
-                          className="p-0.5 rounded text-slate-500 hover:text-[#00FF87] hover:bg-white/5 disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+                          className="p-2 rounded-lg text-slate-500 hover:text-emerald-neon hover:bg-white/5 disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
                           title="Move Up"
                         >
-                          <ArrowUp className="w-3 h-3" />
+                          <ArrowUp className="w-4 h-4" />
                         </button>
                         <button
                           type="button"
@@ -599,16 +653,16 @@ export default function AdminServicesPage() {
                             handleNudge(index, "down");
                           }}
                           disabled={index === services.length - 1}
-                          className="p-0.5 rounded text-slate-500 hover:text-[#00FF87] hover:bg-white/5 disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+                          className="p-2 rounded-lg text-slate-500 hover:text-emerald-neon hover:bg-white/5 disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
                           title="Move Down"
                         >
-                          <ArrowDown className="w-3 h-3" />
+                          <ArrowDown className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
 
                     {/* Right: Active Toggle & Featured Star */}
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       {/* Active Status Button */}
                       <button
                         type="button"
@@ -617,14 +671,14 @@ export default function AdminServicesPage() {
                           updateService(service.id, { active: !service.active });
                           showToast(`"${service.name}" is now ${!service.active ? "Active" : "Hidden"}`);
                         }}
-                        className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold transition-colors flex items-center gap-1 cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-full text-xs font-mono font-semibold transition-colors flex items-center gap-1.5 cursor-pointer ${
                           service.active
-                            ? "bg-emerald-500/15 text-[#00FF87] border border-emerald-500/30"
+                            ? "bg-emerald-500/15 text-emerald-neon border border-emerald-500/30"
                             : "bg-white/[0.04] text-slate-500 border border-white/10"
                         }`}
                         title={service.active ? "Visible on site (Click to hide)" : "Hidden (Click to show)"}
                       >
-                        <span className={`w-1.5 h-1.5 rounded-full ${service.active ? "bg-[#00FF87]" : "bg-slate-500"}`} />
+                        <span className={`w-1.5 h-1.5 rounded-full ${service.active ? "bg-emerald-neon" : "bg-slate-500"}`} />
                         <span>{service.active ? "Active" : "Off"}</span>
                       </button>
 
@@ -636,22 +690,22 @@ export default function AdminServicesPage() {
                           updateService(service.id, { featured: !service.featured });
                           showToast(`"${service.name}" ${!service.featured ? "Featured" : "Unfeatured"}`);
                         }}
-                        className={`p-1 rounded-md transition-colors cursor-pointer ${
+                        className={`p-2 rounded-lg transition-colors cursor-pointer ${
                           service.featured
-                            ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
                             : "text-slate-600 hover:text-slate-300 hover:bg-white/5"
                         }`}
                         title={service.featured ? "Featured on homepage" : "Click to feature"}
                       >
-                        <Star className={`w-3 h-3 ${service.featured ? "fill-amber-400" : ""}`} />
+                        <Star className={`w-4 h-4 ${service.featured ? "fill-emerald-400" : ""}`} />
                       </button>
                     </div>
                   </div>
 
                   {/* 2. Service Core Identity: Thumbnail Image + Name + Category */}
-                  <div className="flex items-center gap-2.5 mb-2.5">
+                  <div className="flex items-center gap-4 mb-5">
                     {/* Service Thumbnail Image */}
-                    <div className="w-10 h-10 rounded-xl border border-white/10 overflow-hidden bg-black/60 shrink-0 aspect-square shadow-sm">
+                    <div className="w-14 h-14 rounded-2xl border border-white/10 overflow-hidden bg-black/60 shrink-0 aspect-square shadow-sm">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={getServiceThumbnail(service)}
@@ -662,15 +716,15 @@ export default function AdminServicesPage() {
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-xs font-bold text-white truncate" title={service.name}>
+                      <h3 className="text-base font-bold text-white truncate" title={service.name}>
                         {service.name}
                       </h3>
-                      <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="text-[10px] text-slate-400 truncate">
+                      <div className="flex flex-wrap items-center gap-2 mt-1.5">
+                        <span className="text-xs text-slate-400 truncate">
                           {service.category}
                         </span>
                         {service.cardPriceText && (
-                          <span className="text-[9px] font-mono text-[#00FF87] bg-[#00FF87]/10 px-1.5 py-0.2 rounded border border-[#00FF87]/20 truncate">
+                          <span className="text-[11px] font-mono text-emerald-neon bg-emerald-neon/10 px-2 py-1 rounded-md border border-emerald-neon/20 truncate">
                             {service.cardPriceText}
                           </span>
                         )}
@@ -679,59 +733,59 @@ export default function AdminServicesPage() {
                   </div>
 
                   {/* 3. Smart Micro 3-Packages Bar */}
-                  <div className="bg-black/40 rounded-lg p-1.5 border border-white/[0.05] mb-2.5">
-                    <div className="flex items-center justify-between text-[8.5px] font-mono text-slate-400 mb-1 px-0.5 uppercase">
-                      <span>3 Packages</span>
-                      <span className="text-slate-500">Basic · Biz · Prem</span>
+                  <div className="bg-black/30 rounded-2xl p-3 border border-white/[0.06] mb-4">
+                    <div className="flex items-center justify-between text-xs font-semibold text-slate-300 mb-3 px-1">
+                      <span>Package pricing</span>
+                      <span className="text-slate-500">3 tiers</span>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-1">
+                    <div className="grid grid-cols-3 gap-2">
                       {/* Basic Tier */}
                       <div
-                        className="p-1.5 rounded bg-white/[0.02] border border-white/[0.04] text-center"
+                        className="min-w-0 rounded-xl bg-white/[0.03] border border-white/[0.06] px-2 py-3 text-center"
                         title={`${basicPkg.name}: ৳${(basicPkg.discountPrice ?? basicPkg.price ?? 0).toLocaleString()} · ${basicPkg.deliveryDays || 7}d · ${basicPkg.revisions || 3} revs`}
                       >
-                        <div className="text-[8.5px] font-semibold text-slate-400 uppercase tracking-wider truncate">
+                        <div className="text-[11px] font-semibold text-slate-400 truncate" title={basicPkg.name || "Basic"}>
                           {basicPkg.name || "Basic"}
                         </div>
-                        <div className="font-mono text-xs font-bold text-white mt-0.5 truncate">
+                        <div className="font-mono text-base font-bold text-white mt-1.5 truncate">
                           {formatFullPrice(basicPkg.discountPrice ?? basicPkg.price ?? 0)}
                         </div>
-                        <div className="text-[8px] text-slate-500 font-mono mt-0.5 truncate">
-                          {basicPkg.deliveryDays || 7}d · {basicPkg.revisions || 3}r
+                        <div className="text-[10px] text-slate-500 mt-2 leading-4">
+                          {basicPkg.deliveryDays || 7} days<br />{basicPkg.revisions || 3} revisions
                         </div>
                       </div>
 
                       {/* Business Tier (Popular Highlight) */}
                       <div
-                        className="p-1.5 rounded bg-[#00FF87]/[0.08] border border-[#00FF87]/30 text-center relative"
+                        className="min-w-0 rounded-xl bg-emerald-neon/[0.08] border border-emerald-neon/30 px-2 py-3 text-center"
                         title={`${bizPkg.name}: ৳${(bizPkg.discountPrice ?? bizPkg.price ?? 0).toLocaleString()} · ${bizPkg.deliveryDays || 5}d · ${bizPkg.revisions || 5} revs (Most Popular)`}
                       >
-                        <div className="text-[8.5px] font-bold text-[#00FF87] uppercase tracking-wider flex items-center justify-center gap-0.5 truncate">
+                        <div className="text-[11px] font-bold text-emerald-neon flex items-center justify-center gap-1 truncate" title={bizPkg.name || "Business"}>
                           <span>{bizPkg.name || "Biz"}</span>
-                          <span className="text-[7.5px]">★</span>
+                          <span aria-label="Most popular">★</span>
                         </div>
-                        <div className="font-mono text-xs font-black text-[#00FF87] mt-0.5 truncate">
+                        <div className="font-mono text-base font-bold text-emerald-neon mt-1.5 truncate">
                           {formatFullPrice(bizPkg.discountPrice ?? bizPkg.price ?? 0)}
                         </div>
-                        <div className="text-[8px] text-emerald-400/80 font-mono mt-0.5 truncate">
-                          {bizPkg.deliveryDays || 5}d · {bizPkg.revisions || 5}r
+                        <div className="text-[10px] text-emerald-400/80 mt-2 leading-4">
+                          {bizPkg.deliveryDays || 5} days<br />{bizPkg.revisions || 5} revisions
                         </div>
                       </div>
 
                       {/* Premium Tier */}
                       <div
-                        className="p-1.5 rounded bg-white/[0.02] border border-white/[0.04] text-center"
+                        className="min-w-0 rounded-xl bg-white/[0.03] border border-white/[0.06] px-2 py-3 text-center"
                         title={`${premPkg.name}: ৳${(premPkg.discountPrice ?? premPkg.price ?? 0).toLocaleString()} · ${premPkg.deliveryDays || 3}d · ${premPkg.revisions || "∞"} revs`}
                       >
-                        <div className="text-[8.5px] font-semibold text-amber-300 uppercase tracking-wider truncate">
+                        <div className="text-[11px] font-semibold text-slate-300 truncate" title={premPkg.name || "Premium"}>
                           {premPkg.name || "Prem"}
                         </div>
-                        <div className="font-mono text-xs font-bold text-white mt-0.5 truncate">
+                        <div className="font-mono text-base font-bold text-white mt-1.5 truncate">
                           {formatFullPrice(premPkg.discountPrice ?? premPkg.price ?? 0)}
                         </div>
-                        <div className="text-[8px] text-slate-500 font-mono mt-0.5 truncate">
-                          {premPkg.deliveryDays || 3}d · {premPkg.revisions === "Unlimited" ? "∞" : `${premPkg.revisions || "∞"}r`}
+                        <div className="text-[10px] text-slate-500 mt-2 leading-4">
+                          {premPkg.deliveryDays || 3} days<br />{premPkg.revisions === "Unlimited" ? "Unlimited" : `${premPkg.revisions || "Unlimited"} revisions`}
                         </div>
                       </div>
                     </div>
@@ -739,23 +793,23 @@ export default function AdminServicesPage() {
                 </div>
 
                 {/* 4. Card Bottom Actions: Edit & Trash */}
-                <div className="flex items-center gap-1.5 pt-1 border-t border-white/[0.06]">
+                <div className="flex items-center gap-2 pt-3 border-t border-white/[0.06]">
                   <button
                     type="button"
                     onClick={() => handleOpenEdit(service)}
-                    className="flex-1 py-1.5 px-2.5 rounded-lg bg-white/[0.05] hover:bg-[#00FF87] text-slate-300 hover:text-[#02180C] text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer group shadow-xs active:scale-98"
+                    className="flex-1 min-h-11 py-2.5 px-3 rounded-xl bg-white/[0.05] hover:bg-emerald-neon text-slate-300 hover:text-[#0F172A] text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer group shadow-xs active:scale-98"
                   >
-                    <Pencil className="w-3 h-3 group-hover:scale-110 transition-transform" />
+                    <Pencil className="w-4 h-4 group-hover:scale-110 transition-transform" />
                     <span>Edit &amp; Packages</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleDeleteService(service.id, service.name)}
-                    className="p-1.5 rounded-lg bg-white/[0.03] hover:bg-rose-500/20 text-slate-500 hover:text-rose-400 border border-transparent hover:border-rose-500/30 transition-all cursor-pointer"
+                    className="min-h-11 min-w-11 p-2.5 rounded-xl bg-white/[0.03] hover:bg-rose-500/20 text-slate-500 hover:text-rose-400 border border-transparent hover:border-rose-500/30 transition-all cursor-pointer"
                     title="Delete service"
                   >
-                    <Trash2 className="w-3.5 h-3.5" />
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -774,7 +828,7 @@ export default function AdminServicesPage() {
             <div className="p-5 sm:p-6 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
               <div>
                 <h3 className="text-lg font-black text-white flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-[#00FF87]" />
+                  <Sparkles className="w-5 h-5 text-emerald-neon" />
                   <span>{isNew ? "Add New Service & 3 Packages" : `Edit Service — ${serviceForm.name}`}</span>
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5">
@@ -797,7 +851,7 @@ export default function AdminServicesPage() {
                 onClick={() => setActiveModalTab("service")}
                 className={`px-4 py-2.5 rounded-t-xl text-xs font-bold transition-colors cursor-pointer flex items-center gap-2 ${
                   activeModalTab === "service"
-                    ? "bg-[#0A0F14] text-[#00FF87] border-t-2 border-[#00FF87]"
+                    ? "bg-[#0A0F14] text-emerald-neon border-t-2 border-emerald-neon"
                     : "text-slate-400 hover:text-white"
                 }`}
               >
@@ -808,12 +862,12 @@ export default function AdminServicesPage() {
                 onClick={() => setActiveModalTab("packages")}
                 className={`px-4 py-2.5 rounded-t-xl text-xs font-bold transition-colors cursor-pointer flex items-center gap-2 ${
                   activeModalTab === "packages"
-                    ? "bg-[#0A0F14] text-[#00FF87] border-t-2 border-[#00FF87]"
+                    ? "bg-[#0A0F14] text-emerald-neon border-t-2 border-emerald-neon"
                     : "text-slate-400 hover:text-white"
                 }`}
               >
                 <span>2. The 3 Packages (Basic · Business · Premium)</span>
-                <span className="text-[10px] bg-[#00FF87]/20 text-[#00FF87] px-1.5 py-0.5 rounded font-mono">3 Tiers</span>
+                <span className="text-[10px] bg-emerald-neon/20 text-emerald-neon px-1.5 py-0.5 rounded font-mono">3 Tiers</span>
               </button>
             </div>
 
@@ -832,24 +886,60 @@ export default function AdminServicesPage() {
                         placeholder="e.g. Logo Design, Digital Marketing"
                         value={serviceForm.name}
                         onChange={(e) => setServiceForm({ ...serviceForm, name: e.target.value })}
-                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00FF87]/50"
+                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-neon/50"
                       />
                     </div>
 
                     {/* Category */}
                     <div className="space-y-1.5">
-                      <label className="text-xs font-mono text-slate-400">Category *</label>
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-mono text-slate-400">Category *</label>
+                        <button
+                          type="button"
+                          onClick={() => setIsAddingCategory((current) => !current)}
+                          className="text-[11px] font-semibold text-emerald-neon hover:text-white transition-colors"
+                        >
+                          {isAddingCategory ? "Cancel" : "+ Add category"}
+                        </button>
+                      </div>
                       <select
                         value={serviceForm.category}
-                        onChange={(e) => setServiceForm({ ...serviceForm, category: e.target.value as ServiceCategory })}
-                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#00FF87]/50 cursor-pointer"
+                        onChange={(e) => setServiceForm({ ...serviceForm, category: e.target.value })}
+                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-neon/50 cursor-pointer"
                       >
-                        {CATEGORIES.map((c) => (
-                          <option key={c} value={c} className="bg-[#0A0F14]">
-                            {c}
+                        {categories.map((category) => (
+                          <option key={category} value={category} className="bg-[#0A0F14]">
+                            {category}
                           </option>
                         ))}
                       </select>
+                      {isAddingCategory && (
+                        <div className="flex gap-2 pt-1">
+                          <input
+                            type="text"
+                            value={newCategoryName}
+                            onChange={(e) => setNewCategoryName(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                void handleAddCategory();
+                              }
+                            }}
+                            maxLength={60}
+                            placeholder="Enter a new category"
+                            aria-label="New category name"
+                            className="min-w-0 flex-1 bg-[#050A0F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-neon/50"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => void handleAddCategory()}
+                            disabled={isSavingCategory}
+                            className="shrink-0 rounded-xl bg-emerald-neon px-3 py-2 text-xs font-bold text-[#0F172A] hover:bg-[#00D970] disabled:opacity-50"
+                          >
+                            {isSavingCategory ? "Adding..." : "Add"}
+                          </button>
+                        </div>
+                      )}
                     </div>
 
                     {/* Icon Selection */}
@@ -858,7 +948,7 @@ export default function AdminServicesPage() {
                       <select
                         value={serviceForm.icon}
                         onChange={(e) => setServiceForm({ ...serviceForm, icon: e.target.value })}
-                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#00FF87]/50 cursor-pointer"
+                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-neon/50 cursor-pointer"
                       >
                         {ICON_OPTIONS.map((ico) => (
                           <option key={ico} value={ico} className="bg-[#0A0F14]">
@@ -876,7 +966,7 @@ export default function AdminServicesPage() {
                         placeholder="e.g. Starts at ৳1,500 or ৳5,000/mo"
                         value={serviceForm.cardPriceText || ""}
                         onChange={(e) => setServiceForm({ ...serviceForm, cardPriceText: e.target.value })}
-                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00FF87]/50"
+                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-neon/50"
                       />
                     </div>
 
@@ -888,7 +978,7 @@ export default function AdminServicesPage() {
                         placeholder="Brief 1-2 sentence description"
                         value={serviceForm.shortDesc}
                         onChange={(e) => setServiceForm({ ...serviceForm, shortDesc: e.target.value })}
-                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00FF87]/50"
+                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-neon/50"
                       />
                     </div>
 
@@ -900,7 +990,7 @@ export default function AdminServicesPage() {
                         placeholder="Detailed overview of what this service delivers..."
                         value={serviceForm.longDesc}
                         onChange={(e) => setServiceForm({ ...serviceForm, longDesc: e.target.value })}
-                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00FF87]/50 resize-none"
+                        className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-emerald-neon/50 resize-none"
                       />
                     </div>
                   </div>
@@ -909,7 +999,7 @@ export default function AdminServicesPage() {
                   <div className="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="text-xs font-bold text-[#00FF87]">Service Card Thumbnail (1:1 Square)</h4>
+                        <h4 className="text-xs font-bold text-emerald-neon">Service Card Thumbnail (1:1 Square)</h4>
                         <p className="text-[11px] text-slate-400">Upload an image or paste an image URL.</p>
                       </div>
                     </div>
@@ -927,7 +1017,7 @@ export default function AdminServicesPage() {
                           type="file"
                           accept="image/*"
                           onChange={handleImageUpload}
-                          className="text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#00FF87]/20 file:text-[#00FF87] hover:file:bg-[#00FF87]/30 cursor-pointer w-full"
+                          className="text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-neon/20 file:text-emerald-neon hover:file:bg-emerald-neon/30 cursor-pointer w-full"
                         />
                         <input
                           type="text"
@@ -976,13 +1066,13 @@ export default function AdminServicesPage() {
                           onClick={() => setSelectedPkgTab(pIdx)}
                           className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${
                             isSel
-                              ? "bg-[#00FF87] text-[#02180C] shadow-sm font-black"
+                              ? "bg-emerald-neon text-[#0F172A] shadow-sm font-black"
                               : "text-slate-400 hover:text-white"
                           }`}
                         >
                           <span>{pIdx + 1}. {pkg.name || `Package ${pIdx + 1}`}</span>
                           {pkg.isPopular && (
-                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-black/20 text-[#02180C] font-mono">
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-black/20 text-[#0F172A] font-mono">
                               POPULAR
                             </span>
                           )}
@@ -1005,7 +1095,7 @@ export default function AdminServicesPage() {
                               value={currentPkg.name}
                               onChange={(e) => handleUpdateCurrentPkg({ name: e.target.value })}
                               placeholder="Basic / Business / Premium"
-                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#00FF87]/50"
+                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-neon/50"
                             />
                           </div>
 
@@ -1016,7 +1106,7 @@ export default function AdminServicesPage() {
                               type="number"
                               value={currentPkg.price}
                               onChange={(e) => handleUpdateCurrentPkg({ price: Number(e.target.value) || 0 })}
-                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-[#00FF87]/50"
+                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-emerald-neon/50"
                             />
                           </div>
 
@@ -1028,7 +1118,7 @@ export default function AdminServicesPage() {
                               value={currentPkg.discountPrice ?? ""}
                               onChange={(e) => handleUpdateCurrentPkg({ discountPrice: e.target.value ? Number(e.target.value) : undefined })}
                               placeholder="Leave blank if standard"
-                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-[#00FF87]/50"
+                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-emerald-neon/50"
                             />
                           </div>
 
@@ -1039,7 +1129,7 @@ export default function AdminServicesPage() {
                               type="number"
                               value={currentPkg.deliveryDays || 3}
                               onChange={(e) => handleUpdateCurrentPkg({ deliveryDays: Number(e.target.value) || 1 })}
-                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-[#00FF87]/50"
+                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-emerald-neon/50"
                             />
                           </div>
 
@@ -1051,7 +1141,7 @@ export default function AdminServicesPage() {
                               value={currentPkg.revisions || ""}
                               onChange={(e) => handleUpdateCurrentPkg({ revisions: e.target.value })}
                               placeholder='e.g. 3 or "Unlimited"'
-                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#00FF87]/50"
+                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-neon/50"
                             />
                           </div>
 
@@ -1063,7 +1153,7 @@ export default function AdminServicesPage() {
                               value={currentPkg.badge || ""}
                               onChange={(e) => handleUpdateCurrentPkg({ badge: e.target.value || undefined })}
                               placeholder="Optional pill label"
-                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#00FF87]/50"
+                              className="w-full bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-neon/50"
                             />
                           </div>
                         </div>
@@ -1083,12 +1173,12 @@ export default function AdminServicesPage() {
                                 }
                               }}
                               placeholder="Type a feature and press Enter or click 'Add Feature'..."
-                              className="flex-1 bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-[#00FF87]/50"
+                              className="flex-1 bg-[#050A0F] border border-white/10 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-emerald-neon/50"
                             />
                             <button
                               type="button"
                               onClick={handleAddFeature}
-                              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#00FF87] hover:text-[#02180C] text-xs font-bold transition-colors cursor-pointer"
+                              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-emerald-neon hover:text-[#0F172A] text-xs font-bold transition-colors cursor-pointer"
                             >
                               Add Feature
                             </button>
@@ -1158,7 +1248,7 @@ export default function AdminServicesPage() {
                     <button
                       type="button"
                       onClick={() => setActiveModalTab("packages")}
-                      className="text-[#00FF87] hover:underline flex items-center gap-1 font-bold cursor-pointer"
+                      className="text-emerald-neon hover:underline flex items-center gap-1 font-bold cursor-pointer"
                     >
                       <span>Next: Configure 3 Packages</span>
                       <ChevronRight className="w-3 h-3" />
@@ -1185,7 +1275,7 @@ export default function AdminServicesPage() {
 
                   <button
                     type="submit"
-                    className="px-6 py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] text-xs font-black transition-all shadow-[0_0_20px_rgba(0,255,135,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
+                    className="px-6 py-2.5 rounded-xl bg-emerald-neon hover:bg-[#00D970] text-[#0F172A] text-xs font-black transition-all shadow-sm hover:shadow-md flex items-center gap-2 cursor-pointer active:scale-95"
                   >
                     <Check className="w-4 h-4 stroke-[3]" />
                     <span>Save Service &amp; 3 Packages</span>

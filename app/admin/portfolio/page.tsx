@@ -273,7 +273,7 @@ export default function AdminPortfolioPage() {
     return (
       <DribbblePortfolioEditor
         form={form}
-        onChange={(next) => setForm(next)}
+        onChange={(patch) => setForm((current) => ({ ...current, ...patch }))}
         onClose={() => { setEditing(null); setIsNew(false); }}
         onSave={handleSave}
         saving={isSaving}
@@ -303,7 +303,7 @@ export default function AdminPortfolioPage() {
               <button
                 onClick={handleSave}
                 disabled={isSaving || isUploadingCover || isUploadingGallery}
-                className="px-8 py-3 rounded-full bg-[#00FF87] text-[#02180C] font-black text-sm hover:bg-[#00e87a] transition-all shadow-lg hover:shadow-[#00FF87]/20 disabled:opacity-50 flex items-center gap-2"
+                className="px-8 py-3 rounded-full bg-[#60A5FA] text-[#0F172A] font-black text-sm hover:bg-[#3B82F6] transition-all shadow-lg hover:shadow-[#60A5FA]/20 disabled:opacity-50 flex items-center gap-2"
               >
                 {isSaving ? "Publishing..." : "Publish to Portfolio"}
               </button>
@@ -340,13 +340,13 @@ export default function AdminPortfolioPage() {
                   ) : (
                     <div
                       onClick={() => coverFileRef.current?.click()}
-                      className="aspect-[4/3] w-full rounded-2xl border-2 border-dashed border-white/10 bg-white/[0.01] hover:bg-white/[0.03] hover:border-[#00FF87]/50 transition-all flex flex-col items-center justify-center gap-4 cursor-pointer group"
+                      className="aspect-[4/3] w-full rounded-2xl border-2 border-dashed border-white/10 bg-white/[0.01] hover:bg-white/[0.03] hover:border-[#60A5FA]/50 transition-all flex flex-col items-center justify-center gap-4 cursor-pointer group"
                     >
                       <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Upload className="w-7 h-7 text-slate-400 group-hover:text-[#00FF87]" />
+                        <Upload className="w-7 h-7 text-slate-400 group-hover:text-[#60A5FA]" />
                       </div>
                       <div className="text-center">
-                        <p className="text-lg font-bold text-white mb-1">Drag and drop an image, or <span className="text-[#00FF87]">Browse</span></p>
+                        <p className="text-lg font-bold text-white mb-1">Drag and drop an image, or <span className="text-[#60A5FA]">Browse</span></p>
                         <p className="text-sm text-slate-500">Minimum 1600x1200px recommended.</p>
                       </div>
                     </div>
@@ -359,7 +359,7 @@ export default function AdminPortfolioPage() {
                   <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                     <AlignLeft className="w-4 h-4" /> Project Story
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden focus-within:border-[#00FF87]/50 transition-colors">
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden focus-within:border-[#60A5FA]/50 transition-colors">
                     <div className="flex items-center gap-4 p-3 border-b border-white/5 bg-black/20">
                       <Type className="w-4 h-4 text-slate-400" />
                       <div className="h-4 w-px bg-white/10"></div>
@@ -424,7 +424,7 @@ export default function AdminPortfolioPage() {
                 {/* Interactive Tags */}
                 <div>
                   <label className="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-3">Deliverables (Tags)</label>
-                  <div className="min-h-[50px] p-2 bg-white/[0.03] border border-white/10 rounded-xl flex flex-wrap gap-2 focus-within:border-[#00FF87]/50 transition-colors">
+                  <div className="min-h-[50px] p-2 bg-white/[0.03] border border-white/10 rounded-xl flex flex-wrap gap-2 focus-within:border-[#60A5FA]/50 transition-colors">
                     {currentTags.map((tag, idx) => (
                       <span key={idx} className="px-3 py-1.5 bg-white/10 rounded-lg text-xs font-semibold text-white flex items-center gap-2">
                         {tag}
@@ -448,7 +448,7 @@ export default function AdminPortfolioPage() {
                       type="checkbox"
                       checked={form.active}
                       onChange={(e) => setForm({ ...form, active: e.target.checked })}
-                      className="w-5 h-5 accent-[#00FF87] rounded cursor-pointer"
+                      className="w-5 h-5 accent-[#60A5FA] rounded cursor-pointer"
                       id="pf-active-dribbble"
                     />
                     <label htmlFor="pf-active-dribbble" className="text-sm font-bold text-slate-300 cursor-pointer">
@@ -473,7 +473,7 @@ export default function AdminPortfolioPage() {
 
         {/* Success Alert Banner */}
         {saveSuccessMessage && !showForm && (
-          <div className="p-4 rounded-xl bg-emerald-500/15 border border-[#00FF87]/40 text-[#00FF87] flex items-center gap-2.5 text-sm font-semibold animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="p-4 rounded-xl bg-sky-500/15 border border-[#60A5FA]/40 text-[#60A5FA] flex items-center gap-2.5 text-sm font-semibold animate-in fade-in slide-in-from-top-2 duration-200">
             <Check className="w-4 h-4 shrink-0" />
             <span>{saveSuccessMessage}</span>
           </div>
@@ -488,7 +488,7 @@ export default function AdminPortfolioPage() {
                   key={cat}
                   onClick={() => setFilter(cat as "All" | PortfolioCategory)}
                   className={`px-4 py-2 rounded-full text-xs font-bold border transition-all ${filter === cat
-                    ? "bg-[#00FF87]/15 border-[#00FF87]/40 text-[#00FF87]"
+                    ? "bg-[#60A5FA]/15 border-[#60A5FA]/40 text-[#60A5FA]"
                     : "bg-white/5 border-white/10 text-slate-400 hover:text-white"
                     }`}
                 >
@@ -527,8 +527,8 @@ export default function AdminPortfolioPage() {
 
                     <div className="p-5">
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="w-5 h-5 rounded-full bg-[#00FF87]/20 flex items-center justify-center">
-                          <Sparkles className="w-3 h-3 text-[#00FF87]" />
+                        <div className="w-5 h-5 rounded-full bg-[#60A5FA]/20 flex items-center justify-center">
+                          <Sparkles className="w-3 h-3 text-[#60A5FA]" />
                         </div>
                         <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{p.category}</div>
                       </div>
@@ -538,7 +538,7 @@ export default function AdminPortfolioPage() {
                       <div className="flex items-center justify-between mt-5 pt-4 border-t border-white/5">
                         <button
                           onClick={() => updatePortfolioItem(p.id, { active: !p.active })}
-                          className={`text-xs font-bold px-3 py-1 rounded-full border ${p.active ? "bg-[#00FF87]/10 text-[#00FF87] border-[#00FF87]/20" : "bg-white/5 text-slate-500 border-white/10"}`}
+                          className={`text-xs font-bold px-3 py-1 rounded-full border ${p.active ? "bg-[#60A5FA]/10 text-[#60A5FA] border-[#60A5FA]/20" : "bg-white/5 text-slate-500 border-white/10"}`}
                         >
                           {p.active ? "Live" : "Hidden"}
                         </button>
@@ -568,4 +568,4 @@ function FField({ label, children }: { label: string; children: React.ReactNode 
   );
 }
 
-const inpDribbble = "w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-sm font-semibold text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00FF87]/50 focus:bg-white/[0.05] transition-all";
+const inpDribbble = "w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-sm font-semibold text-white placeholder:text-slate-600 focus:outline-none focus:border-[#60A5FA]/50 focus:bg-white/[0.05] transition-all";

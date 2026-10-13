@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import AdminHeader from "@/components/admin/AdminHeader";
@@ -26,7 +26,6 @@ import {
   RefreshCw,
   AlertCircle,
   Server,
-  ExternalLink,
 } from "lucide-react";
 
 const HEADING_FONT_OPTIONS = [
@@ -85,7 +84,7 @@ export default function AdminSettingsPage() {
     contactEmail: cmsData.general.contactEmail || "hello@qllix.com",
     adminPasscode: cmsData.general.adminPasscode || "admin2026",
     primaryColor: cmsData.general.primaryColor || "#00FF87",
-    secondaryColor: cmsData.general.secondaryColor || "#02180C",
+    secondaryColor: cmsData.general.secondaryColor || "#0F172A",
     headingFont: cmsData.general.headingFont || "Playfair Display",
     bodyFont: cmsData.general.bodyFont || "Inter",
     loadingBar: {
@@ -190,7 +189,7 @@ export default function AdminSettingsPage() {
           <button
             onClick={() => handleSaveGeneral()}
             type="button"
-            className="px-5 py-2 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs transition-all shadow-[0_0_20px_rgba(0,255,135,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
+            className="px-5 py-2 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-xs transition-all shadow-[0_0_20px_rgba(96,165,250,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
           >
             <Save className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>Save All Settings</span>
@@ -201,13 +200,12 @@ export default function AdminSettingsPage() {
       <div className="p-6 lg:p-10 space-y-8 max-w-5xl">
         {/* Toast Notification */}
         {savedSuccess && (
-          <div className="p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-600 dark:text-[#00FF87] flex items-center gap-2 text-xs font-semibold animate-fadeIn">
+          <div className="p-4 rounded-xl bg-sky-500/15 border border-sky-500/40 text-sky-600 dark:text-[#60A5FA] flex items-center gap-2 text-xs font-semibold animate-fadeIn">
             <CheckCircle2 className="w-4 h-4" />
             <span>All global branding &amp; system settings saved successfully!</span>
           </div>
         )}
-
-        {/* â•â•â• TAB NAVIGATION â•â•â• */}
+        {/* Tab navigation */}
         <div className={`flex flex-wrap gap-2 p-1.5 rounded-2xl border ${
           isDark ? "bg-[#0A0F14] border-white/10" : "bg-slate-100 border-slate-200"
         }`}>
@@ -216,7 +214,7 @@ export default function AdminSettingsPage() {
             onClick={() => setActiveTab("branding")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === "branding"
-                ? "bg-[#00FF87] text-[#02180C] shadow-md"
+                ? "bg-[#60A5FA] text-[#0F172A] shadow-md"
                 : isDark
                 ? "text-slate-400 hover:text-white"
                 : "text-slate-600 hover:text-slate-900"
@@ -231,7 +229,7 @@ export default function AdminSettingsPage() {
             onClick={() => setActiveTab("visuals")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === "visuals"
-                ? "bg-[#00FF87] text-[#02180C] shadow-md"
+                ? "bg-[#60A5FA] text-[#0F172A] shadow-md"
                 : isDark
                 ? "text-slate-400 hover:text-white"
                 : "text-slate-600 hover:text-slate-900"
@@ -246,7 +244,7 @@ export default function AdminSettingsPage() {
             onClick={() => setActiveTab("loadingBar")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === "loadingBar"
-                ? "bg-[#00FF87] text-[#02180C] shadow-md"
+                ? "bg-[#60A5FA] text-[#0F172A] shadow-md"
                 : isDark
                 ? "text-slate-400 hover:text-white"
                 : "text-slate-600 hover:text-slate-900"
@@ -261,7 +259,7 @@ export default function AdminSettingsPage() {
             onClick={() => setActiveTab("security")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === "security"
-                ? "bg-[#00FF87] text-[#02180C] shadow-md"
+                ? "bg-[#60A5FA] text-[#0F172A] shadow-md"
                 : isDark
                 ? "text-slate-400 hover:text-white"
                 : "text-slate-600 hover:text-slate-900"
@@ -276,16 +274,16 @@ export default function AdminSettingsPage() {
             onClick={() => setActiveTab("cloudSync")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === "cloudSync"
-                ? "bg-[#00FF87] text-[#02180C] shadow-md"
+                ? "bg-[#60A5FA] text-[#0F172A] shadow-md"
                 : isDark
                 ? "text-slate-400 hover:text-white"
                 : "text-slate-600 hover:text-slate-900"
             }`}
           >
-            <Cloud className="w-3.5 h-3.5 text-[#00FF87]" />
+            <Cloud className="w-3.5 h-3.5 text-[#60A5FA]" />
             <span>Vercel Live Sync</span>
             {cloudSyncInfo.isCloudConnected && (
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
             )}
           </button>
 
@@ -294,7 +292,7 @@ export default function AdminSettingsPage() {
             onClick={() => setActiveTab("backup")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === "backup"
-                ? "bg-[#00FF87] text-[#02180C] shadow-md"
+                ? "bg-[#60A5FA] text-[#0F172A] shadow-md"
                 : isDark
                 ? "text-slate-400 hover:text-white"
                 : "text-slate-600 hover:text-slate-900"
@@ -304,12 +302,11 @@ export default function AdminSettingsPage() {
             <span>System Backup</span>
           </button>
         </div>
-
-        {/* â•â•â• TAB 1: LOGOS & BRAND ASSETS â•â•â• */}
+        {/* Brand assets tab */}
         {activeTab === "branding" && (
           <div className="space-y-6">
             <div className={`rounded-3xl border p-6 sm:p-8 space-y-6 transition-colors ${
-              isDark ? "bg-[#020F07] border-white/10" : "bg-white border-slate-200 shadow-sm"
+              isDark ? "bg-[#0F172A] border-white/10" : "bg-white border-slate-200 shadow-sm"
             }`}>
               <div className="border-b pb-4 flex items-center justify-between">
                 <div>
@@ -320,7 +317,7 @@ export default function AdminSettingsPage() {
                     Upload official logos, footer variants, and browser favicon
                   </p>
                 </div>
-                <span className="text-[11px] font-mono text-emerald-500 font-semibold">Live Reactive</span>
+                <span className="text-[11px] font-mono text-sky-500 font-semibold">Live Reactive</span>
               </div>
 
               {/* Main Header Logo */}
@@ -330,7 +327,7 @@ export default function AdminSettingsPage() {
                   value={generalForm.logoUrl}
                   onChange={(val) => setGeneralForm({ ...generalForm, logoUrl: val })}
                   acceptVideo={false}
-                  recommendedDimensions="300 Ã— 75 px (Transparent PNG / SVG)"
+                  recommendedDimensions="300 x 75 px (Transparent PNG / SVG)"
                   helpText="Displayed in the site header and hero navbar across all pages"
                 />
 
@@ -343,7 +340,7 @@ export default function AdminSettingsPage() {
                     <img
                       src={generalForm.logoUrl || "/images/logo.png"}
                       alt="Main Logo"
-                      className="h-8 w-auto object-contain drop-shadow-[0_0_12px_rgba(0,255,135,0.3)]"
+                      className="h-8 w-auto object-contain drop-shadow-[0_0_12px_rgba(96,165,250,0.3)]"
                     />
                   </div>
                 </div>
@@ -356,7 +353,7 @@ export default function AdminSettingsPage() {
                   value={generalForm.footerLogoUrl || generalForm.logoUrl}
                   onChange={(val) => setGeneralForm({ ...generalForm, footerLogoUrl: val })}
                   acceptVideo={false}
-                  recommendedDimensions="300 Ã— 75 px (Transparent PNG / SVG)"
+                  recommendedDimensions="300 x 75 px (Transparent PNG / SVG)"
                   helpText="Displayed on dark backgrounds in the website footer"
                 />
 
@@ -382,7 +379,7 @@ export default function AdminSettingsPage() {
                   value={generalForm.faviconUrl || "/favicon.ico"}
                   onChange={(val) => setGeneralForm({ ...generalForm, faviconUrl: val })}
                   acceptVideo={false}
-                  recommendedDimensions="32 Ã— 32 px or 64 Ã— 64 px (ICO / PNG)"
+                  recommendedDimensions="32 x 32 px or 64 x 64 px (ICO / PNG)"
                   helpText="Displayed on browser tabs and bookmarks bar"
                 />
 
@@ -400,7 +397,7 @@ export default function AdminSettingsPage() {
                     <span className="font-medium text-[11px] truncate max-w-[140px]">
                       {generalForm.agencyName} | {generalForm.tagline}
                     </span>
-                    <span className="text-slate-500 text-[10px] ml-1">âœ•</span>
+                    <span className="text-slate-500 text-[10px] ml-1">x</span>
                   </div>
                 </div>
               </div>
@@ -415,7 +412,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={generalForm.agencyName}
                     onChange={(e) => setGeneralForm({ ...generalForm, agencyName: e.target.value })}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#60A5FA] ${
                       isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                     }`}
                   />
@@ -429,7 +426,7 @@ export default function AdminSettingsPage() {
                     type="text"
                     value={generalForm.tagline}
                     onChange={(e) => setGeneralForm({ ...generalForm, tagline: e.target.value })}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#60A5FA] ${
                       isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                     }`}
                   />
@@ -443,7 +440,7 @@ export default function AdminSettingsPage() {
                     type="email"
                     value={generalForm.contactEmail}
                     onChange={(e) => setGeneralForm({ ...generalForm, contactEmail: e.target.value })}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#60A5FA] ${
                       isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                     }`}
                   />
@@ -461,7 +458,7 @@ export default function AdminSettingsPage() {
                       socialLinks: { ...generalForm.socialLinks, whatsapp: e.target.value }
                     })}
                     placeholder="+8801XXXXXXXXX"
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#60A5FA] ${
                       isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                     }`}
                   />
@@ -497,7 +494,7 @@ export default function AdminSettingsPage() {
                           },
                         })}
                         placeholder={placeholder}
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
+                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#60A5FA] ${isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"}`}
                       />
                     </div>
                   ))}
@@ -506,12 +503,11 @@ export default function AdminSettingsPage() {
             </div>
           </div>
         )}
-
-        {/* â•â•â• TAB 2: COLORS & TYPOGRAPHY â•â•â• */}
+        {/* Visual settings tab */}
         {activeTab === "visuals" && (
           <div className="space-y-6">
             <div className={`rounded-3xl border p-6 sm:p-8 space-y-6 transition-colors ${
-              isDark ? "bg-[#020F07] border-white/10" : "bg-white border-slate-200 shadow-sm"
+              isDark ? "bg-[#0F172A] border-white/10" : "bg-white border-slate-200 shadow-sm"
             }`}>
               <div className="border-b pb-4 flex items-center justify-between">
                 <div>
@@ -522,7 +518,7 @@ export default function AdminSettingsPage() {
                     Live customization of primary brand accents and typography
                   </p>
                 </div>
-                <Palette className="w-5 h-5 text-emerald-500" />
+                <Palette className="w-5 h-5 text-sky-500" />
               </div>
 
               {/* Quick Presets */}
@@ -542,7 +538,7 @@ export default function AdminSettingsPage() {
                       })}
                       className={`p-3 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer ${
                         generalForm.primaryColor === preset.primary
-                          ? "border-[#00FF87] bg-emerald-500/10 shadow-sm"
+                          ? "border-[#60A5FA] bg-sky-500/10 shadow-sm"
                           : isDark
                           ? "border-white/10 bg-black/40 hover:border-white/20"
                           : "border-slate-200 bg-slate-50 hover:border-slate-300"
@@ -578,7 +574,7 @@ export default function AdminSettingsPage() {
                       type="text"
                       value={generalForm.primaryColor}
                       onChange={(e) => setGeneralForm({ ...generalForm, primaryColor: e.target.value })}
-                      className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-mono font-bold focus:outline-none focus:border-[#00FF87] ${
+                      className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-mono font-bold focus:outline-none focus:border-[#60A5FA] ${
                         isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                       }`}
                     />
@@ -600,7 +596,7 @@ export default function AdminSettingsPage() {
                       type="text"
                       value={generalForm.secondaryColor}
                       onChange={(e) => setGeneralForm({ ...generalForm, secondaryColor: e.target.value })}
-                      className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-mono font-bold focus:outline-none focus:border-[#00FF87] ${
+                      className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-mono font-bold focus:outline-none focus:border-[#60A5FA] ${
                         isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                       }`}
                     />
@@ -612,13 +608,13 @@ export default function AdminSettingsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-white/10">
                 <div>
                   <label className="block text-xs font-mono uppercase text-slate-400 font-bold mb-1.5 flex items-center gap-1.5">
-                    <Type className="w-3.5 h-3.5 text-emerald-500" />
+                    <Type className="w-3.5 h-3.5 text-sky-500" />
                     <span>Heading Typography Font</span>
                   </label>
                   <select
                     value={generalForm.headingFont}
                     onChange={(e) => setGeneralForm({ ...generalForm, headingFont: e.target.value })}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-semibold focus:outline-none focus:border-[#00FF87] ${
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-semibold focus:outline-none focus:border-[#60A5FA] ${
                       isDark ? "bg-black/80 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                     }`}
                   >
@@ -633,13 +629,13 @@ export default function AdminSettingsPage() {
 
                 <div>
                   <label className="block text-xs font-mono uppercase text-slate-400 font-bold mb-1.5 flex items-center gap-1.5">
-                    <Type className="w-3.5 h-3.5 text-emerald-500" />
+                    <Type className="w-3.5 h-3.5 text-sky-500" />
                     <span>Body &amp; Paragraph Font</span>
                   </label>
                   <select
                     value={generalForm.bodyFont}
                     onChange={(e) => setGeneralForm({ ...generalForm, bodyFont: e.target.value })}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-semibold focus:outline-none focus:border-[#00FF87] ${
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-semibold focus:outline-none focus:border-[#60A5FA] ${
                       isDark ? "bg-black/80 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                     }`}
                   >
@@ -655,12 +651,11 @@ export default function AdminSettingsPage() {
             </div>
           </div>
         )}
-
-        {/* â•â•â• TAB 3: TOP LOADING BAR â•â•â• */}
+        {/* Loading bar tab */}
         {activeTab === "loadingBar" && (
           <div className="space-y-6">
             <div className={`rounded-3xl border p-6 sm:p-8 space-y-6 transition-colors ${
-              isDark ? "bg-[#020F07] border-white/10" : "bg-white border-slate-200 shadow-sm"
+              isDark ? "bg-[#0F172A] border-white/10" : "bg-white border-slate-200 shadow-sm"
             }`}>
               <div className="border-b pb-4 flex items-center justify-between">
                 <div>
@@ -674,7 +669,7 @@ export default function AdminSettingsPage() {
 
                 {/* Enable / Disable Toggle */}
                 <label className="flex items-center gap-3 cursor-pointer select-none">
-                  <span className={`text-xs font-bold ${generalForm.loadingBar.enabled ? "text-[#00FF87]" : "text-slate-400"}`}>
+                  <span className={`text-xs font-bold ${generalForm.loadingBar.enabled ? "text-[#60A5FA]" : "text-slate-400"}`}>
                     {generalForm.loadingBar.enabled ? "Enabled" : "Disabled"}
                   </span>
                   <div
@@ -683,7 +678,7 @@ export default function AdminSettingsPage() {
                       loadingBar: { ...generalForm.loadingBar, enabled: !generalForm.loadingBar.enabled },
                     })}
                     className={`w-12 h-6 rounded-full transition-colors p-1 flex items-center ${
-                      generalForm.loadingBar.enabled ? "bg-[#00FF87] justify-end" : "bg-slate-700 justify-start"
+                      generalForm.loadingBar.enabled ? "bg-[#60A5FA] justify-end" : "bg-slate-700 justify-start"
                     }`}
                   >
                     <div className="w-4 h-4 rounded-full bg-black shadow-md" />
@@ -714,7 +709,7 @@ export default function AdminSettingsPage() {
                         ...generalForm,
                         loadingBar: { ...generalForm.loadingBar, color: e.target.value },
                       })}
-                      className={`flex-1 px-3.5 py-2.5 rounded-xl border text-xs font-mono font-bold focus:outline-none focus:border-[#00FF87] ${
+                      className={`flex-1 px-3.5 py-2.5 rounded-xl border text-xs font-mono font-bold focus:outline-none focus:border-[#60A5FA] ${
                         isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                       }`}
                     />
@@ -726,7 +721,7 @@ export default function AdminSettingsPage() {
                     <label className="block text-xs font-mono uppercase text-slate-400 font-bold">
                       Bar Height
                     </label>
-                    <span className="text-xs font-mono font-bold text-emerald-500">
+                    <span className="text-xs font-mono font-bold text-sky-500">
                       {generalForm.loadingBar.height}px
                     </span>
                   </div>
@@ -740,7 +735,7 @@ export default function AdminSettingsPage() {
                       ...generalForm,
                       loadingBar: { ...generalForm.loadingBar, height: parseInt(e.target.value, 10) },
                     })}
-                    className="w-full h-2 rounded-lg bg-slate-700 accent-[#00FF87] cursor-pointer"
+                    className="w-full h-2 rounded-lg bg-slate-700 accent-[#60A5FA] cursor-pointer"
                   />
                   <div className="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
                     <span>2px (Subtle)</span>
@@ -785,12 +780,11 @@ export default function AdminSettingsPage() {
             </div>
           </div>
         )}
-
-        {/* â•â•â• TAB 4: SECURITY PASSCODE â•â•â• */}
+        {/* Security tab */}
         {activeTab === "security" && (
           <div className="space-y-6">
             <form onSubmit={handleUpdatePasscode} className={`rounded-3xl border p-6 sm:p-8 space-y-6 transition-colors ${
-              isDark ? "bg-[#020F07] border-white/10" : "bg-white border-slate-200 shadow-sm"
+              isDark ? "bg-[#0F172A] border-white/10" : "bg-white border-slate-200 shadow-sm"
             }`}>
               <div className="flex items-center justify-between border-b pb-4">
                 <div>
@@ -801,11 +795,11 @@ export default function AdminSettingsPage() {
                     Changes the real server-side access code used by the admin login
                   </p>
                 </div>
-                <KeyRound className="w-5 h-5 text-[#00FF87]" />
+                <KeyRound className="w-5 h-5 text-[#60A5FA]" />
               </div>
 
               {passcodeSuccess && (
-                <div className="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-[#00FF87] flex items-center gap-2 text-xs font-semibold">
+                <div className="p-3.5 rounded-xl bg-sky-500/15 border border-sky-500/40 text-[#60A5FA] flex items-center gap-2 text-xs font-semibold">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Passcode updated successfully! Remember to store it safely.</span>
                 </div>
@@ -825,7 +819,7 @@ export default function AdminSettingsPage() {
                   value={newPasscode}
                   onChange={(e) => setNewPasscode(e.target.value)}
                   placeholder="Minimum 8 characters"
-                  className={`w-full px-4 py-3 rounded-xl border text-sm font-mono tracking-widest focus:outline-none focus:border-[#00FF87] ${
+                  className={`w-full px-4 py-3 rounded-xl border text-sm font-mono tracking-widest focus:outline-none focus:border-[#60A5FA] ${
                     isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                   }`}
                 />
@@ -836,7 +830,7 @@ export default function AdminSettingsPage() {
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs transition-all shadow-[0_0_20px_rgba(0,255,135,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
+                className="px-6 py-2.5 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-xs transition-all shadow-[0_0_20px_rgba(96,165,250,0.3)] flex items-center gap-2 cursor-pointer active:scale-95"
               >
                 <Save className="w-3.5 h-3.5 stroke-[2.5]" />
                 <span>Update Passcode</span>
@@ -844,12 +838,11 @@ export default function AdminSettingsPage() {
             </form>
           </div>
         )}
-
-        {/* â•â•â• TAB 5: SYSTEM BACKUP & RESTORE â•â•â• */}
+        {/* Backup tab */}
         {activeTab === "backup" && (
           <div className="space-y-6">
             <div className={`rounded-3xl border p-6 sm:p-8 space-y-6 transition-colors ${
-              isDark ? "bg-[#020F07] border-white/10" : "bg-white border-slate-200 shadow-sm"
+              isDark ? "bg-[#0F172A] border-white/10" : "bg-white border-slate-200 shadow-sm"
             }`}>
               <div className="border-b pb-4">
                 <h3 className={`text-base font-bold font-serif ${isDark ? "text-white" : "text-slate-900"}`}>
@@ -918,7 +911,7 @@ export default function AdminSettingsPage() {
                   value={importJsonText}
                   onChange={(e) => setImportJsonText(e.target.value)}
                   placeholder="Paste your backup JSON content here..."
-                  className={`w-full p-3.5 rounded-xl border text-xs font-mono focus:outline-none focus:border-[#00FF87] ${
+                  className={`w-full p-3.5 rounded-xl border text-xs font-mono focus:outline-none focus:border-[#60A5FA] ${
                     isDark ? "bg-black/60 border-white/10 text-white" : "bg-slate-50 border-slate-300 text-slate-900"
                   }`}
                 />
@@ -935,18 +928,17 @@ export default function AdminSettingsPage() {
             </div>
           </div>
         )}
-
-        {/* â•â•â• TAB 6: VERCEL LIVE CLOUD SYNC & DATABASE â•â•â• */}
+        {/* Cloud sync tab */}
         {activeTab === "cloudSync" && (
           <div className="space-y-6 animate-fadeIn">
             {/* Live Connection Status Card */}
             <div className={`rounded-3xl border p-6 sm:p-8 space-y-6 transition-colors ${
-              isDark ? "bg-[#020F07] border-white/10" : "bg-white border-slate-200 shadow-sm"
+              isDark ? "bg-[#0F172A] border-white/10" : "bg-white border-slate-200 shadow-sm"
             }`}>
               <div className="border-b pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <Cloud className="w-5 h-5 text-[#00FF87]" />
+                    <Cloud className="w-5 h-5 text-[#60A5FA]" />
                     <h3 className={`text-base font-bold font-serif ${isDark ? "text-white" : "text-slate-900"}`}>
                       Vercel Live Multi-Device Synchronization
                     </h3>
@@ -959,10 +951,10 @@ export default function AdminSettingsPage() {
                 <div className="flex items-center gap-2">
                   <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border ${
                     cloudSyncInfo.isCloudConnected
-                      ? "bg-emerald-500/15 border-emerald-500/40 text-emerald-400"
+                      ? "bg-sky-500/15 border-sky-500/40 text-sky-400"
                       : "bg-amber-500/15 border-amber-500/40 text-amber-300"
                   }`}>
-                    <span className={`w-2 h-2 rounded-full ${cloudSyncInfo.isCloudConnected ? "bg-[#00FF87] animate-ping" : "bg-amber-400"}`} />
+                    <span className={`w-2 h-2 rounded-full ${cloudSyncInfo.isCloudConnected ? "bg-[#60A5FA] animate-ping" : "bg-amber-400"}`} />
                     {cloudSyncInfo.isCloudConnected ? "CLOUD CONNECTED" : "LOCAL CACHE ONLY"}
                   </span>
                 </div>
@@ -974,7 +966,7 @@ export default function AdminSettingsPage() {
               } space-y-2`}>
                 <div className="flex flex-wrap items-center justify-between text-xs gap-2">
                   <span className="text-slate-400 font-mono">Active Storage Engine:</span>
-                  <span className="font-mono font-bold text-[#00FF87] uppercase">{cloudSyncInfo.provider}</span>
+                  <span className="font-mono font-bold text-[#60A5FA] uppercase">{cloudSyncInfo.provider}</span>
                 </div>
                 <div className="flex flex-wrap items-center justify-between text-xs gap-2">
                   <span className="text-slate-400 font-mono">Engine Status:</span>
@@ -1012,7 +1004,7 @@ export default function AdminSettingsPage() {
                   disabled={cloudTesting}
                   className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center gap-2 transition-all cursor-pointer"
                 >
-                  <RefreshCw className={`w-3.5 h-3.5 ${cloudTesting ? "animate-spin text-[#00FF87]" : ""}`} />
+                  <RefreshCw className={`w-3.5 h-3.5 ${cloudTesting ? "animate-spin text-[#60A5FA]" : ""}`} />
                   <span>Test Serverless Route</span>
                 </button>
 
@@ -1031,92 +1023,38 @@ export default function AdminSettingsPage() {
               </div>
 
               {cloudTestResult && (
-                <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+                <div className="p-3.5 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono">
                   {cloudTestResult}
                 </div>
               )}
             </div>
 
-            {/* Vercel Cloud Integration Guide */}
-            <div className={`rounded-3xl border p-6 sm:p-8 space-y-6 transition-colors ${
-              isDark ? "bg-[#020F07] border-white/10" : "bg-white border-slate-200 shadow-sm"
+            {/* Persistent storage guide */}
+            <div className={`rounded-3xl border p-6 sm:p-8 space-y-5 transition-colors ${
+              isDark ? "bg-[#0F172A] border-white/10" : "bg-white border-slate-200 shadow-sm"
             }`}>
-              <div className="border-b pb-4">
+              <div className="border-b border-white/10 pb-4">
                 <h3 className={`text-base font-bold font-serif ${isDark ? "text-white" : "text-slate-900"}`}>
-                  Vercel-à¦ à¦²à¦¾à¦‡à¦­ à¦†à¦ªà¦¡à§‡à¦Ÿ à¦šà¦¾à¦²à§ à¦•à¦°à¦¾à¦° à¦—à¦¾à¦‡à¦¡ (How to enable Live Updates on Vercel)
+                  Enable persistent live updates
                 </h3>
                 <p className="text-xs text-slate-400 mt-1">
-                  Vercel Serverless à¦®à§‡à¦®à§‹à¦°à¦¿ à¦ªà§à¦°à¦¤à¦¿ à¦•à§Ÿà§‡à¦• à¦®à¦¿à¦¨à¦¿à¦Ÿ à¦ªà¦° à¦ªà¦° à¦°à¦¿à¦¸à§‡à¦Ÿ à¦¹à§Ÿà¥¤ à¦¤à¦¾à¦‡ à¦à¦¡à¦®à¦¿à¦¨ à¦ªà§à¦¯à¦¾à¦¨à§‡à¦²à§‡à¦° à¦à¦¡à¦¿à¦Ÿà¦—à§à¦²à§‹ à¦¸à¦¾à¦°à¦¾ à¦ªà§ƒà¦¥à¦¿à¦¬à§€à¦° à¦¸à¦¬ à¦­à¦¿à¦œà¦¿à¦Ÿà¦°à§‡à¦° à¦•à¦¾à¦›à§‡ à¦¸à¦¾à¦¥à§‡ à¦¸à¦¾à¦¥à§‡ à¦²à¦¾à¦‡à¦­ à¦•à¦°à¦¤à§‡ à¦¨à¦¿à¦šà§‡à¦° à¦¯à§‡à¦•à§‹à¦¨à§‹ à§§à¦Ÿà¦¿ à¦«à§à¦°à¦¿ à¦•à§à¦²à¦¾à¦‰à¦¡ à¦¸à§à¦Ÿà§‹à¦°à§‡à¦œ à§§ à¦•à§à¦²à¦¿à¦•à§‡ à¦¯à§à¦•à§à¦¤ à¦•à¦°à§à¦¨:
+                  Serverless memory is temporary. Connect one of these storage options to keep CMS changes live for every visitor and device.
                 </p>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Method 1: Vercel KV / Upstash (Recommended) */}
-                <div className={`p-5 rounded-2xl border space-y-4 flex flex-col justify-between ${
-                  isDark ? "bg-black/40 border-white/10" : "bg-slate-50 border-slate-200"
-                }`}>
-                  <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#00FF87]/15 text-[#00FF87] border border-[#00FF87]/30">
-                      à¦ªà¦¦à§à¦§à¦¤à¦¿ à§§ (à¦¸à¦¬à¦šà§‡à¦¯à¦¼à§‡ à¦¸à¦¹à¦œ - à§§ à¦•à§à¦²à¦¿à¦•)
-                    </div>
-                    <h4 className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
-                      Vercel KV (Upstash Redis)
-                    </h4>
-                    <ol className="text-xs text-slate-400 space-y-2 list-decimal list-inside leading-relaxed">
-                      <li>à¦†à¦ªà¦¨à¦¾à¦° <strong>Vercel Dashboard</strong> à¦ à¦¯à¦¾à¦¨ à¦à¦¬à¦‚ à¦ªà§à¦°à¦œà§‡à¦•à§à¦Ÿà¦Ÿà¦¿ à¦“à¦ªà§‡à¦¨ à¦•à¦°à§à¦¨à¥¤</li>
-                      <li>à¦‰à¦ªà¦°à§‡ <strong>Storage</strong> à¦Ÿà§à¦¯à¦¾à¦¬à§‡ à¦•à§à¦²à¦¿à¦• à¦•à¦°à§à¦¨à¥¤</li>
-                      <li><strong>Create Database</strong> à¦¥à§‡à¦•à§‡ <strong>KV</strong> à¦¸à¦¿à¦²à§‡à¦•à§à¦Ÿ à¦•à¦°à§à¦¨à¥¤</li>
-                      <li><strong>Connect to Project</strong> à¦¦à¦¿à¦¨à¥¤ Vercel à¦¨à¦¿à¦œà§‡ à¦¥à§‡à¦•à§‡à¦‡ <code className="text-[#00FF87]">KV_REST_API_URL</code> à¦à¦¬à¦‚ <code className="text-[#00FF87]">KV_REST_API_TOKEN</code> à¦à¦¨à¦­à¦¾à¦¯à¦¼à¦°à¦¨à¦®à§‡à¦¨à§à¦Ÿ à¦­à§‡à¦°à¦¿à¦¯à¦¼à§‡à¦¬à¦² à¦¸à§‡à¦Ÿ à¦•à¦°à§‡ à¦¦à¦¿à¦¬à§‡!</li>
-                      <li>à¦ªà§à¦°à¦œà§‡à¦•à§à¦Ÿà¦Ÿà¦¿ à¦à¦•à¦¬à¦¾à¦° <strong>Redeploy</strong> à¦¦à¦¿à¦¨à¥¤ à¦¬à§à¦¯à¦¸, à¦¸à¦¾à¦¥à§‡ à¦¸à¦¾à¦¥à§‡ à¦°à¦¿à§Ÿà§‡à¦²-à¦Ÿà¦¾à¦‡à¦® à¦•à§à¦²à¦¾à¦‰à¦¡ à¦¸à¦¿à¦™à§à¦• à¦šà¦¾à¦²à§ à¦¹à§Ÿà§‡ à¦¯à¦¾à¦¬à§‡!</li>
-                    </ol>
-                  </div>
-
-                  <a
-                    href="https://vercel.com/dashboard"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_0_15px_rgba(0,255,135,0.25)]"
-                  >
-                    <span>Vercel Dashboard à¦“à¦ªà§‡à¦¨ à¦•à¦°à§à¦¨</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className={`p-5 rounded-2xl border space-y-3 ${isDark ? "bg-black/30 border-white/10" : "bg-slate-50 border-slate-200"}`}>
+                  <span className="inline-flex w-fit px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30">Recommended</span>
+                  <h4 className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}>Vercel KV / Upstash Redis</h4>
+                  <ol className="text-xs text-slate-400 space-y-1.5 list-decimal list-inside leading-relaxed">
+                    <li>Create a KV database from the Vercel Storage tab.</li>
+                    <li>Connect it to this Vercel project.</li>
+                    <li>Redeploy the project. The required environment variables are added automatically.</li>
+                  </ol>
                 </div>
-
-                {/* Method 2: Supabase */}
-                <div className={`p-5 rounded-2xl border space-y-4 flex flex-col justify-between ${
-                  isDark ? "bg-black/40 border-white/10" : "bg-slate-50 border-slate-200"
-                }`}>
-                  <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">
-                      à¦ªà¦¦à§à¦§à¦¤à¦¿ à§¨ (Supabase Database)
-                    </div>
-                    <h4 className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
-                      Supabase PostgreSQL
-                    </h4>
-                    <p className="text-xs text-slate-400">
-                      Supabase SQL Editor à¦ à¦¨à¦¿à¦šà§‡à¦° à¦›à§‹à¦Ÿà§à¦Ÿ à¦Ÿà§‡à¦¬à¦¿à¦²à¦Ÿà¦¿ à¦¤à§ˆà¦°à¦¿ à¦•à¦°à§à¦¨:
-                    </p>
-                    <div className="p-3 rounded-xl bg-black/80 border border-white/10 text-[11px] font-mono text-emerald-300 overflow-x-auto select-all">
-                      {`CREATE TABLE IF NOT EXISTS qllix_cms (
-  id TEXT PRIMARY KEY DEFAULT 'main',
-  data JSONB NOT NULL,
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);`}
-                    </div>
-                    <p className="text-xs text-slate-400">
-                      à¦à¦°à¦ªà¦° Vercel Project Settings &gt; Environment Variables à¦ <code className="text-indigo-300">SUPABASE_URL</code> à¦“ <code className="text-indigo-300">SUPABASE_ANON_KEY</code> à¦¬à¦¸à¦¿à§Ÿà§‡ Redeploy à¦¦à¦¿à¦¨!
-                    </p>
-                  </div>
-
-                  <a
-                    href="https://supabase.com/dashboard"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
-                  >
-                    <span>Supabase Dashboard à¦“à¦ªà§‡à¦¨ à¦•à¦°à§à¦¨</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                <div className={`p-5 rounded-2xl border space-y-3 ${isDark ? "bg-black/30 border-white/10" : "bg-slate-50 border-slate-200"}`}>
+                  <span className="inline-flex w-fit px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">Alternative</span>
+                  <h4 className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}>Supabase PostgreSQL</h4>
+                  <p className="text-xs text-slate-400 leading-relaxed">Add <code className="text-indigo-300">SUPABASE_URL</code> and <code className="text-indigo-300">SUPABASE_ANON_KEY</code> in Vercel Environment Variables, then redeploy.</p>
                 </div>
               </div>
             </div>

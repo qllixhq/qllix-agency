@@ -25,7 +25,7 @@ export default function AdminPackagesPage() {
       />
 
       <div className="p-6 lg:p-12 max-w-4xl mx-auto text-center py-20">
-        <div className="w-16 h-16 rounded-2xl bg-[#00FF87]/10 border border-[#00FF87]/30 text-[#00FF87] flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(0,255,135,0.15)]">
+        <div className="w-16 h-16 rounded-2xl bg-[#60A5FA]/10 border border-[#60A5FA]/30 text-[#60A5FA] flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(96,165,250,0.15)]">
           <Sparkles className="w-8 h-8" />
         </div>
 
@@ -38,7 +38,7 @@ export default function AdminPackagesPage() {
 
         <Link
           href="/admin/services"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00FF87] hover:bg-[#00DF81] text-[#02180C] font-black text-sm transition-all shadow-[0_0_25px_rgba(0,255,135,0.3)] cursor-pointer active:scale-95"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#60A5FA] hover:bg-[#3B82F6] text-[#0F172A] font-black text-sm transition-all shadow-[0_0_25px_rgba(96,165,250,0.3)] cursor-pointer active:scale-95"
         >
           <span>Open Services &amp; Packages Dashboard</span>
           <ArrowRight className="w-4 h-4 stroke-[2.5]" />

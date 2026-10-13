@@ -11,6 +11,9 @@ interface MediaUploaderProps {
   acceptVideo?: boolean;
   helpText?: string;
   recommendedDimensions?: string;
+  cropSize?: { width: number; height: number };
+  allowUrlInput?: boolean;
+  uploadFilename?: string;
 }
 
 export default function MediaUploader({
@@ -19,7 +22,10 @@ export default function MediaUploader({
   onChange,
   acceptVideo = true,
   helpText,
-  recommendedDimensions
+  recommendedDimensions,
+  cropSize,
+  allowUrlInput = true,
+  uploadFilename = 'media'
 }: MediaUploaderProps) {
   const { isDark } = useAdminTheme();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -47,10 +53,24 @@ export default function MediaUploader({
     setIsUploading(true);
     try {
       if (file.type.startsWith("image/")) {
-        const { compressImageFile } = await import("@/lib/imageOptimizer");
-        const compressed = await compressImageFile(file, { maxWidth: 1400, maxHeight: 1400, quality: 0.82 });
-        onChange(compressed);
-        setUrlInput(compressed);
+        const { compressImageFile, cropImageFile } = await import("@/lib/imageOptimizer");
+        const compressed = cropSize
+          ? await cropImageFile(file, { ...cropSize, quality: 0.86 })
+          : await compressImageFile(file, { maxWidth: 1400, maxHeight: 1400, quality: 0.82 });
+        let uploadedUrl = compressed;
+        try {
+          const response = await fetch("/api/admin/upload", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ image: compressed, filename: uploadFilename }),
+          });
+          const result = await response.json();
+          if (response.ok && result.success && result.url) uploadedUrl = result.url;
+        } catch {
+          // Saving the optimized data URL keeps the CMS usable offline.
+        }
+        onChange(uploadedUrl);
+        setUrlInput(uploadedUrl);
       } else {
         const reader = new FileReader();
         reader.onload = () => {
@@ -123,8 +143,8 @@ export default function MediaUploader({
           {recommendedDimensions && (
             <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${
               isDark
-                ? "text-[#00FF87] bg-emerald-500/10 border-emerald-500/30"
-                : "text-emerald-700 bg-emerald-50 border-emerald-300"
+                ? "text-[#60A5FA] bg-sky-500/10 border-sky-500/30"
+                : "text-sky-700 bg-sky-50 border-sky-300"
             }`}>
               Size: {recommendedDimensions}
             </span>
@@ -132,7 +152,7 @@ export default function MediaUploader({
         </div>
         
         {/* Toggle Mode */}
-        <div className={`flex items-center gap-1 text-[11px] font-mono p-0.5 rounded-xl border ${
+        {allowUrlInput && <div className={`flex items-center gap-1 text-[11px] font-mono p-0.5 rounded-xl border ${
           isDark ? "bg-black/50 border-white/10" : "bg-slate-100 border-slate-200"
         }`}>
           <button
@@ -140,7 +160,7 @@ export default function MediaUploader({
             onClick={() => setActiveMode("file")}
             className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer font-semibold ${
               activeMode === "file"
-                ? "bg-[#00FF87] text-[#02180C] shadow-xs"
+                ? "bg-[#60A5FA] text-[#0F172A] shadow-xs"
                 : isDark
                 ? "text-slate-400 hover:text-white"
                 : "text-slate-600 hover:text-slate-900"
@@ -153,7 +173,7 @@ export default function MediaUploader({
             onClick={() => setActiveMode("url")}
             className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer font-semibold ${
               activeMode === "url"
-                ? "bg-[#00FF87] text-[#02180C] shadow-xs"
+                ? "bg-[#60A5FA] text-[#0F172A] shadow-xs"
                 : isDark
                 ? "text-slate-400 hover:text-white"
                 : "text-slate-600 hover:text-slate-900"
@@ -161,11 +181,11 @@ export default function MediaUploader({
           >
             Enter URL
           </button>
-        </div>
+        </div>}
       </div>
 
       {/* Mode 1: Direct File Upload with Drag & Drop */}
-      {activeMode === "file" && (
+      {(!allowUrlInput || activeMode === "file") && (
         <div>
           <input
             type="file"
@@ -182,24 +202,24 @@ export default function MediaUploader({
             onDrop={handleDrop}
             className={`border-2 border-dashed rounded-2xl p-4 transition-all text-center cursor-pointer group ${
               isDragging
-                ? "border-[#00FF87] bg-emerald-500/10 scale-[1.01]"
+                ? "border-[#60A5FA] bg-sky-500/10 scale-[1.01]"
                 : isDark
-                ? "border-white/15 hover:border-[#00FF87]/60 bg-black/40 hover:bg-black/60"
-                : "border-slate-300 hover:border-emerald-500 bg-slate-50/80 hover:bg-slate-100/90"
+                ? "border-white/15 hover:border-[#60A5FA]/60 bg-black/40 hover:bg-black/60"
+                : "border-slate-300 hover:border-sky-500 bg-slate-50/80 hover:bg-slate-100/90"
             }`}
           >
             <div className="flex flex-col items-center justify-center gap-1.5">
               <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 ${
                 isDark
-                  ? "bg-white/5 group-hover:bg-[#00FF87]/20 text-[#00FF87]"
-                  : "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-200"
+                  ? "bg-white/5 group-hover:bg-[#60A5FA]/20 text-[#60A5FA]"
+                  : "bg-sky-100 text-sky-600 group-hover:bg-sky-200"
               }`}>
                 <Upload className="w-5 h-5" />
               </div>
               <div className={`text-xs font-bold transition-colors ${
                 isDark
-                  ? "text-white group-hover:text-[#00FF87]"
-                  : "text-slate-800 group-hover:text-emerald-700"
+                  ? "text-white group-hover:text-[#60A5FA]"
+                  : "text-slate-800 group-hover:text-sky-700"
               }`}>
                 {isUploading
                   ? "Uploading & processing..."
@@ -216,7 +236,7 @@ export default function MediaUploader({
       )}
 
       {/* Mode 2: URL Input */}
-      {activeMode === "url" && (
+      {allowUrlInput && activeMode === "url" && (
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
             <LinkIcon className={`w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 ${
@@ -227,7 +247,7 @@ export default function MediaUploader({
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               placeholder="https://... or /images/campaign-banner.jpg"
-              className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#00FF87] ${
+              className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-xs focus:outline-none focus:border-[#60A5FA] ${
                 isDark
                   ? "bg-black/60 border-white/10 text-white"
                   : "bg-white border-slate-300 text-slate-900"
@@ -237,7 +257,7 @@ export default function MediaUploader({
           <button
             type="button"
             onClick={handleApplyUrl}
-            className="px-4 py-2.5 rounded-xl bg-[#00FF87] text-[#02180C] font-bold text-xs hover:bg-[#00DF81] transition-all cursor-pointer shrink-0 shadow-xs"
+            className="px-4 py-2.5 rounded-xl bg-[#60A5FA] text-[#0F172A] font-bold text-xs hover:bg-[#3B82F6] transition-all cursor-pointer shrink-0 shadow-xs"
           >
             Apply
           </button>
@@ -245,7 +265,7 @@ export default function MediaUploader({
       )}
 
       {/* Quick Preset Samples for 1:1 Graphic */}
-      <div className="flex items-center gap-2 flex-wrap">
+      {allowUrlInput && <div className="flex items-center gap-2 flex-wrap">
         <span className={`text-[10px] font-mono ${isDark ? "text-slate-400" : "text-slate-500"}`}>
           Sample Assets:
         </span>
@@ -257,7 +277,7 @@ export default function MediaUploader({
           }}
           className={`text-[10.5px] px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
             value === "/images/campaign-banner.jpg"
-              ? "border-[#00FF87] bg-emerald-500/10 text-emerald-600 dark:text-[#00FF87] font-bold"
+              ? "border-[#60A5FA] bg-sky-500/10 text-sky-600 dark:text-[#60A5FA] font-bold"
               : isDark
               ? "border-white/10 hover:border-white/20 text-slate-400"
               : "border-slate-200 hover:border-slate-300 bg-white text-slate-600"
@@ -273,7 +293,7 @@ export default function MediaUploader({
           }}
           className={`text-[10.5px] px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
             value === "/images/campaign-banner-square.jpg"
-              ? "border-[#00FF87] bg-emerald-500/10 text-emerald-600 dark:text-[#00FF87] font-bold"
+              ? "border-[#60A5FA] bg-sky-500/10 text-sky-600 dark:text-[#60A5FA] font-bold"
               : isDark
               ? "border-white/10 hover:border-white/20 text-slate-400"
               : "border-slate-200 hover:border-slate-300 bg-white text-slate-600"
@@ -281,14 +301,14 @@ export default function MediaUploader({
         >
           Square Promo 1:1
         </button>
-      </div>
+      </div>}
 
       {/* Media Preview Box if value exists */}
       {value && (
         <div className={`relative rounded-2xl overflow-hidden border p-2.5 flex items-center gap-3 transition-colors ${
           isDark
-            ? "border-emerald-500/30 bg-black/70"
-            : "border-emerald-200 bg-emerald-50/70"
+            ? "border-sky-500/30 bg-black/70"
+            : "border-sky-200 bg-sky-50/70"
         }`}>
           <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 flex items-center justify-center border border-white/20 bg-black/90 shadow-xs">
             {isVideo ? (
@@ -307,7 +327,7 @@ export default function MediaUploader({
           </div>
 
           <div className="flex-1 min-w-0 text-xs">
-            <div className="flex items-center gap-1.5 text-emerald-600 dark:text-[#00FF87] font-bold text-[11px]">
+            <div className="flex items-center gap-1.5 text-sky-600 dark:text-[#60A5FA] font-bold text-[11px]">
               <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
               <span>Media Attached &amp; Ready</span>
             </div>
@@ -317,7 +337,7 @@ export default function MediaUploader({
               {value.startsWith("data:") ? "Local Upload (Base64 file)" : value}
             </div>
             <div className="text-[10px] text-slate-400 mt-0.5">
-              Aspect Ratio: 1:1 Square recommended
+              {cropSize ? `Output size: ${cropSize.width} x ${cropSize.height} px (center-cropped)` : "Aspect Ratio: 1:1 Square recommended"}
             </div>
           </div>
 

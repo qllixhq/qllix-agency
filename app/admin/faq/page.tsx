@@ -48,7 +48,7 @@ export default function AdminFAQPage() {
 
       <div className="p-6 lg:p-10 max-w-4xl space-y-6">
         {(editing || isNew) && (
-          <div className="rounded-2xl bg-[#0A0F14] border border-[#00FF87]/25 p-6">
+          <div className="rounded-2xl bg-[#0A0F14] border border-[#60A5FA]/25 p-6">
             <div className="flex items-center justify-between mb-5">
               <h3 className="text-lg font-black text-white">{isNew ? "Add FAQ" : "Edit FAQ"}</h3>
               <button onClick={() => { setEditing(null); setIsNew(false); }}><X className="w-5 h-5 text-slate-400" /></button>
@@ -64,12 +64,12 @@ export default function AdminFAQPage() {
                 <FField label="Display Order"><input type="number" className={inp} value={form.displayOrder} onChange={(e) => setForm({ ...form, displayOrder: +e.target.value })} /></FField>
               </div>
               <label className="flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
-                <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} className="accent-[#00FF87]" />
+                <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} className="accent-[#60A5FA]" />
                 Active (visible on site)
               </label>
             </div>
             <div className="flex gap-3 mt-5">
-              <button onClick={handleSave} className="px-5 py-2.5 rounded-xl bg-[#00FF87] text-[#021A0C] font-black text-sm flex items-center gap-2 hover:bg-[#00e87a]"><Check className="w-4 h-4" />{isNew ? "Add FAQ" : "Save"}</button>
+              <button onClick={handleSave} className="px-5 py-2.5 rounded-xl bg-[#60A5FA] text-[#0F172A] font-black text-sm flex items-center gap-2 hover:bg-[#3B82F6]"><Check className="w-4 h-4" />{isNew ? "Add FAQ" : "Save"}</button>
               <button onClick={() => { setEditing(null); setIsNew(false); }} className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm hover:bg-white/10">Cancel</button>
             </div>
           </div>
@@ -86,14 +86,14 @@ export default function AdminFAQPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#00FF87]/10 text-[#00FF87] border border-[#00FF87]/20">{f.category}</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#60A5FA]/10 text-[#60A5FA] border border-[#60A5FA]/20">{f.category}</span>
                   </div>
                   <p className="font-semibold text-white text-sm mb-1">{f.question}</p>
                   <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">{f.answer}</p>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   <button onClick={() => updateFAQ(f.id, { active: !f.active })} className="p-1.5 rounded-lg text-slate-500 hover:text-white transition-colors">{f.active ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}</button>
-                  <button onClick={() => openEdit(f)} className="p-1.5 rounded-lg text-slate-500 hover:text-[#00FF87] transition-colors"><Pencil className="w-3.5 h-3.5" /></button>
+                  <button onClick={() => openEdit(f)} className="p-1.5 rounded-lg text-slate-500 hover:text-[#60A5FA] transition-colors"><Pencil className="w-3.5 h-3.5" /></button>
                   <button onClick={() => { if (confirm("Delete?")) deleteFAQ(f.id); }} className="p-1.5 rounded-lg text-slate-500 hover:text-red-400 transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                 </div>
               </div>
@@ -109,4 +109,4 @@ export default function AdminFAQPage() {
 function FField({ label, children }: { label: string; children: React.ReactNode }) {
   return <div className="flex flex-col gap-1.5"><label className="text-xs font-semibold text-slate-400">{label}</label>{children}</div>;
 }
-const inp = "w-full bg-[#131920] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-[#00FF87]/40 transition-all";
+const inp = "w-full bg-[#131920] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-[#60A5FA]/40 transition-all";

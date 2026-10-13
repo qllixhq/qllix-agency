@@ -28,14 +28,14 @@ function EditableList({
           <h3 className="font-bold text-white">{label}</h3>
           <p className="mt-1 text-xs text-slate-400">Add, edit, remove, or reorder by editing the text below.</p>
         </div>
-        <button type="button" onClick={() => onChange([...items, ""])} className="inline-flex items-center gap-1.5 rounded-xl border border-[#00FF87]/30 bg-[#00FF87]/10 px-3 py-2 text-xs font-bold text-[#00FF87] transition hover:bg-[#00FF87]/20">
+        <button type="button" onClick={() => onChange([...items, ""])} className="inline-flex items-center gap-1.5 rounded-xl border border-[#60A5FA]/30 bg-[#60A5FA]/10 px-3 py-2 text-xs font-bold text-[#60A5FA] transition hover:bg-[#60A5FA]/20">
           <Plus className="h-3.5 w-3.5" /> Add
         </button>
       </div>
       <div className="space-y-2.5">
         {items.map((item, index) => (
           <div key={`${label}-${index}`} className="flex gap-2">
-            <input value={item} onChange={(event) => updateItem(index, event.target.value)} placeholder={placeholder} className="min-w-0 flex-1 rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none placeholder:text-slate-600 focus:border-[#00FF87]" />
+            <input value={item} onChange={(event) => updateItem(index, event.target.value)} placeholder={placeholder} className="min-w-0 flex-1 rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none placeholder:text-slate-600 focus:border-[#60A5FA]" />
             <button type="button" onClick={() => removeItem(index)} aria-label={`Remove ${label} item ${index + 1}`} className="rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 text-rose-300 transition hover:bg-rose-500/20">
               <Trash2 className="h-4 w-4" />
             </button>
@@ -78,16 +78,16 @@ export default function AdminContactPage() {
       />
 
       <div className="mx-auto max-w-6xl space-y-6 p-6 lg:p-10">
-        {saved && <div className="flex items-center gap-2 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-[#00FF87]"><CheckCircle2 className="h-4 w-4" /> Contact page saved and sent to your live CMS.</div>}
+        {saved && <div className="flex items-center gap-2 rounded-xl border border-sky-400/30 bg-sky-500/10 px-4 py-3 text-sm font-semibold text-[#60A5FA]"><CheckCircle2 className="h-4 w-4" /> Contact page saved and sent to your live CMS.</div>}
 
-        <section className="rounded-2xl border border-white/10 bg-[#020F07] p-5 sm:p-7">
+        <section className="rounded-2xl border border-white/10 bg-[#0F172A] p-5 sm:p-7">
           <h2 className="text-lg font-bold text-white">Heading &amp; visual</h2>
           <p className="mt-1 text-xs text-slate-400">These appear on the left side of the contact form.</p>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            <label className="block text-xs font-bold text-slate-300">Small label<input value={form.badge} onChange={(event) => updateField("badge", event.target.value)} className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none focus:border-[#00FF87]" /></label>
-            <label className="block text-xs font-bold text-slate-300">Heading line 1<input value={form.headingLine1} onChange={(event) => updateField("headingLine1", event.target.value)} className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none focus:border-[#00FF87]" /></label>
-            <label className="block text-xs font-bold text-slate-300">Heading line 2<input value={form.headingLine2} onChange={(event) => updateField("headingLine2", event.target.value)} className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none focus:border-[#00FF87]" /></label>
-            <label className="block text-xs font-bold text-slate-300">Italic heading line<input value={form.headingAccent} onChange={(event) => updateField("headingAccent", event.target.value)} className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none focus:border-[#00FF87]" /></label>
+            <label className="block text-xs font-bold text-slate-300">Small label<input value={form.badge} onChange={(event) => updateField("badge", event.target.value)} className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none focus:border-[#60A5FA]" /></label>
+            <label className="block text-xs font-bold text-slate-300">Heading line 1<input value={form.headingLine1} onChange={(event) => updateField("headingLine1", event.target.value)} className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none focus:border-[#60A5FA]" /></label>
+            <label className="block text-xs font-bold text-slate-300">Heading line 2<input value={form.headingLine2} onChange={(event) => updateField("headingLine2", event.target.value)} className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none focus:border-[#60A5FA]" /></label>
+            <label className="block text-xs font-bold text-slate-300">Italic heading line<input value={form.headingAccent} onChange={(event) => updateField("headingAccent", event.target.value)} className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white outline-none focus:border-[#60A5FA]" /></label>
           </div>
           <div className="mt-6"><MediaUploader label="Contact card image" value={form.imageUrl} onChange={(imageUrl) => updateField("imageUrl", imageUrl)} acceptVideo={false} helpText="Upload the photo shown beside the form, or paste an image URL." recommendedDimensions="Square image" /></div>
         </section>
@@ -96,7 +96,7 @@ export default function AdminContactPage() {
         <EditableList label="Service dropdown options" items={form.serviceOptions} onChange={(serviceOptions) => updateField("serviceOptions", serviceOptions)} placeholder="Ex. Brand Identity Design" />
         <EditableList label="Budget dropdown options" items={form.budgetOptions} onChange={(budgetOptions) => updateField("budgetOptions", budgetOptions)} placeholder="Ex. ৳20,000 – ৳50,000" />
 
-        <div className="flex justify-end"><button type="button" onClick={handleSave} className="inline-flex items-center gap-2 rounded-xl bg-[#00FF87] px-5 py-3 text-sm font-extrabold text-[#02180C] shadow-[0_0_20px_rgba(0,255,135,0.25)] transition hover:bg-[#00DF81]"><Save className="h-4 w-4" /> Save Contact Page</button></div>
+        <div className="flex justify-end"><button type="button" onClick={handleSave} className="inline-flex items-center gap-2 rounded-xl bg-[#60A5FA] px-5 py-3 text-sm font-extrabold text-[#0F172A] shadow-[0_0_20px_rgba(96,165,250,0.25)] transition hover:bg-[#3B82F6]"><Save className="h-4 w-4" /> Save Contact Page</button></div>
       </div>
     </div>
   );

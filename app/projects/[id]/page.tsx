@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCms } from "@/context/CmsContext";
 import { PortfolioItem, ProjectContentBlock } from "@/lib/cmsStore";
+import { parseStructuredProjectText } from "@/lib/portfolioText";
 import SubpageHeroBanner from "@/components/SubpageHeroBanner";
 
 function legacyBlocks(project: PortfolioItem): ProjectContentBlock[] {
@@ -73,6 +74,16 @@ export default function PublicProjectDetailPage() {
   // An empty array is an intentional choice in the editor; only projects that
   // predate the story editor fall back to their old gallery/video fields.
   const blocks = Array.isArray(project.contentBlocks) ? project.contentBlocks : legacyBlocks(project);
+  const parsedDescription = parseStructuredProjectText(project.description);
+  const hasStructuredDescription = Boolean(
+    parsedDescription &&
+      (parsedDescription.contentBlocks.length > 0 || parsedDescription.description !== project.description)
+  );
+  const overview = hasStructuredDescription
+    ? parsedDescription?.description || ""
+    : project.description;
+  const storyBlocks = blocks.filter((block) => block.type !== "text");
+  const deliverables = project.deliverables || [];
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#07050E] text-[#101224]" style={{ "--brand-primary": primaryColor, "--brand-secondary": secondaryColor, "--brand-soft": brandSoft } as React.CSSProperties}>
@@ -81,44 +92,56 @@ export default function PublicProjectDetailPage() {
         title={<span>{project.title}</span>}
       />
 
-      <div className="relative z-10 -mt-6 rounded-t-[36px] border-t border-black/5 bg-white px-5 pb-20 pt-10 shadow-[0_-20px_60px_rgba(0,0,0,0.5)] sm:-mt-8 sm:rounded-t-[48px] sm:px-8 sm:pt-14 lg:px-12 lg:pt-20">
+      <div className="relative z-10 -mt-6 rounded-t-[36px] border-t border-black/5 bg-white px-5 pb-20 pt-7 shadow-[0_-20px_60px_rgba(0,0,0,0.5)] sm:-mt-8 sm:rounded-t-[48px] sm:px-8 sm:pt-9 lg:px-12 lg:pt-10">
         <div className="mx-auto max-w-[1120px]">
-          <section style={{ backgroundColor: brandSoft }} className="overflow-hidden rounded-[18px] p-3 sm:p-5">
-            <img src={project.imageUrl} alt={project.title} className="aspect-[16/10] w-full rounded-[17px] object-cover sm:rounded-[22px]" />
+          <div className="grid items-start gap-6 border-b border-black/10 pb-8 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:gap-10 sm:pb-10 lg:gap-14">
+          <section style={{ aspectRatio: "5 / 4" }} className="relative mx-auto w-full max-w-[560px] overflow-hidden rounded-[18px]">
+            <img src={project.imageUrl} alt={project.title} className="absolute inset-0 h-full w-full rounded-[17px] object-cover sm:rounded-[22px]" />
           </section>
 
-          <section className="grid gap-6 border-b border-black/10 py-12 sm:py-16 lg:grid-cols-[1.3fr_0.7fr]">
-            <div>
+          <section className="grid min-w-0 gap-6 md:py-2">
+            <div className="min-w-0">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-black/40">Project overview</p>
-              <p className="mt-4 max-w-2xl text-xl leading-8 tracking-[-0.025em] text-black/70 sm:text-2xl sm:leading-9">{project.description}</p>
+              <p className="mt-3 whitespace-pre-line text-base leading-7 tracking-[-0.015em] text-black/70 lg:text-lg lg:leading-8">{overview}</p>
             </div>
-            <div className="grid grid-cols-2 content-start gap-6 text-sm">
+            <dl className="grid content-start grid-cols-2 gap-5 border-t border-black/10 pt-5">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-black/40">Client</p>
-                <p className="mt-2 font-semibold">{project.client || "Confidential"}</p>
+                <dt className="text-xs font-bold uppercase tracking-[0.16em] text-black/40">Client</dt>
+                <dd className="mt-2 text-base font-semibold text-[#101224] sm:text-lg">{project.client || "Confidential"}</dd>
               </div>
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-black/40">Services</p>
-                <p className="mt-2 font-semibold">{project.deliverables?.slice(0, 2).join(" · ") || project.category}</p>
+                <dt className="text-xs font-bold uppercase tracking-[0.16em] text-black/40">Services</dt>
+                <dd className="mt-2 text-base font-semibold text-[#101224] sm:text-lg">{deliverables.length ? deliverables.join(", ") : project.category}</dd>
               </div>
-            </div>
+            </dl>
+          </section>
+          </div>
+
+
+          <section className="space-y-6 py-8 sm:space-y-8 sm:py-10">
+            <StoryBlocks blocks={storyBlocks} />
           </section>
 
-          <section style={{ backgroundColor: secondaryColor }} className="my-12 overflow-hidden rounded-[24px] px-6 py-9 text-white sm:my-16 sm:px-10 sm:py-12">
-            <div className="flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
+          <section style={{ backgroundColor: secondaryColor }} className="relative isolate mt-12 overflow-hidden rounded-[24px] px-6 py-9 text-white sm:mt-16 sm:px-10 sm:py-12">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 hidden w-[48%] lg:block">
+              <img src="/images/project-cta-ribbon.png" alt="" className="h-full w-full object-cover object-[58%_center] opacity-70 mix-blend-screen" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-secondary)] via-[color-mix(in_srgb,var(--brand-secondary)_25%,transparent)] to-transparent" />
+            </div>
+            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">
-                <p style={{ color: primaryColor }} className="text-xs font-bold uppercase tracking-[0.18em]">Your next project</p>
-                <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.045em] sm:text-4xl">Ready to make your brand stand out?</h2>
-                <p className="mt-3 max-w-xl text-base leading-7 text-white/70">Tell us what you need, and we&apos;ll create a clear, memorable visual direction for your business.</p>
+                <p style={{ color: primaryColor }} className="text-xs font-bold uppercase tracking-[0.18em]">Build your next standout project</p>
+                <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.045em] sm:text-4xl">Want this level of clarity for your brand?</h2>
+                <p className="mt-3 max-w-xl text-base leading-7 text-white/70">Share your goal with us and we&apos;ll turn it into a focused visual system that is built to be remembered.</p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {(deliverables.length ? deliverables : [project.category]).map((service) => (
+                    <span key={service} className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/90">{service}</span>
+                  ))}
+                </div>
               </div>
               <Link href="/contact" style={{ backgroundColor: primaryColor, color: secondaryColor }} className="inline-flex shrink-0 items-center justify-center rounded-full px-6 py-3.5 text-sm font-bold transition hover:scale-[1.02]">
-                Start a project <span className="ml-2 text-lg leading-none">→</span>
+                Become a client <span className="ml-2 text-lg leading-none">-&gt;</span>
               </Link>
             </div>
-          </section>
-
-          <section className="space-y-10 py-12 sm:space-y-14 sm:py-20">
-            {blocks.map((block) => <StoryBlock key={block.id} block={block} />)}
           </section>
         </div>
       </div>
@@ -126,11 +149,40 @@ export default function PublicProjectDetailPage() {
   );
 }
 
-function StoryBlock({ block }: { block: ProjectContentBlock }) {
+function StoryBlocks({ blocks }: { blocks: ProjectContentBlock[] }) {
+  const rendered: React.ReactNode[] = [];
+
+  for (let index = 0; index < blocks.length; index += 1) {
+    const block = blocks[index];
+    const nextBlock = blocks[index + 1];
+    const isScopeAndFocusPair =
+      block.type === "text" &&
+      nextBlock?.type === "text" &&
+      block.heading?.trim().toLowerCase() === "project scope" &&
+      nextBlock.heading?.trim().toLowerCase() === "design focus";
+
+    if (isScopeAndFocusPair) {
+      rendered.push(
+        <div key={`${block.id}-${nextBlock.id}`} className="grid gap-10 border-y border-black/10 py-10 md:grid-cols-2 md:gap-16 lg:gap-24">
+          <StoryBlock block={block} compact />
+          <StoryBlock block={nextBlock} compact />
+        </div>,
+      );
+      index += 1;
+      continue;
+    }
+
+    rendered.push(<StoryBlock key={block.id} block={block} />);
+  }
+
+  return <>{rendered}</>;
+}
+
+function StoryBlock({ block, compact = false }: { block: ProjectContentBlock; compact?: boolean }) {
   if (block.type === "text") {
     return (
-      <section className="mx-auto max-w-3xl py-4">
-        {block.heading && <h2 className="text-3xl font-semibold tracking-[-0.05em] sm:text-5xl">{block.heading}</h2>}
+      <section className={compact ? "min-w-0" : "mx-auto max-w-3xl py-4"}>
+        {block.heading && <h2 className={compact ? "text-3xl font-semibold tracking-[-0.05em] sm:text-4xl" : "text-3xl font-semibold tracking-[-0.05em] sm:text-5xl"}>{block.heading}</h2>}
         {block.body && <p className="mt-5 whitespace-pre-line text-base leading-8 text-black/65 sm:text-lg">{block.body}</p>}
       </section>
     );

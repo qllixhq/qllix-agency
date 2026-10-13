@@ -80,7 +80,7 @@ export default function FooterOrbitPage() {
 
       <div className="max-w-6xl space-y-6 p-6 lg:p-10">
         {message && (
-          <div className="flex items-center gap-2 rounded-xl border border-emerald-500/35 bg-emerald-500/10 p-3 text-xs font-semibold text-emerald-600 dark:text-[#00FF87]">
+          <div className="flex items-center gap-2 rounded-xl border border-sky-500/35 bg-sky-500/10 p-3 text-xs font-semibold text-sky-600 dark:text-[#60A5FA]">
             <CheckCircle2 className="h-4 w-4" />
             {message}
           </div>
@@ -94,14 +94,14 @@ export default function FooterOrbitPage() {
                 value={imageUrl}
                 onChange={(event) => setImageUrl(event.target.value)}
                 placeholder="Paste an image URL"
-                className={`w-full rounded-xl border px-3.5 py-2.5 text-sm outline-none transition focus:border-[#00FF87] ${inputClass}`}
+                className={`w-full rounded-xl border px-3.5 py-2.5 text-sm outline-none transition focus:border-[#60A5FA] ${inputClass}`}
               />
             </label>
             <button
               type="button"
               onClick={() => addImage(imageUrl)}
               disabled={!imageUrl.trim()}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#00FF87] px-4 py-2.5 text-xs font-black text-[#02180C] transition hover:bg-[#00DF81] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#60A5FA] px-4 py-2.5 text-xs font-black text-[#0F172A] transition hover:bg-[#3B82F6] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <ImagePlus className="h-4 w-4" /> Add image
             </button>
@@ -110,7 +110,7 @@ export default function FooterOrbitPage() {
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploading}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-500/35 px-4 py-2.5 text-xs font-bold text-emerald-600 transition hover:bg-emerald-500/10 disabled:cursor-not-allowed disabled:opacity-50 dark:text-[#00FF87]"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-500/35 px-4 py-2.5 text-xs font-bold text-sky-600 transition hover:bg-sky-500/10 disabled:cursor-not-allowed disabled:opacity-50 dark:text-[#60A5FA]"
             >
               <Upload className="h-4 w-4" /> {isUploading ? "Uploading" : "Upload"}
             </button>

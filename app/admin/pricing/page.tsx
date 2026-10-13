@@ -10,8 +10,8 @@ import { Package, ArrowRight } from "lucide-react";
 export default function AdminPricingRedirectPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center">
-      <div className="w-16 h-16 rounded-2xl bg-[#00FF87]/10 border border-[#00FF87]/25 flex items-center justify-center mb-6">
-        <Package className="w-8 h-8 text-[#00FF87]" />
+      <div className="w-16 h-16 rounded-2xl bg-[#60A5FA]/10 border border-[#60A5FA]/25 flex items-center justify-center mb-6">
+        <Package className="w-8 h-8 text-[#60A5FA]" />
       </div>
       <h2 className="text-2xl font-black text-white mb-3">Pricing Moved</h2>
       <p className="text-slate-400 text-sm max-w-sm mb-6">
@@ -20,7 +20,7 @@ export default function AdminPricingRedirectPage() {
       </p>
       <Link
         href="/admin/packages"
-        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00FF87] text-[#021A0C] font-black text-sm hover:bg-[#00e87a] transition-colors"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#60A5FA] text-[#0F172A] font-black text-sm hover:bg-[#3B82F6] transition-colors"
       >
         Go to Packages
         <ArrowRight className="w-4 h-4" />
