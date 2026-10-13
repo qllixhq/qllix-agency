@@ -18,3 +18,13 @@ Configure the cPanel application in Production mode with `server.js` as its star
 Restore the verified CMS backup as `cms-data.json` inside the storage directory. Restore media into its `media` subdirectory and update the corresponding CMS URLs to `/media/<filename>`. Missing CMS data is an error; do not replace it with demo content. Saves keep up to 30 prior CMS documents in `backups`.
 
 Source code in GitHub is not a backup of admin uploads. Keep separate backups of the complete CMS document and media files.
+
+## Google Drive backup
+
+Create a private Drive folder for recovery copies. Generate the archive on the hosting server or from a downloaded copy of the storage directory:
+
+```text
+node scripts/backup-storage.cjs /home/gramhmau/qllix-data /home/gramhmau/qllix-backups
+```
+
+Download the resulting `.tar.gz` and `.manifest.json` from cPanel and upload both into the private Drive folder. This is a manual backup workflow, not automatic Drive synchronization. The script reports missing media and unresolved Vercel Blob images; an incomplete archive must not be treated as a full recovery backup. CMS documents can contain private records, so keep these archives private.
